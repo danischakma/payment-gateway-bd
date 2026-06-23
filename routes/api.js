@@ -140,13 +140,15 @@ router.get('/poll-verification', async (req, res) => {
 router.post('/webhook/sms', async (req, res) => {
   const message = req.body.message || req.body.text || req.body.body || req.body.msg || '';
   const sender  = req.body.sender || req.body.from || req.body.originator || req.body.phone || '';
-  const order_id = req.body.order_id || '';
   if (!message) return res.status(400).json({ success: false, message: 'message or text field required' });
 
   const trxMatch = message.match(/\b([A-Z0-9]{6,12})\b/g);
   const amountMatch = message.match(/Tk\.?\s*([\d,]+\.?\d*)/i);
   const extractedTrxId = trxMatch ? trxMatch.find(t => t.length >= 6) : null;
   const extractedAmount = amountMatch ? parseFloat(amountMatch[1].replace(',', '')) : null;
+
+  const trxValid = !!extractedTrxId;
+  const amountValid = extractedAmount !== null && extractedAmount > 0;
 
   try {
     const pool = getPool();
@@ -155,56 +157,12 @@ router.post('/webhook/sms', async (req, res) => {
       [message, extractedTrxId, extractedAmount, sender || '']
     );
 
-    let updated = false;
-    let amountMismatch = false;
-
-    if (extractedTrxId) {
-      const matchRes = await pool.query(
-        `SELECT * FROM orders WHERE UPPER(submitted_trx_id) = $1 AND status = 'pending'`,
-        [extractedTrxId.toUpperCase()]
-      );
-      if (matchRes.rows.length > 0) {
-        const ord = matchRes.rows[0];
-        const orderAmount = parseFloat(ord.amount);
-
-        if (extractedAmount !== null && Math.abs(extractedAmount - orderAmount) > 0.01) {
-          amountMismatch = true;
-          await pool.query(
-            `UPDATE orders SET sms_data = $1, status = 'amount_mismatch', updated_at = NOW() WHERE order_id = $2`,
-            [message, ord.order_id]
-          );
-          console.warn(`Amount mismatch for order ${ord.order_id}: expected ${orderAmount}, got ${extractedAmount}`);
-        } else {
-          await pool.query(
-            `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
-            [extractedTrxId, message, ord.order_id]
-          );
-          notifyCallback(ord.callback_url, ord.order_id, 'completed');
-          updated = true;
-        }
-      } else if (extractedAmount) {
-        const amtRes = await pool.query(
-          `SELECT * FROM orders WHERE amount = $1 AND status = 'pending' AND submitted_trx_id IS NOT NULL ORDER BY created_at DESC LIMIT 1`,
-          [extractedAmount]
-        );
-        if (amtRes.rows.length > 0) {
-          const ord = amtRes.rows[0];
-          await pool.query(
-            `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
-            [extractedTrxId, message, ord.order_id]
-          );
-          notifyCallback(ord.callback_url, ord.order_id, 'completed');
-          updated = true;
-        }
-      }
-    }
-
     res.json({
       success: true,
       extracted_trx_id: extractedTrxId,
       extracted_amount: extractedAmount,
-      order_updated: updated,
-      amount_mismatch: amountMismatch
+      trx_valid: trxValid,
+      amount_valid: amountValid
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
