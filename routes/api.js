@@ -158,9 +158,14 @@ router.post('/webhook/sms', async (req, res) => {
   const sender  = req.body.sender || req.body.from || req.body.originator || req.body.phone || '';
   if (!message) return res.status(400).json({ success: false, message: 'message or text field required' });
 
-  const trxMatch = message.match(/\b([A-Z0-9]{6,12})\b/g);
+  const trxKeywordMatch = message.match(/TrxID\s+([A-Z0-9]{6,12})/i);
+  const trxAllMatches = message.match(/\b([A-Z0-9]{6,12})\b/g);
   const amountMatch = message.match(/Tk\.?\s*([\d,]+\.?\d*)/i);
-  const extractedTrxId = trxMatch ? trxMatch.find(t => t.length >= 6) : null;
+  const extractedTrxId = trxKeywordMatch
+    ? trxKeywordMatch[1].toUpperCase()
+    : trxAllMatches
+      ? (trxAllMatches.find(t => /[A-Z]/i.test(t) && /[0-9]/.test(t)) || trxAllMatches.find(t => /[A-Z]/i.test(t)) || trxAllMatches.find(t => t.length >= 6))
+      : null;
   const extractedAmount = amountMatch ? parseFloat(amountMatch[1].replace(',', '')) : null;
 
   const trxValid = !!extractedTrxId;
