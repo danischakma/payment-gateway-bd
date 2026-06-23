@@ -240,6 +240,7 @@
         const r = await fetch('/api/submit-trx', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ order_id: orderId, trx_id: trxId }) });
         const d = await r.json();
         if (d.success && d.status === 'completed') { goSuccess(); }
+        else if (d.status === 'amount_mismatch') { hideLoading(); showError(d.message || 'পেমেন্টের পরিমাণ মিলছে না। সঠিক পরিমাণে আবার পেমেন্ট করুন।'); }
         else if (d.success && d.status === 'pending') { startPolling(); }
         else { hideLoading(); showError(d.message || 'যাচাই ব্যর্থ হয়েছে'); }
       } catch { hideLoading(); showError('সংযোগ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।'); }
@@ -254,6 +255,7 @@
           const r = await fetch(`/api/poll-verification?order_id=${orderId}`);
           const d = await r.json();
           if (d.success && d.status === 'completed') { clearInterval(pollInterval); goSuccess(); }
+          else if (d.status === 'amount_mismatch') { clearInterval(pollInterval); hideLoading(); showError(d.message || 'পেমেন্টের পরিমাণ মিলছে না। সঠিক পরিমাণে আবার পেমেন্ট করুন।'); }
         } catch {}
       }, 3000);
     }
