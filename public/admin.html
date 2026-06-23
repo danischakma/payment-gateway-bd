@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>অ্যাডমিন প্যানেল | Admin Panel</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <div id="loginScreen" class="container fade-in">
+    <div class="glass-card main-card">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h1>অ্যাডমিন প্যানেল</h1>
+        <p class="subtitle">শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য</p>
+      </div>
+      <div class="input-group">
+        <label for="adminToken">
+          <i class="fa-solid fa-key"></i> অ্যাডমিন টোকেন
+        </label>
+        <div class="input-wrapper">
+          <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="adminToken" placeholder="আপনার ADMIN_TOKEN দিন" />
+        </div>
+      </div>
+      <button class="pay-btn" onclick="adminLogin()">
+        <i class="fa-solid fa-right-to-bracket"></i> প্রবেশ করুন
+      </button>
+      <div id="loginError" class="alert alert-error" style="display:none">❌ ভুল টোকেন</div>
+    </div>
+  </div>
+
+  <div id="adminPanel" class="admin-container fade-in" style="display:none">
+    <header class="admin-header glass-card">
+      <div class="admin-brand">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>অ্যাডমিন ড্যাশবোর্ড</span>
+      </div>
+      <div class="admin-actions">
+        <button class="filter-btn active" onclick="filterOrders('all', this)">সব</button>
+        <button class="filter-btn" onclick="filterOrders('pending', this)">অপেক্ষামান</button>
+        <button class="filter-btn" onclick="filterOrders('completed', this)">সম্পন্ন</button>
+        <button class="icon-btn" onclick="loadOrders()" title="রিফ্রেশ">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <button class="icon-btn logout-btn" onclick="logout()" title="লগআউট">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card glass-card">
+        <div class="stat-icon"><i class="fa-solid fa-list"></i></div>
+        <div class="stat-info">
+          <span class="stat-num" id="statTotal">0</span>
+          <span class="stat-label">মোট অর্ডার</span>
+        </div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon completed-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-info">
+          <span class="stat-num" id="statCompleted">0</span>
+          <span class="stat-label">সম্পন্ন</span>
+        </div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon pending-icon"><i class="fa-solid fa-clock"></i></div>
+        <div class="stat-info">
+          <span class="stat-num" id="statPending">0</span>
+          <span class="stat-label">অপেক্ষামান</span>
+        </div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon revenue-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i></div>
+        <div class="stat-info">
+          <span class="stat-num" id="statRevenue">0</span>
+          <span class="stat-label">মোট আয় (৳)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="table-header">
+        <h3><i class="fa-solid fa-table-list"></i> অর্ডার তালিকা</h3>
+        <span class="total-badge" id="tableTotalBadge">0 টি অর্ডার</span>
+      </div>
+      <div id="tableLoader" class="text-center" style="padding:2rem">
+        <i class="fa-solid fa-circle-notch fa-spin"></i> লোড হচ্ছে...
+      </div>
+      <div class="table-responsive" id="tableWrapper" style="display:none">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>অর্ডার আইডি</th>
+              <th>পরিমাণ</th>
+              <th>ইমেইল</th>
+              <th>মেথড</th>
+              <th>TRX ID</th>
+              <th>স্ট্যাটাস</th>
+              <th>তারিখ</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="text-center empty-state" style="display:none">
+        <i class="fa-solid fa-inbox"></i>
+        <p>কোনো অর্ডার পাওয়া যায়নি</p>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    let adminToken = '';
+    let currentPage = 1;
+    let currentFilter = 'all';
+    let allOrdersCache = [];
+
+    async function adminLogin() {
+      const token = document.getElementById('adminToken').value.trim();
+      if (!token) return;
+
+      try {
+        const res = await fetch('/api/admin/orders?limit=1', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (res.ok) {
+          adminToken = token;
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('adminPanel').style.display = 'block';
+          loadOrders();
+        } else {
+          document.getElementById('loginError').style.display = 'block';
+        }
+      } catch {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    async function loadOrders(page = 1) {
+      currentPage = page;
+      document.getElementById('tableLoader').style.display = 'block';
+      document.getElementById('tableWrapper').style.display = 'none';
+      document.getElementById('emptyState').style.display = 'none';
+
+      const status = currentFilter !== 'all' ? `&status=${currentFilter}` : '';
+      try {
+        const res = await fetch(`/api/admin/orders?page=${page}&limit=15${status}`, {
+          headers: { 'Authorization': 'Bearer ' + adminToken }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          allOrdersCache = data.orders;
+          renderTable(data.orders);
+          renderPagination(data.total, data.page, data.limit);
+          document.getElementById('tableTotalBadge').textContent = data.total + ' টি অর্ডার';
+          updateStats(data.orders, data.total);
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    function updateStats(orders, total) {
+      document.getElementById('statTotal').textContent = total;
+      const completed = orders.filter(o => o.status === 'completed').length;
+      const pending = orders.filter(o => o.status === 'pending').length;
+      const revenue = orders.filter(o => o.status === 'completed')
+                            .reduce((s, o) => s + parseFloat(o.amount), 0);
+      document.getElementById('statCompleted').textContent = completed;
+      document.getElementById('statPending').textContent = pending;
+      document.getElementById('statRevenue').textContent = revenue.toFixed(2);
+    }
+
+    function renderTable(orders) {
+      document.getElementById('tableLoader').style.display = 'none';
+      if (orders.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        return;
+      }
+      document.getElementById('tableWrapper').style.display = 'block';
+      const tbody = document.getElementById('ordersTableBody');
+      tbody.innerHTML = orders.map(o => {
+        const date = new Date(o.created_at).toLocaleString('bn-BD');
+        const statusBadge = o.status === 'completed'
+          ? '<span class="badge badge-success">✅ সম্পন্ন</span>'
+          : '<span class="badge badge-pending">⏳ অপেক্ষামান</span>';
+        const method = o.payment_method === 'bkash'
+          ? '<span class="method-badge bkash-badge">bKash</span>'
+          : '<span class="method-badge nagad-badge">Nagad</span>';
+        return `<tr class="table-row-animate">
+          <td><strong>${o.order_id}</strong></td>
+          <td>৳${parseFloat(o.amount).toFixed(2)}</td>
+          <td class="email-cell">${o.customer_email}</td>
+          <td>${method}</td>
+          <td class="trx-cell">${o.trx_id || '---'}</td>
+          <td>${statusBadge}</td>
+          <td class="date-cell">${date}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderPagination(total, page, limit) {
+      const pages = Math.ceil(total / limit);
+      const el = document.getElementById('pagination');
+      if (pages <= 1) { el.innerHTML = ''; return; }
+      let html = '';
+      for (let i = 1; i <= pages; i++) {
+        html += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="loadOrders(${i})">${i}</button>`;
+      }
+      el.innerHTML = html;
+    }
+
+    function filterOrders(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadOrders(1);
+    }
+
+    function logout() {
+      adminToken = '';
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'block';
+      document.getElementById('adminToken').value = '';
+    }
+
+    document.getElementById('adminToken').addEventListener('keypress', e => {
+      if (e.key === 'Enter') adminLogin();
+    });
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

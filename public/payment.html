@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পেমেন্ট করুন | Complete Payment</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <div id="confettiCanvas" class="confetti-container"></div>
+
+  <div class="bg-animation">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <main class="container fade-in">
+    <div id="loadingState" class="glass-card text-center">
+      <div class="spinner-large">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+      </div>
+      <p>অর্ডার লোড হচ্ছে...</p>
+    </div>
+
+    <div id="paymentContent" style="display:none">
+      <div class="glass-card payment-header-card">
+        <div class="step-indicator">
+          <div class="step active">
+            <span>১</span>
+            <p>পেমেন্ট শুরু</p>
+          </div>
+          <div class="step-line"></div>
+          <div class="step active" id="step2">
+            <span>২</span>
+            <p>টাকা পাঠান</p>
+          </div>
+          <div class="step-line"></div>
+          <div class="step" id="step3">
+            <span>৩</span>
+            <p>যাচাই</p>
+          </div>
+        </div>
+
+        <div class="order-info-box">
+          <div class="order-info-row">
+            <span><i class="fa-solid fa-receipt"></i> অর্ডার আইডি</span>
+            <strong id="displayOrderId">---</strong>
+          </div>
+          <div class="order-info-row">
+            <span><i class="fa-solid fa-bangladeshi-taka-sign"></i> পরিমাণ</span>
+            <strong class="amount-highlight" id="displayAmount">---</strong>
+          </div>
+          <div class="order-info-row">
+            <span><i class="fa-solid fa-envelope"></i> ইমেইল</span>
+            <strong id="displayEmail">---</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card payment-method-card" id="bkashCard">
+        <div class="method-header bkash-header">
+          <img src="/bkash-logo.svg" alt="bKash" class="payment-logo" onerror="this.style.display='none'"/>
+          <div class="method-header-text">
+            <h2>বিকাশে পেমেন্ট করুন</h2>
+            <p>Send Money অপশনে যান</p>
+          </div>
+        </div>
+        <div class="number-display bkash-number">
+          <i class="fa-solid fa-phone"></i>
+          <span id="bkashNumber">লোড হচ্ছে...</span>
+          <button class="copy-btn" onclick="copyNumber('bkashNumber', this)">
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </div>
+        <div class="instruction-steps">
+          <div class="instruction-step">
+            <div class="step-num">১</div>
+            <p>বিকাশ অ্যাপ খুলুন → <strong>Send Money</strong> নির্বাচন করুন</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">২</div>
+            <p>উপরের নম্বরে <strong id="bkashAmountInstr">---</strong> টাকা পাঠান</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">৩</div>
+            <p>Reference-এ অর্ডার আইডি লিখুন</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">৪</div>
+            <p>Transaction ID নিচে ইনপুট করুন</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card payment-method-card" id="nagadCard" style="display:none">
+        <div class="method-header nagad-header">
+          <img src="/nagad-logo.svg" alt="Nagad" class="payment-logo" onerror="this.style.display='none'"/>
+          <div class="method-header-text">
+            <h2>নগদে পেমেন্ট করুন</h2>
+            <p>Send Money অপশনে যান</p>
+          </div>
+        </div>
+        <div class="number-display nagad-number">
+          <i class="fa-solid fa-phone"></i>
+          <span id="nagadNumber">লোড হচ্ছে...</span>
+          <button class="copy-btn" onclick="copyNumber('nagadNumber', this)">
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </div>
+        <div class="instruction-steps">
+          <div class="instruction-step">
+            <div class="step-num">১</div>
+            <p>নগদ অ্যাপ খুলুন → <strong>Send Money</strong> নির্বাচন করুন</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">২</div>
+            <p>উপরের নম্বরে <strong id="nagadAmountInstr">---</strong> টাকা পাঠান</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">৩</div>
+            <p>Reference-এ অর্ডার আইডি লিখুন</p>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num">৪</div>
+            <p>Transaction ID নিচে ইনপুট করুন</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card verify-card">
+        <h3><i class="fa-solid fa-key"></i> ট্রানজেকশন যাচাই করুন</h3>
+        <p class="verify-subtitle">পেমেন্ট সম্পন্ন হলে TrxID (Transaction ID) দিন</p>
+        <form onsubmit="verifyPayment(event)">
+          <div class="input-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fa-solid fa-hashtag"></i></span>
+              <input type="text" id="trxInput" placeholder="Transaction ID (যেমন: ABC123XY9Z)" required />
+            </div>
+          </div>
+          <button type="submit" class="verify-btn" id="verifyBtn">
+            <span class="btn-content">
+              <i class="fa-solid fa-circle-check"></i>
+              পেমেন্ট যাচাই করুন
+            </span>
+            <span class="btn-loader" style="display:none">
+              <i class="fa-solid fa-circle-notch fa-spin"></i>
+              যাচাই হচ্ছে...
+            </span>
+          </button>
+        </form>
+        <div id="verifyMsg" style="display:none" class="alert"></div>
+      </div>
+    </div>
+
+    <div id="successState" class="glass-card success-card text-center" style="display:none">
+      <div class="success-animation">
+        <div class="success-circle">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+      </div>
+      <h2>পেমেন্ট সফল হয়েছে! 🎉</h2>
+      <p>আপনার পেমেন্ট সফলভাবে যাচাই করা হয়েছে।</p>
+      <div class="success-details" id="successDetails"></div>
+      <a href="/" class="pay-btn" style="text-decoration:none; margin-top:1.5rem; display:inline-flex">
+        <i class="fa-solid fa-house"></i> হোমে ফিরুন
+      </a>
+    </div>
+
+    <div id="errorState" class="glass-card error-card text-center" style="display:none">
+      <div class="error-animation">
+        <div class="error-circle">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+      </div>
+      <h2>অর্ডার পাওয়া যায়নি</h2>
+      <p>অর্ডার আইডি ভুল অথবা মেয়াদ শেষ হয়েছে।</p>
+      <a href="/" class="pay-btn" style="text-decoration:none; margin-top:1.5rem; display:inline-flex">
+        <i class="fa-solid fa-arrow-left"></i> নতুন পেমেন্ট
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('order_id');
+    let orderData = null;
+
+    async function loadOrder() {
+      if (!orderId) {
+        showState('errorState');
+        return;
+      }
+      try {
+        const res = await fetch(`/api/order-status?order_id=${orderId}`);
+        const data = await res.json();
+        if (data.success) {
+          orderData = data.order;
+          if (orderData.status === 'completed') {
+            showSuccessState(orderData);
+            return;
+          }
+          populateOrder(orderData);
+          showState('paymentContent');
+        } else {
+          showState('errorState');
+        }
+      } catch {
+        showState('errorState');
+      }
+      document.getElementById('loadingState').style.display = 'none';
+    }
+
+    function populateOrder(o) {
+      document.getElementById('displayOrderId').textContent = o.order_id;
+      document.getElementById('displayAmount').textContent = '৳' + parseFloat(o.amount).toFixed(2);
+      document.getElementById('displayEmail').textContent = o.customer_email;
+
+      const bkashNum = document.getElementById('bkashNumber');
+      const nagadNum = document.getElementById('nagadNumber');
+
+      fetch('/api/order-status?order_id=' + orderId).then(() => {});
+      bkashNum.textContent = window._bkashNumber || '01XXXXXXXXX';
+      nagadNum.textContent = window._nagadNumber || '01XXXXXXXXX';
+
+      document.getElementById('bkashAmountInstr').textContent = parseFloat(o.amount).toFixed(2);
+      document.getElementById('nagadAmountInstr').textContent = parseFloat(o.amount).toFixed(2);
+
+      if (o.payment_method === 'nagad') {
+        document.getElementById('bkashCard').style.display = 'none';
+        document.getElementById('nagadCard').style.display = 'block';
+      }
+    }
+
+    async function verifyPayment(e) {
+      e.preventDefault();
+      const trxId = document.getElementById('trxInput').value.trim();
+      const btn = document.getElementById('verifyBtn');
+      const msg = document.getElementById('verifyMsg');
+
+      btn.querySelector('.btn-content').style.display = 'none';
+      btn.querySelector('.btn-loader').style.display = 'flex';
+      btn.disabled = true;
+      msg.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order_id: orderId, trx_id: trxId })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('step3').classList.add('active');
+          showSuccessState(data.order);
+        } else {
+          msg.textContent = '❌ ' + data.message;
+          msg.className = 'alert alert-error';
+          msg.style.display = 'block';
+        }
+      } catch {
+        msg.textContent = '❌ সংযোগ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।';
+        msg.className = 'alert alert-error';
+        msg.style.display = 'block';
+      } finally {
+        btn.querySelector('.btn-content').style.display = 'flex';
+        btn.querySelector('.btn-loader').style.display = 'none';
+        btn.disabled = false;
+      }
+    }
+
+    function showSuccessState(order) {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('paymentContent').style.display = 'none';
+      document.getElementById('successState').style.display = 'block';
+      document.getElementById('errorState').style.display = 'none';
+
+      document.getElementById('successDetails').innerHTML = `
+        <div class="lookup-detail">
+          <div class="lookup-row"><span>অর্ডার আইডি:</span><strong>${order.order_id}</strong></div>
+          <div class="lookup-row"><span>পরিমাণ:</span><strong>৳${parseFloat(order.amount).toFixed(2)}</strong></div>
+          <div class="lookup-row"><span>TRX ID:</span><strong>${order.trx_id || '---'}</strong></div>
+        </div>`;
+      launchConfetti();
+    }
+
+    function showState(stateId) {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById(stateId).style.display = 'block';
+    }
+
+    function copyNumber(elId, btn) {
+      const text = document.getElementById(elId).textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; }, 2000);
+      }).catch(() => {});
+    }
+
+    function launchConfetti() {
+      const container = document.getElementById('confettiCanvas');
+      const colors = ['#6c63ff', '#ff6b6b', '#ffd700', '#00d2d3', '#ff9f43', '#1dd1a1'];
+      for (let i = 0; i < 120; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.cssText = `
+          left: ${Math.random() * 100}vw;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          animation-delay: ${Math.random() * 3}s;
+          animation-duration: ${3 + Math.random() * 2}s;
+          width: ${6 + Math.random() * 10}px;
+          height: ${6 + Math.random() * 10}px;
+          border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        `;
+        container.appendChild(piece);
+      }
+      setTimeout(() => { container.innerHTML = ''; }, 6000);
+    }
+
+    loadOrder();
+
+    fetch('/api/config').then(r => r.json()).then(d => {
+      if (d.bkash) document.getElementById('bkashNumber').textContent = d.bkash;
+      if (d.nagad) document.getElementById('nagadNumber').textContent = d.nagad;
+    }).catch(() => {});
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
