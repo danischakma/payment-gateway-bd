@@ -113,8 +113,10 @@ router.get('/poll-verification', async (req, res) => {
 });
 
 router.post('/webhook/sms', async (req, res) => {
-  const { message, sender, order_id } = req.body;
-  if (!message) return res.status(400).json({ success: false, message: 'message required' });
+  const message = req.body.message || req.body.text || req.body.body || req.body.msg || '';
+  const sender  = req.body.sender || req.body.from || req.body.originator || req.body.phone || '';
+  const order_id = req.body.order_id || '';
+  if (!message) return res.status(400).json({ success: false, message: 'message or text field required' });
 
   const trxMatch = message.match(/\b([A-Z0-9]{6,12})\b/g);
   const amountMatch = message.match(/Tk\.?\s*([\d,]+\.?\d*)/i);

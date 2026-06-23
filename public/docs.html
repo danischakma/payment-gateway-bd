@@ -9,173 +9,99 @@
     @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--pk:#e2136e;--pk-d:#c00f5c;--ng:#f15b25;--pur:#6c63ff;--green:#27ae60;--blue:#2980b9;}
+    :root{--pk:#e2136e;--pk-d:#c00f5c;--ng:#f15b25;--pur:#6c63ff;--green:#27ae60;--blue:#2980b9;--render:#46e3b7;}
     body{font-family:'Hind Siliguri','Segoe UI',sans-serif;min-height:100vh;background:#f5f7fa;color:#333;}
 
-    /* Top Nav */
     .topnav{
       background:white;box-shadow:0 2px 12px rgba(0,0,0,0.06);
       padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
       position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:0.5rem;
     }
     .nav-brand{display:flex;align-items:center;gap:0.7rem;}
-    .nav-brand-icon{
-      width:38px;height:38px;background:linear-gradient(135deg,var(--pk),var(--pk-d));
-      border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:1rem;
-    }
+    .nav-brand-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--pk),var(--pk-d));border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:1rem;}
     .nav-brand-txt{font-size:1rem;font-weight:800;color:#1a1a1a;}
     .nav-brand-badge{font-size:0.7rem;font-weight:700;background:#fff0f5;color:var(--pk);padding:0.1rem 0.5rem;border-radius:20px;margin-left:0.3rem;}
     .nav-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
-    .nav-link{
-      display:flex;align-items:center;gap:0.35rem;padding:0.45rem 1rem;
-      border-radius:8px;font-size:0.82rem;font-weight:700;
-      cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;font-family:'Hind Siliguri',sans-serif;
-    }
+    .nav-link{display:flex;align-items:center;gap:0.35rem;padding:0.45rem 1rem;border-radius:8px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;font-family:'Hind Siliguri',sans-serif;}
     .nl-try{background:linear-gradient(135deg,var(--pk),var(--pk-d));color:white;box-shadow:0 3px 10px rgba(226,19,110,0.3);}
     .nl-admin{background:#f5f5f5;color:#666;}
     .nl-admin:hover{background:#ffe0ee;color:var(--pk);}
 
-    /* Layout */
     .layout{display:flex;max-width:1200px;margin:0 auto;padding:0 1rem;}
-    .sidebar{
-      width:240px;flex-shrink:0;padding:2rem 0;
-      position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;
-    }
+    .sidebar{width:250px;flex-shrink:0;padding:2rem 0;position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;}
     .sidebar::-webkit-scrollbar{width:4px;}
-    .sidebar::-webkit-scrollbar-track{background:transparent;}
     .sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:2px;}
     .sidebar-section{margin-bottom:1.5rem;}
     .sidebar-label{font-size:0.7rem;font-weight:800;color:#bbb;letter-spacing:1.2px;text-transform:uppercase;padding:0 1rem;margin-bottom:0.5rem;}
-    .sidebar-item{
-      display:flex;align-items:center;gap:0.6rem;
-      padding:0.5rem 1rem;border-radius:8px;
-      font-size:0.85rem;font-weight:600;color:#888;cursor:pointer;
-      transition:all 0.15s;text-decoration:none;
-    }
+    .sidebar-item{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:8px;font-size:0.85rem;font-weight:600;color:#888;cursor:pointer;transition:all 0.15s;text-decoration:none;}
     .sidebar-item:hover{background:#f0f0f0;color:#333;}
     .sidebar-item.active{background:#fff0f5;color:var(--pk);}
     .sidebar-item i{width:16px;text-align:center;font-size:0.8rem;}
     @media(max-width:768px){.sidebar{display:none;}}
 
-    /* Content */
     .doc-content{flex:1;padding:2rem 1.5rem;min-width:0;}
     @media(max-width:768px){.doc-content{padding:1.5rem 0.5rem;}}
 
-    /* Sections */
     .doc-section{margin-bottom:3rem;scroll-margin-top:80px;}
-    .section-badge{
-      display:inline-flex;align-items:center;gap:0.4rem;
-      font-size:0.75rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;
-      padding:0.2rem 0.7rem;border-radius:20px;margin-bottom:0.8rem;
-    }
+    .section-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;padding:0.2rem 0.7rem;border-radius:20px;margin-bottom:0.8rem;}
     .badge-sms{background:#f0edff;color:var(--pur);}
     .badge-api{background:#e8f9f0;color:var(--green);}
     .badge-int{background:#fff0f5;color:var(--pk);}
     .badge-start{background:#fff8e0;color:var(--ng);}
+    .badge-render{background:#e8fdf7;color:#0e9f6e;}
+    .badge-fdroid{background:#f0edff;color:var(--pur);}
     .doc-section h2{font-size:1.6rem;font-weight:800;color:#1a1a1a;margin-bottom:0.6rem;}
     .doc-section > p{font-size:0.95rem;color:#666;line-height:1.8;margin-bottom:1.5rem;}
 
-    /* Hero Banner */
     .hero-banner{
       background:linear-gradient(135deg,#e2136e 0%,#c00f5c 50%,#8a003a 100%);
       border-radius:20px;padding:2.5rem 2rem;margin-bottom:2.5rem;color:white;
       position:relative;overflow:hidden;
     }
-    .hero-banner::before{
-      content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
-      border-radius:50%;background:rgba(255,255,255,0.08);
-    }
-    .hero-banner::after{
-      content:'';position:absolute;bottom:-60px;left:-30px;width:160px;height:160px;
-      border-radius:50%;background:rgba(255,255,255,0.05);
-    }
+    .hero-banner::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.08);}
+    .hero-banner::after{content:'';position:absolute;bottom:-60px;left:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.05);}
     .hero-banner h1{font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;position:relative;}
     .hero-banner p{font-size:0.95rem;opacity:0.85;line-height:1.6;position:relative;}
     .hero-chips{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;position:relative;}
     .hero-chip{display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;font-weight:700;background:rgba(255,255,255,0.18);color:white;padding:0.3rem 0.8rem;border-radius:20px;}
 
-    /* Cards */
     .card{background:white;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:1.5rem;overflow:hidden;}
     .card-head{padding:1.2rem 1.5rem;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:0.5rem;}
     .card-head h3{font-size:1rem;font-weight:800;color:#1a1a1a;}
     .card-body{padding:1.5rem;}
 
-    /* Steps */
     .steps{display:flex;flex-direction:column;gap:0;}
     .step{display:flex;gap:1.2rem;position:relative;}
     .step:not(:last-child)::before{content:'';position:absolute;left:19px;top:40px;bottom:0;width:2px;background:#f0f0f0;}
     .step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
-    .step-num{
-      width:38px;height:38px;border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
-      font-size:0.85rem;font-weight:800;color:white;flex-shrink:0;
-      margin-bottom:0;
-    }
+    .step-num{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:800;color:white;flex-shrink:0;}
     .step-right{flex:1;padding:0 0 1.8rem;}
     .step-title{font-size:0.95rem;font-weight:800;color:#1a1a1a;margin-bottom:0.4rem;padding-top:6px;}
     .step-desc{font-size:0.87rem;color:#777;line-height:1.7;}
     .step-desc strong{color:#333;}
     .step-desc code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:#f5f5f5;padding:0.1rem 0.4rem;border-radius:4px;color:#e2136e;}
 
-    /* App Downloads */
-    .app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
-    .app-card{
-      border:2px solid #f0f0f0;border-radius:14px;padding:1.2rem;
-      display:flex;align-items:flex-start;gap:0.9rem;transition:all 0.2s;cursor:pointer;
-      text-decoration:none;
-    }
-    .app-card:hover{border-color:var(--pur);transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,99,255,0.1);}
-    .app-icon{
-      width:52px;height:52px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;
-    }
-    .app-name{font-size:0.9rem;font-weight:800;color:#1a1a1a;margin-bottom:0.2rem;}
-    .app-desc{font-size:0.78rem;color:#999;line-height:1.4;}
-    .app-badge{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:700;background:#f0edff;color:var(--pur);padding:0.15rem 0.5rem;border-radius:5px;margin-top:0.3rem;}
-
-    /* Code Blocks */
-    .code-tabs{display:flex;gap:0;border-bottom:1px solid #f0f0f0;background:#1e1e2e;border-radius:14px 14px 0 0;overflow:hidden;}
-    .code-tab{
-      padding:0.6rem 1.2rem;font-size:0.8rem;font-weight:700;cursor:pointer;
-      color:#888;font-family:'JetBrains Mono',monospace;transition:all 0.2s;
-    }
-    .code-tab.active{color:white;background:rgba(255,255,255,0.1);}
     .code-block{
-      background:#1e1e2e;border-radius:0 0 14px 14px;
+      background:#1e1e2e;border-radius:14px;
       padding:1.3rem 1.5rem;position:relative;
       font-family:'JetBrains Mono',monospace;font-size:0.83rem;
       line-height:1.7;color:#cdd6f4;overflow-x:auto;
+      margin-bottom:1rem;
     }
-    .code-copy{
-      position:absolute;top:0.8rem;right:0.8rem;
-      background:rgba(255,255,255,0.1);border:none;color:#888;
-      font-size:0.75rem;padding:0.35rem 0.7rem;border-radius:6px;cursor:pointer;
-      font-family:'Hind Siliguri',sans-serif;transition:all 0.2s;
-    }
+    .code-copy{position:absolute;top:0.8rem;right:0.8rem;background:rgba(255,255,255,0.1);border:none;color:#888;font-size:0.75rem;padding:0.35rem 0.7rem;border-radius:6px;cursor:pointer;font-family:'Hind Siliguri',sans-serif;transition:all 0.2s;}
     .code-copy:hover{background:rgba(255,255,255,0.2);color:white;}
-    .c-kw{color:#cba6f7;}
-    .c-str{color:#a6e3a1;}
-    .c-fn{color:#89b4fa;}
-    .c-num{color:#fab387;}
-    .c-cm{color:#6c7086;font-style:italic;}
-    .c-var{color:#cdd6f4;}
-    .c-key{color:#f38ba8;}
-    .code-pane{display:none;}
-    .code-pane.active{display:block;}
+    .c-kw{color:#cba6f7;} .c-str{color:#a6e3a1;} .c-fn{color:#89b4fa;} .c-num{color:#fab387;} .c-cm{color:#6c7086;font-style:italic;} .c-var{color:#cdd6f4;} .c-key{color:#f38ba8;}
 
-    /* Endpoint Cards */
-    .endpoint{
-      border:1px solid #f0f0f0;border-radius:12px;overflow:hidden;margin-bottom:1rem;
-    }
-    .endpoint-head{
-      display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.2rem;
-      background:#fafafa;cursor:pointer;transition:background 0.15s;
-    }
+    .code-tabs{display:flex;gap:0;background:#1e1e2e;border-radius:14px 14px 0 0;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.07);}
+    .code-tab{padding:0.6rem 1.2rem;font-size:0.8rem;font-weight:700;cursor:pointer;color:#888;font-family:'JetBrains Mono',monospace;transition:all 0.2s;background:none;border:none;}
+    .code-tab.active{color:white;background:rgba(255,255,255,0.1);}
+    .code-block.tab-block{border-radius:0 0 14px 14px;margin-bottom:1rem;}
+    .code-pane{display:none;} .code-pane.active{display:block;}
+
+    .endpoint{border:1px solid #f0f0f0;border-radius:12px;overflow:hidden;margin-bottom:1rem;}
+    .endpoint-head{display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.2rem;background:#fafafa;cursor:pointer;transition:background 0.15s;}
     .endpoint-head:hover{background:#f0f0f0;}
-    .method-tag{
-      font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;
-      padding:0.2rem 0.6rem;border-radius:6px;flex-shrink:0;
-    }
+    .method-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:6px;flex-shrink:0;}
     .mt-post{background:#fff0f5;color:var(--pk);}
     .mt-get{background:#e8f9f0;color:var(--green);}
     .endpoint-path{font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:#333;font-weight:700;}
@@ -190,7 +116,6 @@
     .opt-badge{font-size:0.7rem;font-weight:700;background:#f0f0f0;color:#bbb;padding:0.1rem 0.4rem;border-radius:4px;}
     .code-inline{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#f5f5f5;padding:0.1rem 0.4rem;border-radius:4px;color:#333;}
 
-    /* Alert boxes */
     .alert{display:flex;align-items:flex-start;gap:0.8rem;padding:1rem 1.2rem;border-radius:12px;margin-bottom:1rem;font-size:0.87rem;line-height:1.6;}
     .alert i{margin-top:2px;flex-shrink:0;}
     .alert-info{background:#f0edff;border:1px solid rgba(108,99,255,0.15);}
@@ -202,8 +127,10 @@
     .alert-success{background:#f0fff4;border:1px solid rgba(39,174,96,0.15);}
     .alert-success i{color:var(--green);}
     .alert-success p{color:#1e8a4c;}
+    .alert-render{background:#e8fdf7;border:1px solid rgba(14,159,110,0.2);}
+    .alert-render i{color:#0e9f6e;}
+    .alert-render p{color:#057a55;}
 
-    /* FAQ */
     .faq-item{border:1px solid #f0f0f0;border-radius:12px;margin-bottom:0.7rem;overflow:hidden;}
     .faq-q{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;cursor:pointer;font-size:0.92rem;font-weight:700;color:#333;transition:background 0.15s;}
     .faq-q:hover{background:#fafafa;}
@@ -212,18 +139,45 @@
     .faq-item.open .faq-q i{transform:rotate(180deg);}
     .faq-item.open .faq-a{display:block;}
 
-    /* Divider */
-    hr{border:none;border-top:1px solid #f0f0f0;margin:2.5rem 0;}
+    .env-table{width:100%;border-collapse:collapse;font-size:0.83rem;margin-bottom:0.5rem;}
+    .env-table th{text-align:left;padding:0.6rem 0.8rem;background:#f0f0f0;color:#666;font-weight:700;font-size:0.75rem;}
+    .env-table td{padding:0.6rem 0.8rem;border-bottom:1px solid #f5f5f5;vertical-align:top;}
+    .env-table tr:last-child td{border-bottom:none;}
+    .env-key{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#e2136e;font-weight:700;}
+    .env-req{font-size:0.7rem;font-weight:700;background:#fff0f5;color:var(--pk);padding:0.1rem 0.4rem;border-radius:4px;}
+    .env-opt{font-size:0.7rem;font-weight:700;background:#f0f0f0;color:#bbb;padding:0.1rem 0.4rem;border-radius:4px;}
 
-    /* Mobile tabs nav */
+    .app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+    .app-card{border:2px solid #f0f0f0;border-radius:14px;padding:1.2rem;display:flex;align-items:flex-start;gap:0.9rem;transition:all 0.2s;cursor:pointer;text-decoration:none;}
+    .app-card:hover{border-color:var(--pur);transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,99,255,0.1);}
+    .app-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+    .app-name{font-size:0.9rem;font-weight:800;color:#1a1a1a;margin-bottom:0.2rem;}
+    .app-desc{font-size:0.78rem;color:#999;line-height:1.4;}
+    .app-badge{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:5px;margin-top:0.3rem;}
+    .badge-fdroid-pill{background:#f0edff;color:var(--pur);}
+    .badge-recommended{background:#e8fdf7;color:#0e9f6e;}
+
+    .render-step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:800;color:white;flex-shrink:0;background:linear-gradient(135deg,#0e9f6e,#057a55);}
+
     .mobile-tabs{display:none;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem;}
     @media(max-width:768px){.mobile-tabs{display:flex;}}
     .mob-tab{padding:0.5rem 1rem;border-radius:20px;border:1.5px solid #e5e5e5;background:white;font-size:0.8rem;font-weight:700;cursor:pointer;color:#888;transition:all 0.2s;font-family:'Hind Siliguri',sans-serif;}
     .mob-tab.active{background:var(--pk);border-color:var(--pk);color:white;}
+
+    hr{border:none;border-top:1px solid #f0f0f0;margin:2.5rem 0;}
+
+    .img-placeholder{background:linear-gradient(135deg,#f0edff,#e8fdf7);border-radius:12px;padding:1.5rem;text-align:center;color:#888;font-size:0.87rem;border:2px dashed #d0d0d0;margin-bottom:1rem;}
+    .img-placeholder i{font-size:2rem;margin-bottom:0.5rem;display:block;color:#bbb;}
+
+    .tag-pill{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.75rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:20px;margin:0.15rem;}
+    .pill-green{background:#e8fdf7;color:#0e9f6e;}
+    .pill-pink{background:#fff0f5;color:var(--pk);}
+    .pill-blue{background:#e8f4fd;color:var(--blue);}
+    .pill-orange{background:#fff3e0;color:var(--ng);}
+    .pill-purple{background:#f0edff;color:var(--pur);}
   </style>
 </head>
 <body>
-  <!-- Top Nav -->
   <nav class="topnav">
     <div class="nav-brand">
       <div class="nav-brand-icon"><i class="fa-solid fa-bolt"></i></div>
@@ -242,23 +196,27 @@
     <div class="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-label">শুরু করুন</div>
-        <a class="sidebar-item active" href="#quickstart" onclick="scrollTo('#quickstart')"><i class="fa-solid fa-rocket"></i> দ্রুত শুরু</a>
-        <a class="sidebar-item" href="#flow" onclick="scrollTo('#flow')"><i class="fa-solid fa-arrows-spin"></i> কাজের ধারা</a>
+        <a class="sidebar-item active" href="#overview"><i class="fa-solid fa-rocket"></i> সংক্ষিপ্ত পরিচয়</a>
+        <a class="sidebar-item" href="#flow"><i class="fa-solid fa-arrows-spin"></i> কাজের ধারা</a>
       </div>
       <div class="sidebar-section">
-        <div class="sidebar-label">ইন্টিগ্রেশন</div>
-        <a class="sidebar-item" href="#integrate" onclick="scrollTo('#integrate')"><i class="fa-solid fa-plug"></i> ওয়েবসাইট সংযোগ</a>
-        <a class="sidebar-item" href="#api" onclick="scrollTo('#api')"><i class="fa-solid fa-code"></i> API রেফারেন্স</a>
+        <div class="sidebar-label">Render ডিপ্লয়</div>
+        <a class="sidebar-item" href="#render-db"><i class="fa-solid fa-database"></i> ধাপ ১: PostgreSQL</a>
+        <a class="sidebar-item" href="#render-deploy"><i class="fa-solid fa-cloud-arrow-up"></i> ধাপ ২: Web Service</a>
+        <a class="sidebar-item" href="#render-env"><i class="fa-solid fa-key"></i> ধাপ ৩: Environment</a>
+        <a class="sidebar-item" href="#render-done"><i class="fa-solid fa-circle-check"></i> ধাপ ৪: ভেরিফাই</a>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">SMS সেটআপ</div>
-        <a class="sidebar-item" href="#sms" onclick="scrollTo('#sms')"><i class="fa-solid fa-sms"></i> SMS ফরওয়ার্ডিং</a>
-        <a class="sidebar-item" href="#apps" onclick="scrollTo('#apps')"><i class="fa-solid fa-mobile-screen"></i> অ্যাপ তালিকা</a>
-        <a class="sidebar-item" href="#sms-steps" onclick="scrollTo('#sms-steps')"><i class="fa-solid fa-list-check"></i> ধাপে ধাপে গাইড</a>
+        <a class="sidebar-item" href="#sms-why"><i class="fa-solid fa-circle-info"></i> কেন দরকার</a>
+        <a class="sidebar-item" href="#fdroid"><i class="fa-brands fa-android"></i> F-Droid SMS Forwarder</a>
+        <a class="sidebar-item" href="#fdroid-setup"><i class="fa-solid fa-list-check"></i> সম্পূর্ণ গাইড</a>
       </div>
       <div class="sidebar-section">
-        <div class="sidebar-label">অন্যান্য</div>
-        <a class="sidebar-item" href="#faq" onclick="scrollTo('#faq')"><i class="fa-solid fa-circle-question"></i> সাধারণ প্রশ্ন</a>
+        <div class="sidebar-label">ইন্টিগ্রেশন</div>
+        <a class="sidebar-item" href="#integrate"><i class="fa-solid fa-plug"></i> ওয়েবসাইট সংযোগ</a>
+        <a class="sidebar-item" href="#api"><i class="fa-solid fa-code"></i> API রেফারেন্স</a>
+        <a class="sidebar-item" href="#faq"><i class="fa-solid fa-circle-question"></i> সাধারণ প্রশ্ন</a>
       </div>
     </div>
 
@@ -266,68 +224,33 @@
     <div class="doc-content">
       <!-- Mobile tabs -->
       <div class="mobile-tabs">
-        <button class="mob-tab active" onclick="document.getElementById('quickstart').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-rocket"></i> শুরু</button>
-        <button class="mob-tab" onclick="document.getElementById('integrate').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-plug"></i> ইন্টিগ্রেশন</button>
-        <button class="mob-tab" onclick="document.getElementById('sms').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-sms"></i> SMS</button>
-        <button class="mob-tab" onclick="document.getElementById('api').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-code"></i> API</button>
+        <button class="mob-tab active" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">শুরু</button>
+        <button class="mob-tab" onclick="document.getElementById('render-db').scrollIntoView({behavior:'smooth'})">Render</button>
+        <button class="mob-tab" onclick="document.getElementById('fdroid').scrollIntoView({behavior:'smooth'})">F-Droid SMS</button>
+        <button class="mob-tab" onclick="document.getElementById('integrate').scrollIntoView({behavior:'smooth'})">ইন্টিগ্রেশন</button>
+        <button class="mob-tab" onclick="document.getElementById('api').scrollIntoView({behavior:'smooth'})">API</button>
       </div>
 
       <!-- Hero -->
       <div class="hero-banner">
-        <h1>📚 ডকুমেন্টেশন</h1>
-        <p>My Gateway কে আপনার ওয়েবসাইটের সাথে কানেক্ট করুন এবং SMS ফরওয়ার্ডিং সেটআপ করুন।</p>
+        <h1>📚 সম্পূর্ণ গাইড</h1>
+        <p>Render.com-এ ডিপ্লয় করুন, F-Droid SMS Forwarder সেটআপ করুন এবং আপনার ওয়েবসাইটের সাথে সংযুক্ত করুন।</p>
         <div class="hero-chips">
-          <span class="hero-chip"><i class="fa-solid fa-bolt"></i> সহজ ইন্টিগ্রেশন</span>
-          <span class="hero-chip"><i class="fa-solid fa-sms"></i> অটো SMS ভেরিফিকেশন</span>
-          <span class="hero-chip"><i class="fa-solid fa-shield-halved"></i> নিরাপদ</span>
+          <span class="hero-chip"><i class="fa-solid fa-cloud"></i> Render Deploy</span>
+          <span class="hero-chip"><i class="fa-brands fa-android"></i> F-Droid SMS</span>
+          <span class="hero-chip"><i class="fa-solid fa-bolt"></i> অটো ভেরিফিকেশন</span>
         </div>
       </div>
 
-      <!-- Quick Start -->
-      <div class="doc-section" id="quickstart">
-        <div class="section-badge badge-start"><i class="fa-solid fa-rocket"></i> দ্রুত শুরু</div>
-        <h2>৫ মিনিটে সেটআপ করুন</h2>
-        <p>নিচের ধাপগুলো অনুসরণ করলে আপনার ওয়েবসাইট থেকে সরাসরি বিকাশ/নগদ পেমেন্ট গ্রহণ করতে পারবেন।</p>
+      <!-- Overview -->
+      <div class="doc-section" id="overview">
+        <div class="section-badge badge-start"><i class="fa-solid fa-rocket"></i> সংক্ষিপ্ত পরিচয়</div>
+        <h2>My Gateway কী?</h2>
+        <p>এটি একটি ম্যানুয়াল পেমেন্ট গেটওয়ে যা বিকাশ ও নগদ-এর মাধ্যমে পেমেন্ট গ্রহণ করে। ইউজার Send Money করলে SMS আসে, সেই SMS অটোমেটিক ভেরিফাই হয়ে অর্ডার কমপ্লিট হয়।</p>
 
-        <div class="alert alert-info">
+        <div class="alert alert-render">
           <i class="fa-solid fa-circle-info"></i>
-          <p>এই গেটওয়ে <strong>Render.com</strong> বা যেকোনো Node.js হোস্টিংয়ে ডেপ্লয় করুন। Render-এ ফ্রি টিয়ারে চালানো যায়।</p>
-        </div>
-
-        <div class="card">
-          <div class="card-head"><h3><i class="fa-solid fa-list-check" style="color:var(--pk)"></i> সেটআপ চেকলিস্ট</h3></div>
-          <div class="card-body">
-            <div class="steps">
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--pk),var(--pk-d))">১</div></div>
-                <div class="step-right">
-                  <div class="step-title">গেটওয়ে ডেপ্লয় করুন</div>
-                  <div class="step-desc">Render.com-এ একটি নতুন Web Service তৈরি করুন। Environment Variables এ <code>DATABASE_URL</code>, <code>ADMIN_TOKEN</code>, <code>BKASH_NUMBER</code>, <code>NAGAD_NUMBER</code> সেট করুন।</div>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--pur),#a29bfe)">২</div></div>
-                <div class="step-right">
-                  <div class="step-title">অ্যাডমিনে লগইন করুন</div>
-                  <div class="step-desc"><code>/admin</code> পেজে গিয়ে পাসওয়ার্ড দিয়ে লগইন করুন। Settings ট্যাবে বিকাশ/নগদ নাম্বার সেট করুন।</div>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--ng),#d44a15)">৩</div></div>
-                <div class="step-right">
-                  <div class="step-title">SMS ফরওয়ার্ডিং চালু করুন</div>
-                  <div class="step-desc">নিচের <a href="#sms" style="color:var(--pk)">SMS সেটআপ গাইড</a> অনুসরণ করুন। বিকাশ/নগদ SMS অটোমেটিক ফরওয়ার্ড হবে।</div>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--green),#2ecc71)">৪</div></div>
-                <div class="step-right">
-                  <div class="step-title">আপনার ওয়েবসাইটে লিংক করুন</div>
-                  <div class="step-desc">নিচের <a href="#integrate" style="color:var(--pk)">ইন্টিগ্রেশন গাইড</a> দেখুন। একটি লিংক বা বাটন দিয়েই কাজ হয়।</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p><strong>তিনটি জিনিস দরকার:</strong> ① Render.com-এ ডিপ্লয় ② F-Droid SMS Forwarder অ্যাপ (Android) ③ আপনার ওয়েবসাইটের সাথে লিংক</p>
         </div>
       </div>
 
@@ -339,406 +262,496 @@
           <div class="card-body">
             <div class="steps">
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#6c63ff;font-size:0.75rem">①</div></div>
-                <div class="step-right"><div class="step-title">ইউজার পেমেন্ট শুরু করে</div><div class="step-desc">আপনার সাইট থেকে URL প্যারামিটার সহ গেটওয়েতে পাঠান: <code>/?order_id=X&product=Y&amount=Z</code></div></div>
+                <div class="step-left"><div class="step-num" style="background:#6c63ff">①</div></div>
+                <div class="step-right"><div class="step-title">ইউজার পেমেন্ট শুরু করে</div><div class="step-desc">আপনার সাইট থেকে গেটওয়ে URL-এ পাঠানো হয়: <code>/?order_id=X&product=Y&amount=Z</code></div></div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#e2136e;font-size:0.75rem">②</div></div>
-                <div class="step-right"><div class="step-title">বিকাশ/নগদে Send Money করে</div><div class="step-desc">গেটওয়ে ইউজারকে নাম্বার দেখায়। ইউজার মোবাইল অ্যাপ দিয়ে Send Money করে।</div></div>
+                <div class="step-left"><div class="step-num" style="background:#e2136e">②</div></div>
+                <div class="step-right"><div class="step-title">বিকাশ/নগদে Send Money করে</div><div class="step-desc">গেটওয়ে নাম্বার দেখায়। ইউজার মোবাইল অ্যাপ দিয়ে টাকা পাঠায়।</div></div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#f15b25;font-size:0.75rem">③</div></div>
+                <div class="step-left"><div class="step-num" style="background:#f15b25">③</div></div>
                 <div class="step-right"><div class="step-title">TRX ID সাবমিট করে</div><div class="step-desc">পেমেন্টের পর SMS আসে। ইউজার সেই TRX ID গেটওয়েতে দেয়।</div></div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#27ae60;font-size:0.75rem">④</div></div>
-                <div class="step-right"><div class="step-title">SMS ম্যাচিং ও কনফার্মেশন</div><div class="step-desc">SMS ফরওয়ার্ডার অ্যাপ সেই SMS টি Webhook-এ পাঠায়। গেটওয়ে TRX ID ম্যাচ করে অর্ডার কমপ্লিট করে। আপনার সাইটে <code>callback_url</code>-এ নোটিফিকেশন যায়।</div></div>
+                <div class="step-left"><div class="step-num" style="background:#0e9f6e">④</div></div>
+                <div class="step-right"><div class="step-title">F-Droid SMS Forwarder অটো SMS পাঠায়</div><div class="step-desc">আপনার ফোনে আসা বিকাশ/নগদ SMS টি অ্যাপ স্বয়ংক্রিয়ভাবে গেটওয়েতে পাঠায়।</div></div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:#27ae60">⑤</div></div>
+                <div class="step-right"><div class="step-title">পেমেন্ট কনফার্ম</div><div class="step-desc">গেটওয়ে TRX ID ম্যাচ করে অর্ডার <strong>completed</strong> করে। আপনার সাইটের <code>callback_url</code>-এ নোটিফিকেশন যায়।</div></div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Integration -->
-      <div class="doc-section" id="integrate">
-        <div class="section-badge badge-int"><i class="fa-solid fa-plug"></i> ইন্টিগ্রেশন</div>
-        <h2>আপনার ওয়েবসাইটের সাথে সংযোগ</h2>
-        <p>মাত্র একটি লিংক বা API কল দিয়ে আপনার যেকোনো ওয়েবসাইটের সাথে সংযুক্ত করতে পারবেন।</p>
+      <hr/>
 
-        <div class="alert alert-success">
+      <!-- ========== RENDER DEPLOY GUIDE ========== -->
+      <div class="doc-section" id="render-db">
+        <div class="section-badge badge-render"><i class="fa-solid fa-cloud-arrow-up"></i> Render.com ডিপ্লয় গাইড</div>
+        <h2>ধাপ ১ — PostgreSQL Database তৈরি করুন</h2>
+        <p>Render-এর ফ্রি PostgreSQL ডেটাবেজ তৈরি করুন। এটি আপনার অর্ডার ও SMS লগ সংরক্ষণ করবে।</p>
+
+        <div class="alert alert-render">
           <i class="fa-solid fa-lightbulb"></i>
-          <p><strong>সবচেয়ে সহজ পদ্ধতি:</strong> শুধু একটি লিংক তৈরি করুন এবং পেমেন্ট বাটনে সেট করুন। কোনো API কলের দরকার নেই।</p>
+          <p><strong>প্রথমে Database তৈরি করুন,</strong> তারপর Web Service। কারণ Web Service-এ DATABASE_URL লাগবে।</p>
         </div>
-
-        <!-- Method 1: Simple Link -->
-        <div class="card">
-          <div class="card-head"><h3><i class="fa-solid fa-link" style="color:var(--green)"></i> পদ্ধতি ১ — সরাসরি লিংক (সবচেয়ে সহজ)</h3></div>
-          <div class="card-body">
-            <p style="font-size:0.87rem;color:#777;margin-bottom:1rem;">একটি লিংক তৈরি করুন এবং পেমেন্ট বাটনে href হিসেবে ব্যবহার করুন:</p>
-            <div>
-              <div class="code-tabs">
-                <div class="code-tab active" onclick="switchCode('link','html',this)">HTML</div>
-                <div class="code-tab" onclick="switchCode('link','php',this)">PHP</div>
-              </div>
-              <div id="link-html" class="code-pane active">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">&lt;!-- পেমেন্ট বাটন --&gt;</span>
-<span class="c-key">&lt;a</span> <span class="c-fn">href</span>=<span class="c-str">"https://YOUR-APP.onrender.com/?order_id=ORD-001&amp;product=My+Product&amp;amount=500"</span>
-   <span class="c-fn">target</span>=<span class="c-str">"_blank"</span><span class="c-key">&gt;</span>
-  পেমেন্ট করুন
-<span class="c-key">&lt;/a&gt;</span>
-
-<span class="c-cm">&lt;!-- অথবা JavaScript দিয়ে --&gt;</span>
-<span class="c-key">&lt;script&gt;</span>
-<span class="c-kw">function</span> <span class="c-fn">pay</span>(orderId, product, amount) {
-  <span class="c-kw">const</span> url = <span class="c-str">`https://YOUR-APP.onrender.com/?order_id=${orderId}&amp;product=${encodeURIComponent(product)}&amp;amount=${amount}`</span>;
-  window.<span class="c-fn">open</span>(url, <span class="c-str">'_blank'</span>);
-}
-<span class="c-key">&lt;/script&gt;</span></div>
-              </div>
-              <div id="link-php" class="code-pane">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">&lt;?php</span>
-<span class="c-var">$gateway_url</span> = <span class="c-str">'https://YOUR-APP.onrender.com'</span>;
-<span class="c-var">$order_id</span>   = <span class="c-str">'ORD-'</span> . <span class="c-fn">time</span>();
-<span class="c-var">$product</span>    = <span class="c-str">'My Product'</span>;
-<span class="c-var">$amount</span>     = <span class="c-num">500</span>;
-
-<span class="c-var">$pay_url</span> = <span class="c-fn">sprintf</span>(
-    <span class="c-str">'%s/?order_id=%s&amp;product=%s&amp;amount=%s'</span>,
-    <span class="c-var">$gateway_url</span>,
-    <span class="c-fn">urlencode</span>(<span class="c-var">$order_id</span>),
-    <span class="c-fn">urlencode</span>(<span class="c-var">$product</span>),
-    <span class="c-var">$amount</span>
-);
-<span class="c-cm">?&gt;</span>
-<span class="c-key">&lt;a</span> <span class="c-fn">href</span>=<span class="c-str">"&lt;?= $pay_url ?&gt;"</span> <span class="c-fn">target</span>=<span class="c-str">"_blank"</span><span class="c-key">&gt;</span>পেমেন্ট করুন<span class="c-key">&lt;/a&gt;</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Method 2: API -->
-        <div class="card">
-          <div class="card-head"><h3><i class="fa-solid fa-code" style="color:var(--pur)"></i> পদ্ধতি ২ — API দিয়ে (উন্নত)</h3></div>
-          <div class="card-body">
-            <p style="font-size:0.87rem;color:#777;margin-bottom:1rem;">সার্ভার সাইড থেকে অর্ডার তৈরি করুন এবং পেমেন্ট URL পান:</p>
-            <div>
-              <div class="code-tabs">
-                <div class="code-tab active" onclick="switchCode('api2','php',this)">PHP</div>
-                <div class="code-tab" onclick="switchCode('api2','js',this)">Node.js</div>
-                <div class="code-tab" onclick="switchCode('api2','py',this)">Python</div>
-              </div>
-              <div id="api2-php" class="code-pane active">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">// সার্ভার সাইড অর্ডার তৈরি</span>
-<span class="c-var">$data</span> = [
-    <span class="c-str">'amount'</span>       => <span class="c-num">500</span>,
-    <span class="c-str">'product_name'</span> => <span class="c-str">'My Product'</span>,
-    <span class="c-str">'callback_url'</span> => <span class="c-str">'https://yoursite.com/payment/callback'</span>,
-];
-
-<span class="c-var">$ch</span> = <span class="c-fn">curl_init</span>(<span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>);
-<span class="c-fn">curl_setopt_array</span>(<span class="c-var">$ch</span>, [
-    CURLOPT_POST           => <span class="c-kw">true</span>,
-    CURLOPT_POSTFIELDS     => <span class="c-fn">json_encode</span>(<span class="c-var">$data</span>),
-    CURLOPT_HTTPHEADER     => [<span class="c-str">'Content-Type: application/json'</span>],
-    CURLOPT_RETURNTRANSFER => <span class="c-kw">true</span>,
-]);
-<span class="c-var">$res</span> = <span class="c-fn">json_decode</span>(<span class="c-fn">curl_exec</span>(<span class="c-var">$ch</span>), <span class="c-kw">true</span>);
-
-<span class="c-kw">if</span> (<span class="c-var">$res</span>[<span class="c-str">'success'</span>]) {
-    <span class="c-cm">// ইউজারকে payment_url এ redirect করুন</span>
-    <span class="c-fn">header</span>(<span class="c-str">'Location: '</span> . <span class="c-var">$res</span>[<span class="c-str">'payment_url'</span>]);
-}</div>
-              </div>
-              <div id="api2-js" class="code-pane">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">// Node.js / Express এ</span>
-<span class="c-var">app</span>.<span class="c-fn">post</span>(<span class="c-str">'/buy'</span>, <span class="c-kw">async</span> (req, res) => {
-  <span class="c-kw">const</span> response = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>, {
-    method: <span class="c-str">'POST'</span>,
-    headers: { <span class="c-str">'Content-Type'</span>: <span class="c-str">'application/json'</span> },
-    body: <span class="c-fn">JSON.stringify</span>({
-      amount: <span class="c-num">500</span>,
-      product_name: <span class="c-str">'My Product'</span>,
-      callback_url: <span class="c-str">'https://yoursite.com/callback'</span>
-    })
-  });
-  <span class="c-kw">const</span> data = <span class="c-kw">await</span> response.<span class="c-fn">json</span>();
-  <span class="c-kw">if</span> (data.success) {
-    res.<span class="c-fn">redirect</span>(data.payment_url); <span class="c-cm">// ইউজারকে পাঠান</span>
-  }
-});</div>
-              </div>
-              <div id="api2-py" class="code-pane">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-kw">import</span> <span class="c-var">requests</span>
-
-<span class="c-var">response</span> = requests.<span class="c-fn">post</span>(
-    <span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>,
-    json={
-        <span class="c-str">'amount'</span>: <span class="c-num">500</span>,
-        <span class="c-str">'product_name'</span>: <span class="c-str">'My Product'</span>,
-        <span class="c-str">'callback_url'</span>: <span class="c-str">'https://yoursite.com/callback'</span>
-    }
-)
-<span class="c-var">data</span> = response.<span class="c-fn">json</span>()
-
-<span class="c-kw">if</span> data[<span class="c-str">'success'</span>]:
-    <span class="c-cm"># ইউজারকে payment_url এ redirect করুন</span>
-    <span class="c-kw">return</span> <span class="c-fn">redirect</span>(data[<span class="c-str">'payment_url'</span>])</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Callback -->
-        <div class="card">
-          <div class="card-head"><h3><i class="fa-solid fa-reply" style="color:var(--ng)"></i> পেমেন্ট সফল হলে নোটিফিকেশন পান (Callback)</h3></div>
-          <div class="card-body">
-            <div class="alert alert-warn">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-              <p>Callback URL অবশ্যই আপনার সার্ভারের পাবলিক HTTPS URL হতে হবে। Localhost কাজ করবে না।</p>
-            </div>
-            <p style="font-size:0.87rem;color:#777;margin-bottom:1rem;">পেমেন্ট কমপ্লিট হলে গেটওয়ে আপনার <code>callback_url</code> এ POST request পাঠাবে:</p>
-            <div>
-              <div class="code-tabs">
-                <div class="code-tab active" onclick="switchCode('cb','payload',this)">Payload</div>
-                <div class="code-tab" onclick="switchCode('cb','php',this)">PHP Handler</div>
-                <div class="code-tab" onclick="switchCode('cb','js',this)">Node.js Handler</div>
-              </div>
-              <div id="cb-payload" class="code-pane active">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">// গেটওয়ে থেকে POST এ আসবে:</span>
-{
-  <span class="c-str">"order_id"</span>: <span class="c-str">"ORD-230626-0001"</span>,
-  <span class="c-str">"status"</span>:   <span class="c-str">"completed"</span>
-}</div>
-              </div>
-              <div id="cb-php" class="code-pane">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">&lt;?php // yoursite.com/payment/callback.php</span>
-<span class="c-var">$body</span>  = <span class="c-fn">file_get_contents</span>(<span class="c-str">'php://input'</span>);
-<span class="c-var">$data</span>  = <span class="c-fn">json_decode</span>(<span class="c-var">$body</span>, <span class="c-kw">true</span>);
-
-<span class="c-kw">if</span> (<span class="c-var">$data</span>[<span class="c-str">'status'</span>] === <span class="c-str">'completed'</span>) {
-    <span class="c-var">$order_id</span> = <span class="c-var">$data</span>[<span class="c-str">'order_id'</span>];
-    <span class="c-cm">// ডেটাবেজে অর্ডার আপডেট করুন</span>
-    <span class="c-fn">mark_order_paid</span>(<span class="c-var">$order_id</span>);
-}
-<span class="c-fn">http_response_code</span>(<span class="c-num">200</span>);</div>
-              </div>
-              <div id="cb-js" class="code-pane">
-                <div class="code-block">
-                  <button class="code-copy" onclick="copyCode(this)">কপি</button>
-<span class="c-cm">// Express route</span>
-<span class="c-var">app</span>.<span class="c-fn">post</span>(<span class="c-str">'/payment/callback'</span>, (req, res) => {
-  <span class="c-kw">const</span> { order_id, status } = req.body;
-  <span class="c-kw">if</span> (status === <span class="c-str">'completed'</span>) {
-    <span class="c-cm">// অর্ডার আপডেট করুন</span>
-    <span class="c-var">db</span>.<span class="c-fn">updateOrder</span>(order_id, { paid: <span class="c-kw">true</span> });
-  }
-  res.<span class="c-fn">sendStatus</span>(<span class="c-num">200</span>);
-});</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- API Reference -->
-      <div class="doc-section" id="api">
-        <div class="section-badge badge-api"><i class="fa-solid fa-code"></i> API রেফারেন্স</div>
-        <h2>API এন্ডপয়েন্ট</h2>
-        <p>সকল API এন্ডপয়েন্টের বেস URL হলো আপনার গেটওয়ে URL। JSON ফরম্যাটে রিকোয়েস্ট ও রেসপন্স।</p>
-
-        <!-- Initiate -->
-        <div class="endpoint">
-          <div class="endpoint-head" onclick="toggleEp(this)">
-            <span class="method-tag mt-post">POST</span>
-            <span class="endpoint-path">/api/initiate</span>
-            <span class="endpoint-desc">নতুন পেমেন্ট অর্ডার তৈরি</span>
-            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
-          </div>
-          <div class="endpoint-body">
-            <p style="font-size:0.85rem;color:#777;margin-bottom:0.8rem;">নতুন পেমেন্ট অর্ডার তৈরি করে এবং payment_url ফেরত দেয়।</p>
-            <table class="param-table"><thead><tr><th>প্যারামিটার</th><th>টাইপ</th><th>বিস্তারিত</th></tr></thead>
-              <tbody>
-                <tr><td><code class="code-inline">amount</code> <span class="req-badge">আবশ্যক</span></td><td>number</td><td>পেমেন্টের পরিমাণ (টাকা)</td></tr>
-                <tr><td><code class="code-inline">product_name</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td>প্রোডাক্টের নাম</td></tr>
-                <tr><td><code class="code-inline">callback_url</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td>পেমেন্ট সফল হলে POST করার URL</td></tr>
-                <tr><td><code class="code-inline">payment_method</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td><code class="code-inline">bkash</code> বা <code class="code-inline">nagad</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Webhook SMS -->
-        <div class="endpoint">
-          <div class="endpoint-head" onclick="toggleEp(this)">
-            <span class="method-tag mt-post">POST</span>
-            <span class="endpoint-path">/api/webhook/sms</span>
-            <span class="endpoint-desc">SMS ফরওয়ার্ড রিসিভ</span>
-            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
-          </div>
-          <div class="endpoint-body">
-            <p style="font-size:0.85rem;color:#777;margin-bottom:0.8rem;">SMS Forwarder অ্যাপ থেকে SMS রিসিভ করে TRX ID ম্যাচ করে।</p>
-            <table class="param-table"><thead><tr><th>প্যারামিটার</th><th>বিস্তারিত</th></tr></thead>
-              <tbody>
-                <tr><td><code class="code-inline">message</code> <span class="req-badge">আবশ্যক</span></td><td>SMS এর টেক্সট বডি</td></tr>
-                <tr><td><code class="code-inline">sender</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>SMS প্রেরকের নম্বর</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Order Status -->
-        <div class="endpoint">
-          <div class="endpoint-head" onclick="toggleEp(this)">
-            <span class="method-tag mt-get">GET</span>
-            <span class="endpoint-path">/api/order-status?order_id=</span>
-            <span class="endpoint-desc">অর্ডার স্ট্যাটাস চেক</span>
-            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
-          </div>
-          <div class="endpoint-body">
-            <p style="font-size:0.85rem;color:#777;margin-bottom:0.8rem;">অর্ডার ID দিয়ে বর্তমান স্ট্যাটাস চেক করুন।</p>
-            <div class="code-block" style="border-radius:10px">
-<span class="c-str">"status"</span>: <span class="c-str">"pending"</span> <span class="c-cm">// অথবা "completed"</span></div>
-          </div>
-        </div>
-
-        <!-- Config -->
-        <div class="endpoint">
-          <div class="endpoint-head" onclick="toggleEp(this)">
-            <span class="method-tag mt-get">GET</span>
-            <span class="endpoint-path">/api/config</span>
-            <span class="endpoint-desc">বিকাশ/নগদ নাম্বার</span>
-            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
-          </div>
-          <div class="endpoint-body">
-            <div class="code-block" style="border-radius:10px">{ <span class="c-str">"bkash"</span>: <span class="c-str">"01712-345678"</span>, <span class="c-str">"nagad"</span>: <span class="c-str">"01812-345678"</span> }</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SMS Forwarding -->
-      <div class="doc-section" id="sms">
-        <div class="section-badge badge-sms"><i class="fa-solid fa-sms"></i> SMS ফরওয়ার্ডিং</div>
-        <h2>মেসেজ ফরওয়ার্ডিং সেটআপ</h2>
-        <p>বিকাশ/নগদ পেমেন্টের পর যে SMS আসে, সেই SMS টি স্বয়ংক্রিয়ভাবে গেটওয়েতে পাঠানোর জন্য একটি Android অ্যাপ ব্যবহার করতে হবে।</p>
-
-        <div class="alert alert-info">
-          <i class="fa-solid fa-circle-info"></i>
-          <p><strong>এটি কেন দরকার?</strong> — বিকাশ/নগদ পেমেন্ট হলে আপনার ফোনে একটি SMS আসে। সেই SMS-এ TRX ID থাকে। এই অ্যাপ সেই SMS টি আপনার গেটওয়ে সার্ভারে পাঠিয়ে দেয়, তাহলে পেমেন্ট অটোমেটিক কনফার্ম হয়।</p>
-        </div>
-      </div>
-
-      <!-- App List -->
-      <div class="doc-section" id="apps">
-        <h2>কোন অ্যাপ ব্যবহার করবেন?</h2>
-        <p>নিচের যেকোনো একটি Android অ্যাপ ব্যবহার করতে পারবেন। সবই ফ্রি।</p>
-        <div class="app-grid">
-          <div class="app-card" onclick="window.open('https://play.google.com/store/apps/details?id=com.frzinapps.smsforwarder','_blank')">
-            <div class="app-icon" style="background:#fff0f5">📱</div>
-            <div>
-              <div class="app-name">SMS Forwarder</div>
-              <div class="app-desc">সহজ এবং বিনামূল্যে। HTTP Webhook সাপোর্ট করে।</div>
-              <div class="app-badge"><i class="fa-solid fa-star"></i> সবচেয়ে সহজ</div>
-            </div>
-          </div>
-          <div class="app-card" onclick="window.open('https://play.google.com/store/apps/details?id=com.giannz.smsforward','_blank')">
-            <div class="app-icon" style="background:#f0edff">🔄</div>
-            <div>
-              <div class="app-name">SMS Forward (HTTP)</div>
-              <div class="app-desc">কীওয়ার্ড ফিল্টার দিয়ে শুধু বিকাশ/নগদ SMS ফরওয়ার্ড করুন।</div>
-              <div class="app-badge"><i class="fa-solid fa-filter"></i> ফিল্টার সাপোর্ট</div>
-            </div>
-          </div>
-          <div class="app-card" onclick="window.open('https://play.google.com/store/apps/details?id=com.joaomgcd.autoremote','_blank')">
-            <div class="app-icon" style="background:#e8f9f0">⚙️</div>
-            <div>
-              <div class="app-name">MacroDroid</div>
-              <div class="app-desc">Advanced automation। SMS আসলে HTTP request পাঠান।</div>
-              <div class="app-badge"><i class="fa-solid fa-gear"></i> Advanced</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SMS Step by Step -->
-      <div class="doc-section" id="sms-steps">
-        <h2>ধাপে ধাপে SMS Forwarder সেটআপ</h2>
-        <p>নিচে <strong>SMS Forwarder</strong> অ্যাপ দিয়ে সেটআপ করার পদ্ধতি দেওয়া হয়েছে (সবচেয়ে সহজ)।</p>
 
         <div class="card">
           <div class="card-body">
             <div class="steps">
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--pur),#a29bfe)">১</div></div>
+                <div class="step-left"><div class="render-step-num">১</div></div>
                 <div class="step-right">
-                  <div class="step-title">অ্যাপ ডাউনলোড করুন</div>
-                  <div class="step-desc">Google Play Store থেকে <strong>"SMS Forwarder"</strong> সার্চ করে ইন্সটল করুন। সেই ফোনে ইন্সটল করুন যেই নম্বরে বিকাশ/নগদ আছে।</div>
+                  <div class="step-title">Render.com-এ অ্যাকাউন্ট তৈরি করুন</div>
+                  <div class="step-desc"><a href="https://render.com" target="_blank" style="color:var(--pk)">render.com</a> সাইটে যান → <strong>Get Started for Free</strong> বাটনে ক্লিক করুন → GitHub বা Google দিয়ে সাইনআপ করুন।</div>
                 </div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#e2136e,#c00f5c)">২</div></div>
+                <div class="step-left"><div class="render-step-num">২</div></div>
                 <div class="step-right">
-                  <div class="step-title">Webhook URL কপি করুন</div>
-                  <div class="step-desc">অ্যাডমিন প্যানেলের <strong>Settings</strong> ট্যাবে গিয়ে Webhook URL কপি করুন:<br><br>
-                  <code>https://YOUR-APP.onrender.com/api/webhook/sms</code></div>
+                  <div class="step-title">New PostgreSQL তৈরি করুন</div>
+                  <div class="step-desc">Dashboard-এ যান → <strong>New +</strong> বাটনে ক্লিক করুন → <strong>PostgreSQL</strong> সিলেক্ট করুন।</div>
                 </div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--ng),#d44a15)">৩</div></div>
+                <div class="step-left"><div class="render-step-num">৩</div></div>
                 <div class="step-right">
-                  <div class="step-title">অ্যাপে নতুন Rule তৈরি করুন</div>
-                  <div class="step-desc">অ্যাপ খুলুন → <strong>Add Rule</strong> বা + বাটনে ক্লিক করুন।</div>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--green),#2ecc71)">৪</div></div>
-                <div class="step-right">
-                  <div class="step-title">Sender Filter সেট করুন</div>
+                  <div class="step-title">Database কনফিগার করুন</div>
                   <div class="step-desc">
-                    <strong>Sender/From:</strong> বিকাশের জন্য <code>bKash</code> লিখুন<br>
-                    নগদের জন্য আলাদা একটি Rule তৈরি করুন, Sender: <code>Nagad</code><br><br>
-                    এতে শুধু বিকাশ/নগদের SMS ফরওয়ার্ড হবে, অন্য SMS না।
+                    <strong>Name:</strong> <code>payment-gateway-db</code><br>
+                    <strong>Database:</strong> <code>paymentdb</code><br>
+                    <strong>User:</strong> যেকোনো নাম (যেমন <code>pguser</code>)<br>
+                    <strong>Region:</strong> Singapore (বাংলাদেশের কাছে)<br>
+                    <strong>Plan:</strong> <span class="tag-pill pill-green">Free</span> সিলেক্ট করুন<br><br>
+                    <strong>Create Database</strong> বাটনে ক্লিক করুন।
                   </div>
                 </div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--pur),#a29bfe)">৫</div></div>
+                <div class="step-left"><div class="render-step-num">৪</div></div>
                 <div class="step-right">
-                  <div class="step-title">HTTP Forward কনফিগার করুন</div>
+                  <div class="step-title">External Database URL কপি করুন</div>
                   <div class="step-desc">
-                    <strong>Forward Type:</strong> HTTP/Webhook<br>
-                    <strong>URL:</strong> (উপরের Webhook URL পেস্ট করুন)<br>
-                    <strong>Method:</strong> POST<br>
+                    Database তৈরি হলে তার পেজে যান → নিচে স্ক্রল করুন → <strong>Connections</strong> সেকশনে যান → <strong>External Database URL</strong> কপি করুন।<br><br>
+                    এটি দেখতে এরকম হবে:<br>
+                    <code>postgresql://pguser:xxxx@dpg-xxxxx.singapore-postgres.render.com/paymentdb</code><br><br>
+                    এই URL টি সেভ করে রাখুন — পরের ধাপে লাগবে।
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section" id="render-deploy">
+        <div class="section-badge badge-render"><i class="fa-solid fa-cloud-arrow-up"></i> Render.com ডিপ্লয় গাইড</div>
+        <h2>ধাপ ২ — Web Service ডিপ্লয় করুন</h2>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">GitHub-এ কোড আপলোড করুন</div>
+                  <div class="step-desc">
+                    প্রথমে প্রজেক্টটি GitHub Repository-তে push করুন।<br><br>
+                    <strong>টার্মিনালে রান করুন:</strong>
+                  </div>
+                  <div class="code-block" style="margin-top:0.5rem">
+                    <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-fn">git</span> init
+<span class="c-fn">git</span> add .
+<span class="c-fn">git</span> commit -m <span class="c-str">"Initial commit"</span>
+<span class="c-fn">git</span> branch -M main
+<span class="c-fn">git</span> remote add origin https://github.com/<span class="c-var">USERNAME</span>/<span class="c-var">REPO-NAME</span>.git
+<span class="c-fn">git</span> push -u origin main</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">২</div></div>
+                <div class="step-right">
+                  <div class="step-title">New Web Service তৈরি করুন</div>
+                  <div class="step-desc">Render Dashboard → <strong>New +</strong> → <strong>Web Service</strong> → <strong>Connect GitHub</strong> → আপনার Repository সিলেক্ট করুন।</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">Build & Start কমান্ড সেট করুন</div>
+                  <div class="step-desc">
+                    <strong>Name:</strong> <code>my-payment-gateway</code><br>
+                    <strong>Region:</strong> Singapore<br>
+                    <strong>Branch:</strong> main<br>
+                    <strong>Runtime:</strong> Node<br>
+                    <strong>Build Command:</strong> <code>npm install</code><br>
+                    <strong>Start Command:</strong> <code>node app.js</code><br>
+                    <strong>Plan:</strong> <span class="tag-pill pill-green">Free</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section" id="render-env">
+        <div class="section-badge badge-render"><i class="fa-solid fa-key"></i> Render.com ডিপ্লয় গাইড</div>
+        <h2>ধাপ ৩ — Environment Variables সেট করুন</h2>
+        <p>Web Service তৈরির পেজে নিচে <strong>Environment Variables</strong> সেকশনে নিচের ভ্যালুগুলো একে একে Add করুন:</p>
+
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <table class="env-table">
+              <thead><tr><th>Key</th><th>Value (উদাহরণ)</th><th>বিস্তারিত</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="env-key">DATABASE_URL</span> <span class="env-req">আবশ্যক</span></td>
+                  <td><code class="code-inline">postgresql://pguser:xxxx@dpg-xxx.singapore-postgres.render.com/paymentdb</code></td>
+                  <td>ধাপ ১ এ কপি করা External Database URL</td>
+                </tr>
+                <tr>
+                  <td><span class="env-key">ADMIN_TOKEN</span> <span class="env-req">আবশ্যক</span></td>
+                  <td><code class="code-inline">MySecret@2024</code></td>
+                  <td>অ্যাডমিন প্যানেলের পাসওয়ার্ড — যা খুশি দিন, মনে রাখবেন</td>
+                </tr>
+                <tr>
+                  <td><span class="env-key">BASE_URL</span> <span class="env-req">আবশ্যক</span></td>
+                  <td><code class="code-inline">https://my-payment-gateway.onrender.com</code></td>
+                  <td>আপনার Render App URL (deploy হওয়ার পরে পাবেন)</td>
+                </tr>
+                <tr>
+                  <td><span class="env-key">BKASH_NUMBER</span> <span class="env-req">আবশ্যক</span></td>
+                  <td><code class="code-inline">01712345678</code></td>
+                  <td>যেই বিকাশ নম্বরে টাকা আসবে</td>
+                </tr>
+                <tr>
+                  <td><span class="env-key">NAGAD_NUMBER</span> <span class="env-req">আবশ্যক</span></td>
+                  <td><code class="code-inline">01812345678</code></td>
+                  <td>যেই নগদ নম্বরে টাকা আসবে</td>
+                </tr>
+                <tr>
+                  <td><span class="env-key">ALLOWED_ORIGINS</span> <span class="env-opt">ঐচ্ছিক</span></td>
+                  <td><code class="code-inline">https://yoursite.com</code></td>
+                  <td>আপনার সাইটের URL (CORS এর জন্য। খালি রাখলে সব সাইট থেকে অ্যাক্সেস হবে)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="alert alert-warn">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p><strong>গুরুত্বপূর্ণ:</strong> প্রথমবার BASE_URL পাবেন না — Deploy করুন, URL পাবেন, তারপর BASE_URL আপডেট করুন। এটি সেভাবেও কাজ করবে।</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-cloud-arrow-up" style="color:#0e9f6e"></i> এখন Create Web Service করুন</h3></div>
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">১</div></div>
+                <div class="step-right"><div class="step-title">Create Web Service বাটনে ক্লিক করুন</div><div class="step-desc">Render এখন আপনার কোড deploy করবে। ২-৫ মিনিট লাগতে পারে।</div></div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">২</div></div>
+                <div class="step-right">
+                  <div class="step-title">Deploy Log দেখুন</div>
+                  <div class="step-desc">সফল হলে লগে দেখবেন: <code>Payment Gateway running on port 10000</code> এবং <code>Database initialized successfully</code></div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">আপনার App URL পান</div>
+                  <div class="step-desc">উপরে দেখবেন: <code>https://my-payment-gateway.onrender.com</code> — এটি আপনার গেটওয়ে URL।</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section" id="render-done">
+        <div class="section-badge badge-render"><i class="fa-solid fa-circle-check"></i> Render.com ডিপ্লয় গাইড</div>
+        <h2>ধাপ ৪ — ভেরিফাই করুন</h2>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">সাইট খুলুন</div>
+                  <div class="step-desc">ব্রাউজারে <code>https://YOUR-APP.onrender.com</code> খুলুন। পেমেন্ট পেজ দেখা গেলে সফল।</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">২</div></div>
+                <div class="step-right">
+                  <div class="step-title">অ্যাডমিন প্যানেল চেক করুন</div>
+                  <div class="step-desc"><code>https://YOUR-APP.onrender.com/admin</code> এ যান → ADMIN_TOKEN দিয়ে লগইন করুন। Settings-এ বিকাশ/নগদ নম্বর সেট করুন।</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="render-step-num">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">BASE_URL আপডেট করুন</div>
+                  <div class="step-desc">Render Dashboard → Environment → BASE_URL = <code>https://YOUR-APP.onrender.com</code> সেট করুন → Save করলে auto-redeploy হবে।</div>
+                </div>
+              </div>
+              <div class="step" style="">
+                <div class="step-left"><div class="render-step-num">৪</div></div>
+                <div class="step-right">
+                  <div class="step-title">টেস্ট পেমেন্ট করুন</div>
+                  <div class="step-desc"><code>https://YOUR-APP.onrender.com/?product=Test&amount=1</code> — এই URL খুলে পেমেন্ট ফ্লো টেস্ট করুন।</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warn">
+          <i class="fa-solid fa-moon"></i>
+          <p><strong>Render Free Tier Sleep:</strong> ফ্রি টিয়ারে ১৫ মিনিট কেউ ভিজিট না করলে সার্ভার sleep যায়। প্রথম request-এ ৩০-৬০ সেকেন্ড delay হতে পারে। Paid Plan দিলে সবসময় active থাকে।</p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <!-- ========== F-DROID SMS FORWARDER ========== -->
+      <div class="doc-section" id="sms-why">
+        <div class="section-badge badge-sms"><i class="fa-solid fa-sms"></i> SMS ফরওয়ার্ডিং</div>
+        <h2>কেন SMS Forwarder দরকার?</h2>
+        <p>বিকাশ/নগদে পেমেন্ট হলে আপনার ফোনে একটি SMS আসে। সেই SMS-এ TRX ID থাকে। এই TRX ID গেটওয়েতে পাঠাতে হয় যাতে পেমেন্ট অটোমেটিক কনফার্ম হয়। SMS Forwarder অ্যাপ এই কাজটি স্বয়ংক্রিয়ভাবে করে।</p>
+
+        <div class="alert alert-info">
+          <i class="fa-solid fa-circle-info"></i>
+          <p>যেই ফোন নম্বরে বিকাশ/নগদ রেজিস্ট্রেশন করা সেই ফোনে SMS Forwarder অ্যাপ ইন্সটল করতে হবে। ফোনটি সবসময় ইন্টারনেটে কানেক্টেড থাকতে হবে।</p>
+        </div>
+      </div>
+
+      <div class="doc-section" id="fdroid">
+        <div class="section-badge badge-fdroid"><i class="fa-brands fa-android"></i> F-Droid SMS Forwarder</div>
+        <h2>F-Droid SMS Forwarder অ্যাপ</h2>
+        <p>F-Droid হলো Open Source Android অ্যাপের একটি স্টোর। এখানে <strong>"SMS Sender"</strong> বা <strong>"SMS Forwarder"</strong> নামে বিনামূল্যের অ্যাপ পাওয়া যায় যা HTTP Webhook-এ SMS পাঠাতে পারে।</p>
+
+        <div class="app-grid">
+          <div class="app-card" onclick="window.open('https://f-droid.org/en/packages/bogdandonduk.smsforwarder/','_blank')">
+            <div class="app-icon" style="background:#f0edff">📨</div>
+            <div>
+              <div class="app-name">SMS Forwarder</div>
+              <div class="app-desc">bogdandonduk — HTTP webhook সাপোর্ট। ফিল্টার করে শুধু বিকাশ/নগদ SMS পাঠাতে পারে।</div>
+              <div class="app-badge badge-fdroid-pill"><i class="fa-brands fa-android"></i> F-Droid</div>
+              <div class="app-badge badge-recommended"><i class="fa-solid fa-star"></i> সুপারিশকৃত</div>
+            </div>
+          </div>
+          <div class="app-card" onclick="window.open('https://f-droid.org/packages/com.jens.smartphone2http/','_blank')">
+            <div class="app-icon" style="background:#e8fdf7">🔗</div>
+            <div>
+              <div class="app-name">Smartphone2HTTP</div>
+              <div class="app-desc">SMS → HTTP POST। সহজ কনফিগারেশন। JSON payload সাপোর্ট করে।</div>
+              <div class="app-badge badge-fdroid-pill"><i class="fa-brands fa-android"></i> F-Droid</div>
+            </div>
+          </div>
+          <div class="app-card" onclick="window.open('https://play.google.com/store/apps/details?id=com.frzinapps.smsforwarder','_blank')">
+            <div class="app-icon" style="background:#fff0f5">📱</div>
+            <div>
+              <div class="app-name">SMS Forwarder (Play Store)</div>
+              <div class="app-desc">Play Store বিকল্প। HTTP Webhook সাপোর্ট করে।</div>
+              <div class="app-badge badge-recommended"><i class="fa-brands fa-google-play"></i> Play Store</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- F-Droid Step by Step -->
+      <div class="doc-section" id="fdroid-setup">
+        <div class="section-badge badge-fdroid"><i class="fa-solid fa-list-check"></i> সম্পূর্ণ সেটআপ গাইড</div>
+        <h2>F-Droid SMS Forwarder — ধাপে ধাপে সেটআপ</h2>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-download" style="color:var(--pur)"></i> ধাপ ১: F-Droid ও অ্যাপ ইন্সটল করুন</h3></div>
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--pur)">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">F-Droid ডাউনলোড করুন</div>
+                  <div class="step-desc">
+                    Android ব্রাউজারে যান → <a href="https://f-droid.org" target="_blank" style="color:var(--pk)">f-droid.org</a> → <strong>Download F-Droid</strong> বাটনে ক্লিক করুন।<br><br>
+                    APK ডাউনলোড হবে। ইন্সটল করতে <strong>"Unknown Sources"</strong> থেকে ইন্সটল Allow করতে হতে পারে:<br>
+                    Settings → Security → Unknown Sources → Enable
+                  </div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--pur)">২</div></div>
+                <div class="step-right">
+                  <div class="step-title">SMS Forwarder খুঁজুন ও ইন্সটল করুন</div>
+                  <div class="step-desc">
+                    F-Droid অ্যাপ খুলুন → Search বাটনে ট্যাপ করুন → <strong>"SMS Forwarder"</strong> লিখুন → <strong>bogdandonduk</strong> এর অ্যাপটি সিলেক্ট করুন → <strong>Install</strong> করুন।<br><br>
+                    বা সরাসরি F-Droid থেকে APK ডাউনলোড করুন:<br>
+                    <code>f-droid.org/en/packages/bogdandonduk.smsforwarder/</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-gear" style="color:var(--ng)"></i> ধাপ ২: অ্যাপ কনফিগার করুন</h3></div>
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--ng)">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">Webhook URL প্রস্তুত করুন</div>
+                  <div class="step-desc">
+                    আপনার গেটওয়ে URL + <code>/api/webhook/sms</code> — যেমন:<br><br>
+                    <div class="code-block" style="margin-top:0.5rem;margin-bottom:0">
+                      <button class="code-copy" onclick="copyCode(this)">কপি</button>
+https://my-payment-gateway.onrender.com/api/webhook/sms</div>
+                    এই URL টি কপি করুন — অ্যাপে পেস্ট করতে হবে।
+                  </div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--ng)">২</div></div>
+                <div class="step-right">
+                  <div class="step-title">SMS Forwarder অ্যাপ খুলুন ও পারমিশন দিন</div>
+                  <div class="step-desc">
+                    অ্যাপ খুলুন → <strong>SMS পড়ার পারমিশন Allow</strong> করুন।<br><br>
+                    যদি manually দিতে হয়: Android Settings → Apps → SMS Forwarder → Permissions → SMS → Allow
+                  </div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--ng)">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">নতুন Forwarder/Rule তৈরি করুন</div>
+                  <div class="step-desc">
+                    অ্যাপে <strong>+</strong> বা <strong>Add</strong> বাটনে ট্যাপ করুন।<br><br>
+                    <strong>বিকাশের জন্য:</strong>
+                    <ul style="margin:0.5rem 0 0.5rem 1rem">
+                      <li><strong>Filter/Sender:</strong> <code>bKash</code></li>
+                      <li><strong>Forward To:</strong> HTTP/Webhook</li>
+                      <li><strong>URL:</strong> আপনার Webhook URL</li>
+                      <li><strong>Method:</strong> POST</li>
+                    </ul>
+                    <strong>নগদের জন্য:</strong> আরেকটি Rule তৈরি করুন, Sender: <code>Nagad</code>
+                  </div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--ng)">৪</div></div>
+                <div class="step-right">
+                  <div class="step-title">JSON Body সেট করুন</div>
+                  <div class="step-desc">
                     <strong>Body Format:</strong> JSON<br>
-                    <strong>Body:</strong> <code>{"message": "%message%", "sender": "%sender%"}</code>
+                    <strong>Request Body:</strong> নিচের যেকোনো একটি (অ্যাপ যেটা সাপোর্ট করে):
+                  </div>
+                  <div class="code-block" style="margin-top:0.5rem">
+                    <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-cm">// বিকল্প ১ (বেশিরভাগ অ্যাপে কাজ করে):</span>
+{
+  <span class="c-str">"message"</span>: <span class="c-str">"%message%"</span>,
+  <span class="c-str">"sender"</span>:  <span class="c-str">"%sender%"</span>
+}
+
+<span class="c-cm">// বিকল্প ২ (F-Droid SMS Forwarder এর ডিফল্ট):</span>
+{
+  <span class="c-str">"text"</span>: <span class="c-str">"%message%"</span>,
+  <span class="c-str">"from"</span>: <span class="c-str">"%sender%"</span>
+}</div>
+                  <div class="step-desc" style="margin-top:0.5rem"><strong>গেটওয়ে উভয় ফরম্যাট সাপোর্ট করে।</strong> অ্যাপে যেটা দেখায় সেটাই ব্যবহার করুন। <code>%message%</code> ও <code>%sender%</code> হলো অ্যাপের placeholder।</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--ng)">৫</div></div>
+                <div class="step-right">
+                  <div class="step-title">Save করুন ও Enable করুন</div>
+                  <div class="step-desc">Rule save করুন। Toggle/Switch দিয়ে <strong>Enable</strong> করুন।</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-battery-full" style="color:var(--green)"></i> ধাপ ৩: Battery Optimization বন্ধ করুন (গুরুত্বপূর্ণ!)</h3></div>
+          <div class="card-body">
+            <div class="alert alert-warn" style="margin-bottom:1rem">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <p>Battery Optimization চালু থাকলে Android Background এ অ্যাপটি বন্ধ করে দেয়। তাহলে SMS ফরওয়ার্ড হবে না!</p>
+            </div>
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--green)">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">Battery Optimization বন্ধ করুন</div>
+                  <div class="step-desc">
+                    Android Settings → <strong>Battery</strong> → <strong>Battery Optimization</strong> → <strong>SMS Forwarder</strong> সার্চ করুন → <strong>"Don't optimize"</strong> সিলেক্ট করুন।<br><br>
+                    Samsung হলে: Settings → Apps → SMS Forwarder → Battery → <strong>Unrestricted</strong>
                   </div>
                 </div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#f39c12,#f1c40f)">৬</div></div>
+                <div class="step-left"><div class="step-num" style="background:var(--green)">২</div></div>
                 <div class="step-right">
-                  <div class="step-title">পারমিশন দিন</div>
-                  <div class="step-desc">অ্যাপকে <strong>SMS পড়ার পারমিশন</strong> দিন। Android Settings → Apps → SMS Forwarder → Permissions → SMS: Allow করুন।</div>
+                  <div class="step-title">Autostart Allow করুন (যদি থাকে)</div>
+                  <div class="step-desc">
+                    কিছু Android ভার্শনে Autostart সেটিং থাকে:<br>
+                    Settings → <strong>Autostart</strong> বা <strong>Startup Manager</strong> → SMS Forwarder → <strong>Enable</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="step" style="">
+                <div class="step-left"><div class="step-num" style="background:var(--green)">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">অ্যাপটি Background Service হিসেবে চলার Allow দিন</div>
+                  <div class="step-desc">SMS Forwarder খুলুন → Settings → <strong>Run in Background</strong> বা <strong>Persistent Notification</strong> Enable করুন। Notification bar-এ অ্যাপের icon থাকলে বুঝবেন চলছে।</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-vials" style="color:var(--blue)"></i> ধাপ ৪: টেস্ট করুন</h3></div>
+          <div class="card-body">
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--blue)">১</div></div>
+                <div class="step-right">
+                  <div class="step-title">ম্যানুয়ালি টেস্ট SMS পাঠান</div>
+                  <div class="step-desc">
+                    Postman বা নিচের curl কমান্ড দিয়ে সরাসরি webhook টেস্ট করুন:
+                  </div>
+                  <div class="code-block" style="margin-top:0.5rem">
+                    <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-fn">curl</span> -X POST https://YOUR-APP.onrender.com/api/webhook/sms \
+  -H <span class="c-str">"Content-Type: application/json"</span> \
+  -d <span class="c-str">'{"message": "You have received Tk 500.00 from 01712345678. TRX ID: ABCD1234. Balance Tk 1500.00", "sender": "bKash"}'</span></div>
                 </div>
               </div>
               <div class="step">
-                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,var(--green),#2ecc71)">৭</div></div>
+                <div class="step-left"><div class="step-num" style="background:var(--blue)">২</div></div>
                 <div class="step-right">
-                  <div class="step-title">টেস্ট করুন</div>
-                  <div class="step-desc">অ্যাডমিন প্যানেলের <strong>SMS লগ</strong> ট্যাবে গিয়ে একটি টেস্ট SMS পাঠান। লগে দেখা গেলে সফলভাবে কানেক্ট হয়েছে।</div>
+                  <div class="step-title">অ্যাডমিন SMS লগ চেক করুন</div>
+                  <div class="step-desc"><code>/admin</code> পেজে লগইন করুন → <strong>SMS লগ</strong> ট্যাবে যান। SMS লগে দেখা গেলে কানেকশন সফল।</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-num" style="background:var(--blue)">৩</div></div>
+                <div class="step-right">
+                  <div class="step-title">রিয়েল পেমেন্ট টেস্ট করুন</div>
+                  <div class="step-desc">একটি অর্ডার তৈরি করুন → বিকাশ/নগদ থেকে ১ টাকা Send Money করুন → TRX ID সাবমিট করুন → পেমেন্ট অটো কনফার্ম হয় কিনা দেখুন।</div>
                 </div>
               </div>
             </div>
@@ -747,118 +760,275 @@
 
         <div class="alert alert-warn">
           <i class="fa-solid fa-triangle-exclamation"></i>
-          <p><strong>গুরুত্বপূর্ণ:</strong> ফোনটি সবসময় ইন্টারনেট সংযুক্ত রাখতে হবে। Battery Optimization থেকে SMS Forwarder অ্যাপকে বাদ দিন, নাহলে Background এ বন্ধ হয়ে যেতে পারে।</p>
+          <p><strong>মনে রাখুন:</strong> ফোনটি সবসময় চালু ও ইন্টারনেটে সংযুক্ত রাখতে হবে। বিদ্যুৎ গেলে UPS ব্যবহার করুন বা চার্জে রাখুন।</p>
         </div>
 
-        <!-- MacroDroid Guide -->
+        <!-- Supported SMS Formats -->
         <div class="card" style="margin-top:1.5rem">
-          <div class="card-head"><h3><i class="fa-solid fa-gear" style="color:var(--pur)"></i> MacroDroid দিয়ে সেটআপ (Advanced)</h3></div>
+          <div class="card-head"><h3><i class="fa-solid fa-table" style="color:var(--pk)"></i> গেটওয়ে কোন কোন Field সাপোর্ট করে</h3></div>
           <div class="card-body">
-            <div class="steps">
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#6c63ff;font-size:0.75rem">①</div></div>
-                <div class="step-right"><div class="step-title">MacroDroid ইন্সটল ও খুলুন</div><div class="step-desc">Play Store থেকে MacroDroid ইন্সটল করুন। Add Macro বাটনে ক্লিক করুন।</div></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#6c63ff;font-size:0.75rem">②</div></div>
-                <div class="step-right"><div class="step-title">Trigger সেট করুন</div><div class="step-desc">Trigger → Device Events → <strong>SMS Received</strong> → Sender contains: <code>bKash</code></div></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#6c63ff;font-size:0.75rem">③</div></div>
-                <div class="step-right"><div class="step-title">Action সেট করুন</div><div class="step-desc">Action → Connectivity → <strong>HTTP Request</strong><br>URL: Webhook URL<br>Method: POST<br>Body: <code>{"message": "[sms_body]", "sender": "[sms_sender]"}</code></div></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-num" style="background:#6c63ff;font-size:0.75rem">④</div></div>
-                <div class="step-right"><div class="step-title">নগদের জন্য আলাদা Macro</div><div class="step-desc">একই পদ্ধতিতে আরেকটি Macro তৈরি করুন, Sender: <code>Nagad</code></div></div>
-              </div>
+            <p style="font-size:0.87rem;color:#777;margin-bottom:1rem;">F-Droid SMS Forwarder অ্যাপভেদে ভিন্ন ফিল্ড নাম ব্যবহার করে। আমাদের গেটওয়ে সব ধরনের ফরম্যাট সাপোর্ট করে:</p>
+            <table class="param-table">
+              <thead><tr><th>SMS টেক্সটের Field</th><th>সাপোর্টেড বিকল্প নাম</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>SMS বডি</td>
+                  <td>
+                    <span class="tag-pill pill-pink">message</span>
+                    <span class="tag-pill pill-pink">text</span>
+                    <span class="tag-pill pill-pink">body</span>
+                    <span class="tag-pill pill-pink">msg</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>প্রেরকের নম্বর</td>
+                  <td>
+                    <span class="tag-pill pill-blue">sender</span>
+                    <span class="tag-pill pill-blue">from</span>
+                    <span class="tag-pill pill-blue">originator</span>
+                    <span class="tag-pill pill-blue">phone</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <!-- Integration -->
+      <div class="doc-section" id="integrate">
+        <div class="section-badge badge-int"><i class="fa-solid fa-plug"></i> ইন্টিগ্রেশন</div>
+        <h2>আপনার ওয়েবসাইটের সাথে সংযোগ</h2>
+        <p>মাত্র একটি লিংক বা API কল দিয়ে যেকোনো ওয়েবসাইটের সাথে সংযুক্ত করতে পারবেন।</p>
+
+        <div class="alert alert-success">
+          <i class="fa-solid fa-lightbulb"></i>
+          <p><strong>সবচেয়ে সহজ পদ্ধতি:</strong> শুধু একটি লিংক তৈরি করুন এবং পেমেন্ট বাটনে সেট করুন। কোনো API কলের দরকার নেই।</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-link" style="color:var(--green)"></i> পদ্ধতি ১ — সরাসরি লিংক (সবচেয়ে সহজ)</h3></div>
+          <div class="card-body">
+            <div class="code-tabs">
+              <button class="code-tab active" onclick="switchCode('link','html',this)">HTML</button>
+              <button class="code-tab" onclick="switchCode('link','php',this)">PHP</button>
             </div>
+            <div id="link-html" class="code-pane active">
+              <div class="code-block tab-block">
+                <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-cm">&lt;!-- পেমেন্ট বাটন --&gt;</span>
+<span class="c-key">&lt;a</span> <span class="c-fn">href</span>=<span class="c-str">"https://YOUR-APP.onrender.com/?order_id=ORD-001&amp;product=My+Product&amp;amount=500"</span>
+   <span class="c-fn">target</span>=<span class="c-str">"_blank"</span><span class="c-key">&gt;</span>
+  বিকাশ/নগদে পেমেন্ট করুন
+<span class="c-key">&lt;/a&gt;</span></div>
+            </div>
+            <div id="link-php" class="code-pane">
+              <div class="code-block tab-block">
+                <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-var">$gateway</span> = <span class="c-str">'https://YOUR-APP.onrender.com'</span>;
+<span class="c-var">$url</span> = <span class="c-fn">sprintf</span>(<span class="c-str">'%s/?order_id=%s&amp;product=%s&amp;amount=%s'</span>,
+    <span class="c-var">$gateway</span>, <span class="c-fn">urlencode</span>(<span class="c-str">'ORD-001'</span>), <span class="c-fn">urlencode</span>(<span class="c-str">'My Product'</span>), <span class="c-num">500</span>
+);
+<span class="c-kw">echo</span> <span class="c-str">"&lt;a href='$url'&gt;পেমেন্ট করুন&lt;/a&gt;"</span>;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-code" style="color:var(--pur)"></i> পদ্ধতি ২ — API দিয়ে (Callback সহ)</h3></div>
+          <div class="card-body">
+            <div class="code-tabs">
+              <button class="code-tab active" onclick="switchCode('api2','php',this)">PHP</button>
+              <button class="code-tab" onclick="switchCode('api2','js',this)">Node.js</button>
+              <button class="code-tab" onclick="switchCode('api2','py',this)">Python</button>
+            </div>
+            <div id="api2-php" class="code-pane active">
+              <div class="code-block tab-block">
+                <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-var">$data</span> = [<span class="c-str">'amount'</span>=><span class="c-num">500</span>, <span class="c-str">'product_name'</span>=><span class="c-str">'My Product'</span>, <span class="c-str">'callback_url'</span>=><span class="c-str">'https://yoursite.com/callback'</span>];
+<span class="c-var">$ch</span>   = <span class="c-fn">curl_init</span>(<span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>);
+<span class="c-fn">curl_setopt_array</span>(<span class="c-var">$ch</span>, [CURLOPT_POST=><span class="c-kw">true</span>, CURLOPT_POSTFIELDS=><span class="c-fn">json_encode</span>(<span class="c-var">$data</span>),
+    CURLOPT_HTTPHEADER=>[<span class="c-str">'Content-Type: application/json'</span>], CURLOPT_RETURNTRANSFER=><span class="c-kw">true</span>]);
+<span class="c-var">$res</span> = <span class="c-fn">json_decode</span>(<span class="c-fn">curl_exec</span>(<span class="c-var">$ch</span>), <span class="c-kw">true</span>);
+<span class="c-kw">if</span> (<span class="c-var">$res</span>[<span class="c-str">'success'</span>]) <span class="c-fn">header</span>(<span class="c-str">'Location: '</span> . <span class="c-var">$res</span>[<span class="c-str">'payment_url'</span>]);</div>
+            </div>
+            <div id="api2-js" class="code-pane">
+              <div class="code-block tab-block">
+                <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-kw">const</span> res = <span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>, {
+  method: <span class="c-str">'POST'</span>, headers: {<span class="c-str">'Content-Type'</span>: <span class="c-str">'application/json'</span>},
+  body: <span class="c-fn">JSON.stringify</span>({amount:<span class="c-num">500</span>, product_name:<span class="c-str">'My Product'</span>, callback_url:<span class="c-str">'https://yoursite.com/cb'</span>})
+});
+<span class="c-kw">const</span> data = <span class="c-kw">await</span> res.<span class="c-fn">json</span>();
+<span class="c-kw">if</span> (data.success) window.<span class="c-fn">location</span>(data.payment_url);</div>
+            </div>
+            <div id="api2-py" class="code-pane">
+              <div class="code-block tab-block">
+                <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-kw">import</span> requests
+r = requests.<span class="c-fn">post</span>(<span class="c-str">'https://YOUR-APP.onrender.com/api/initiate'</span>,
+    json={<span class="c-str">'amount'</span>:<span class="c-num">500</span>,<span class="c-str">'product_name'</span>:<span class="c-str">'My Product'</span>,<span class="c-str">'callback_url'</span>:<span class="c-str">'https://yoursite.com/cb'</span>})
+data = r.<span class="c-fn">json</span>()
+<span class="c-kw">if</span> data[<span class="c-str">'success'</span>]: <span class="c-kw">return</span> <span class="c-fn">redirect</span>(data[<span class="c-str">'payment_url'</span>])</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Callback -->
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-reply" style="color:var(--ng)"></i> পেমেন্ট কনফার্ম হলে Callback পান</h3></div>
+          <div class="card-body">
+            <p style="font-size:0.87rem;color:#777;margin-bottom:1rem;">পেমেন্ট কমপ্লিট হলে গেটওয়ে আপনার callback_url-এ POST পাঠাবে:</p>
+            <div class="code-block">
+              <button class="code-copy" onclick="copyCode(this)">কপি</button>
+<span class="c-cm">// POST body থেকে আসবে:</span>
+{ <span class="c-str">"order_id"</span>: <span class="c-str">"ORD-230623-0001"</span>, <span class="c-str">"status"</span>: <span class="c-str">"completed"</span> }</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Reference -->
+      <div class="doc-section" id="api">
+        <div class="section-badge badge-api"><i class="fa-solid fa-code"></i> API রেফারেন্স</div>
+        <h2>API এন্ডপয়েন্ট</h2>
+
+        <div class="endpoint">
+          <div class="endpoint-head" onclick="toggleEp(this)">
+            <span class="method-tag mt-post">POST</span>
+            <span class="endpoint-path">/api/initiate</span>
+            <span class="endpoint-desc">নতুন অর্ডার তৈরি</span>
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
+          </div>
+          <div class="endpoint-body">
+            <table class="param-table"><thead><tr><th>প্যারামিটার</th><th>টাইপ</th><th>বিস্তারিত</th></tr></thead>
+              <tbody>
+                <tr><td><code class="code-inline">amount</code> <span class="req-badge">আবশ্যক</span></td><td>number</td><td>পেমেন্টের পরিমাণ</td></tr>
+                <tr><td><code class="code-inline">product_name</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td>প্রোডাক্টের নাম</td></tr>
+                <tr><td><code class="code-inline">callback_url</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td>পেমেন্ট সফল হলে POST করার URL</td></tr>
+                <tr><td><code class="code-inline">payment_method</code> <span class="opt-badge">ঐচ্ছিক</span></td><td>string</td><td><code class="code-inline">bkash</code> অথবা <code class="code-inline">nagad</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-head" onclick="toggleEp(this)">
+            <span class="method-tag mt-post">POST</span>
+            <span class="endpoint-path">/api/webhook/sms</span>
+            <span class="endpoint-desc">SMS Forwarder থেকে SMS রিসিভ</span>
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
+          </div>
+          <div class="endpoint-body">
+            <p style="font-size:0.85rem;color:#777;margin-bottom:0.8rem;">F-Droid SMS Forwarder অ্যাপ থেকে SMS রিসিভ করে TRX ID ম্যাচ করে। নিচের যেকোনো ফিল্ড নাম কাজ করে:</p>
+            <table class="param-table"><thead><tr><th>SMS Content Field</th><th>Sender Field</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="code-inline">message</code> / <code class="code-inline">text</code> / <code class="code-inline">body</code> / <code class="code-inline">msg</code>
+                    <span class="req-badge">একটি আবশ্যক</span>
+                  </td>
+                  <td><code class="code-inline">sender</code> / <code class="code-inline">from</code> / <code class="code-inline">originator</code> / <code class="code-inline">phone</code> <span class="opt-badge">ঐচ্ছিক</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-head" onclick="toggleEp(this)">
+            <span class="method-tag mt-get">GET</span>
+            <span class="endpoint-path">/api/order-status?order_id=</span>
+            <span class="endpoint-desc">অর্ডার স্ট্যাটাস চেক</span>
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
+          </div>
+          <div class="endpoint-body">
+            <div class="code-block" style="border-radius:10px">{ <span class="c-str">"status"</span>: <span class="c-str">"pending"</span> <span class="c-cm">// অথবা "completed"</span> }</div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-head" onclick="toggleEp(this)">
+            <span class="method-tag mt-get">GET</span>
+            <span class="endpoint-path">/api/config</span>
+            <span class="endpoint-desc">বিকাশ/নগদ নাম্বার</span>
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;color:#bbb"></i>
+          </div>
+          <div class="endpoint-body">
+            <div class="code-block" style="border-radius:10px">{ <span class="c-str">"bkash"</span>: <span class="c-str">"01712345678"</span>, <span class="c-str">"nagad"</span>: <span class="c-str">"01812345678"</span> }</div>
           </div>
         </div>
       </div>
 
       <!-- FAQ -->
       <div class="doc-section" id="faq">
-        <div class="section-badge badge-start"><i class="fa-solid fa-circle-question"></i> সাধারণ প্রশ্ন</div>
-        <h2>সাধারণ জিজ্ঞাসা</h2>
+        <div class="section-badge badge-api"><i class="fa-solid fa-circle-question"></i> সাধারণ প্রশ্ন</div>
+        <h2>FAQ</h2>
 
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-q">SMS ফরওয়ার্ডার কোন ফোনে ইন্সটল করবো? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-a">যেই ফোনে আপনার বিকাশ/নগদ রেজিস্টার্ড নম্বর আছে সেই ফোনে। কারণ পেমেন্টের SMS সেই নম্বরেই আসবে।</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Render Free টিয়ারে কি ২৪/৭ কাজ করে? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">না। Render Free টিয়ারে ১৫ মিনিট inactive থাকলে sleep হয়ে যায়। প্রথম request-এ ৩০-৬০ সেকেন্ড লাগে। ২৪/৭ চালু রাখতে Starter Plan ($7/মাস) নিন। অথবা UptimeRobot দিয়ে প্রতি ১৫ মিনিটে ping করুন।</div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-q">পেমেন্ট কনফার্ম হতে কতক্ষণ লাগে? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-a">সাধারণত ১০-৩০ সেকেন্ড। SMS আসা → ফরওয়ার্ড হওয়া → TRX ম্যাচ হওয়া — এই পুরো প্রক্রিয়া সাধারণত ৩০ সেকেন্ডের মধ্যে শেষ হয়।</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">SMS Forwarder অ্যাপ SMS পাঠাচ্ছে না কেন? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">① Battery Optimization বন্ধ করুন ② SMS পড়ার Permission দিন ③ ইন্টারনেট সংযোগ আছে কিনা দেখুন ④ অ্যাপে Rule Enable আছে কিনা দেখুন ⑤ Webhook URL সঠিক কিনা চেক করুন।</div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-q">ডেটাবেজ ছাড়া কি চালানো যাবে? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-a">না। সব অর্ডার ও SMS লগ PostgreSQL-এ সংরক্ষিত হয়। Render.com-এ ফ্রি PostgreSQL পাওয়া যায়।</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">পেমেন্ট TRX ID ম্যাচ হচ্ছে না কেন? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">① Admin → SMS লগ-এ যান — SMS আসছে কিনা দেখুন ② TRX ID সঠিকভাবে কপি করা হয়েছে কিনা দেখুন ③ বিকাশের TRX ID সাধারণত 8-10 ক্যারেক্টারের। ④ SMS ফরওয়ার্ড হওয়ার আগে TRX ID দেওয়া হলে polling এর মাধ্যমে পরে ম্যাচ হবে।</div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-q">একাধিক বিকাশ/নগদ নম্বর ব্যবহার করা যাবে? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-a">বর্তমানে প্রতিটিতে একটি করে নম্বর সাপোর্ট করে। একাধিক নম্বরের জন্য সোর্স কোড কাস্টমাইজ করতে হবে।</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Database URL কোথায় পাবো? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">Render Dashboard → আপনার PostgreSQL → Connections → External Database URL। এটি <code>postgresql://</code> দিয়ে শুরু হয়।</div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-q">Render.com-এ ডেপ্লয় করার পর অ্যাডমিন পাসওয়ার্ড কোথায় সেট করবো? <i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-a">Render Dashboard → আপনার Service → Environment → <code>ADMIN_TOKEN</code> ভ্যারিয়েবলে পাসওয়ার্ড সেট করুন।</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">একাধিক বিকাশ নম্বর ব্যবহার করা যাবে? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">বর্তমানে একটি বিকাশ ও একটি নগদ নম্বর সাপোর্ট করে। একাধিক নম্বর যোগ করতে কোড কাস্টমাইজ করতে হবে।</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">F-Droid না থাকলে কি অন্য কোনো বিকল্প আছে? <i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-a">হ্যাঁ। Play Store থেকে "SMS Forwarder" বা "MacroDroid" ব্যবহার করতে পারেন। দুটোই HTTP Webhook সাপোর্ট করে। গেটওয়ে উভয় ক্ষেত্রে কাজ করবে।</div>
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- end doc-content -->
+  </div><!-- end layout -->
 
   <script>
-    function switchCode(group, lang, el) {
-      const panes = document.querySelectorAll(`[id^="${group}-"]`);
-      panes.forEach(p => p.classList.remove('active'));
-      const tabs = el.parentElement.querySelectorAll('.code-tab');
-      tabs.forEach(t => t.classList.remove('active'));
-      document.getElementById(group+'-'+lang).classList.add('active');
-      el.classList.add('active');
+    function switchCode(group, tab, btn) {
+      document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+      btn.closest('.card-body, .card').querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(`${group}-${tab}`).classList.add('active');
+      btn.classList.add('active');
     }
-
-    function copyCode(btn) {
-      const block = btn.nextSibling || btn.parentElement;
-      let text = block.textContent.replace('কপি','').trim();
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = '✓ কপি হয়েছে';
-        setTimeout(() => { btn.textContent = 'কপি'; }, 2000);
-      }).catch(() => {});
-    }
-
-    function toggleEp(el) {
-      const body = el.nextElementSibling;
+    function toggleEp(head) {
+      const body = head.nextElementSibling;
       body.classList.toggle('show');
-      const icon = el.querySelector('i.fa-chevron-down');
-      if (icon) icon.style.transform = body.classList.contains('show') ? 'rotate(180deg)' : '';
+      head.querySelector('i').style.transform = body.classList.contains('show') ? 'rotate(180deg)' : '';
     }
-
-    function toggleFaq(el) {
-      el.classList.toggle('open');
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('open');
     }
-
-    function scrollTo(id) {
-      const el = document.querySelector(id);
-      if (el) el.scrollIntoView({behavior:'smooth'});
+    function copyCode(btn) {
+      const block = btn.parentElement;
+      const text = block.innerText.replace('কপি','').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'কপি হয়েছে ✓';
+        setTimeout(() => btn.textContent = 'কপি', 2000);
+      });
     }
-
-    // Highlight active sidebar on scroll
-    const sections = document.querySelectorAll('.doc-section');
-    const sideItems = document.querySelectorAll('.sidebar-item');
+    // Active sidebar on scroll
+    const sections = document.querySelectorAll('.doc-section[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar-item');
     window.addEventListener('scroll', () => {
       let cur = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
-      sideItems.forEach(i => {
-        i.classList.toggle('active', i.getAttribute('href') === '#'+cur);
+      sections.forEach(s => { if(window.scrollY >= s.offsetTop - 100) cur = s.id; });
+      sidebarLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
       });
-    });
-
-    // Hash navigation
-    if (window.location.hash) {
-      setTimeout(() => {
-        const el = document.querySelector(window.location.hash);
-        if (el) el.scrollIntoView({behavior:'smooth'});
-      }, 300);
-    }
+    }, {passive:true});
   </script>
 </body>
 </html>
