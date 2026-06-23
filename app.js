@@ -27,6 +27,7 @@ app.get('/bkash', (req, res) => res.sendFile(path.join(__dirname, 'public', 'bka
 app.get('/nagad', (req, res) => res.sendFile(path.join(__dirname, 'public', 'nagad.html')));
 app.get('/success', (req, res) => res.sendFile(path.join(__dirname, 'public', 'success.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/docs', (req, res) => res.sendFile(path.join(__dirname, 'public', 'docs.html')));
 app.get('/payment', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 app.get('/embed.js', (req, res) => {

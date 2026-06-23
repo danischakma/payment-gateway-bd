@@ -11,170 +11,235 @@
     body{
       font-family:'Hind Siliguri','Segoe UI',sans-serif;
       min-height:100vh;
-      background:linear-gradient(160deg,#fff0f5 0%,#ffe4ee 40%,#ffd6e8 70%,#ffe4f0 100%);
+      background:linear-gradient(155deg,#fce4f0 0%,#ffd6e8 35%,#ffe8f3 65%,#fff0f7 100%);
       display:flex;flex-direction:column;align-items:center;
-      padding:0 0 2rem;
     }
+
+    /* Top bar */
     .top-bar{
-      width:100%;background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(10px);
-      padding:0.8rem 1.5rem;display:flex;align-items:center;gap:0.5rem;
+      width:100%;background:rgba(255,255,255,0.75);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      padding:0.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;
       border-bottom:1px solid rgba(226,19,110,0.1);
+      position:sticky;top:0;z-index:10;
     }
-    .top-bar .back-btn{
-      width:36px;height:36px;border-radius:50%;
+    .back-btn{
+      width:38px;height:38px;border-radius:50%;
       background:rgba(226,19,110,0.1);border:none;
       color:#e2136e;cursor:pointer;font-size:1rem;
       display:flex;align-items:center;justify-content:center;
-      transition:all 0.2s ease;
+      transition:all 0.2s;
     }
-    .top-bar .back-btn:hover{background:rgba(226,19,110,0.2);}
-    .container{
-      max-width:480px;width:100%;padding:0 1.2rem;
-      display:flex;flex-direction:column;align-items:center;
+    .back-btn:hover{background:rgba(226,19,110,0.2);transform:scale(1.05);}
+    .brand-text{font-size:0.85rem;font-weight:700;color:#e2136e;letter-spacing:0.3px;}
+    .secure-badge{
+      display:flex;align-items:center;gap:0.3rem;
+      font-size:0.75rem;color:#27ae60;font-weight:600;
+      background:#f0fff4;padding:0.3rem 0.7rem;border-radius:20px;
     }
-    .hero{
-      text-align:center;padding:2.5rem 0 2rem;
+
+    /* Container */
+    .container{max-width:460px;width:100%;padding:0 1.2rem 2.5rem;}
+
+    /* Order Summary */
+    .order-summary{
+      background:white;border-radius:20px;
+      box-shadow:0 8px 32px rgba(226,19,110,0.12);
+      padding:1.4rem 1.5rem;margin:1.5rem 0 1.2rem;
+      border:1px solid rgba(226,19,110,0.08);
+      position:relative;overflow:hidden;
     }
-    .hero-img{
-      width:120px;height:120px;margin:0 auto 1.5rem;position:relative;
+    .order-summary::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,#e2136e,#ff6b9d,#e2136e);
     }
-    .hero-img .wallet-icon{
-      width:120px;height:120px;
-      background:linear-gradient(135deg,#ffb3d1,#ff80b3);
-      border-radius:50%;display:flex;align-items:center;justify-content:center;
-      font-size:3rem;color:white;
-      box-shadow:0 10px 40px rgba(226,19,110,0.25);
-      position:relative;
-    }
-    .hero-img .wallet-icon::after{
-      content:'🔒';
-      position:absolute;bottom:-5px;right:-5px;
-      width:36px;height:36px;background:white;
-      border-radius:50%;display:flex;align-items:center;justify-content:center;
-      font-size:1.1rem;
-      box-shadow:0 2px 10px rgba(0,0,0,0.1);
-    }
-    .floating-dot{
-      position:absolute;width:10px;height:10px;border-radius:50%;
-      background:rgba(226,19,110,0.3);animation:float 3s ease-in-out infinite;
-    }
-    .d1{top:10px;right:20px;animation-delay:0s;}
-    .d2{top:30px;left:10px;width:6px;height:6px;animation-delay:1s;}
-    .d3{bottom:20px;right:10px;width:8px;height:8px;animation-delay:2s;}
-    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-    h1{font-size:1.6rem;font-weight:700;color:#2d2d2d;margin-bottom:0.5rem;}
-    .subtitle{font-size:0.95rem;color:#888;font-weight:400;}
-    .methods{width:100%;display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
-    .method-card{
-      background:white;border-radius:16px;padding:1.2rem 1.4rem;
-      display:flex;align-items:center;gap:1rem;
-      box-shadow:0 4px 20px rgba(0,0,0,0.06);
-      cursor:pointer;transition:all 0.25s ease;
-      border:2px solid transparent;text-decoration:none;
-    }
-    .method-card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 8px 30px rgba(0,0,0,0.1);
-    }
-    .method-card.bkash:hover{border-color:rgba(226,19,110,0.3);}
-    .method-card.nagad:hover{border-color:rgba(241,91,37,0.3);}
-    .method-logo-box{
-      width:70px;height:70px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;
-      background:#fdf0f5;flex-shrink:0;overflow:hidden;
-      padding:6px;
-    }
-    .method-logo-box img{width:100%;height:100%;object-fit:contain;}
-    .method-info{flex:1;}
-    .method-name{font-size:1.15rem;font-weight:700;color:#1a1a1a;margin-bottom:0.2rem;}
-    .method-desc{font-size:0.82rem;color:#999;line-height:1.5;}
-    .method-arrow{
-      width:38px;height:38px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      font-size:1rem;flex-shrink:0;color:white;
-      transition:transform 0.2s ease;
-    }
-    .method-card:hover .method-arrow{transform:translateX(3px);}
-    .bkash .method-arrow{background:#e2136e;}
-    .nagad .method-arrow{background:#f15b25;}
-    .nagad .method-logo-box{background:#fff5f0;}
-    .security-note{
-      display:flex;align-items:center;gap:0.8rem;
-      padding:1.2rem 1.5rem;
-      background:white;border-radius:14px;
-      box-shadow:0 2px 12px rgba(0,0,0,0.05);
-      width:100%;
-    }
-    .security-note .shield-icon{
+    .order-label{font-size:0.75rem;color:#bbb;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.8rem;}
+    .order-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+    .order-product{display:flex;align-items:center;gap:0.8rem;}
+    .product-icon{
       width:44px;height:44px;border-radius:12px;
-      background:linear-gradient(135deg,#e2136e,#ff6b9d);
+      background:linear-gradient(135deg,#ffe0ee,#ffc0d8);
       display:flex;align-items:center;justify-content:center;
-      color:white;font-size:1.2rem;flex-shrink:0;
+      font-size:1.3rem;flex-shrink:0;
     }
-    .security-note p{font-size:0.85rem;color:#666;line-height:1.5;}
-    .security-note strong{color:#333;font-weight:600;}
-    .page-anim{animation:pageIn 0.5s ease forwards;}
-    @keyframes pageIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .product-name{font-size:1rem;font-weight:700;color:#1a1a1a;}
+    .product-sub{font-size:0.75rem;color:#bbb;margin-top:0.1rem;}
+    .order-amount{
+      font-size:1.6rem;font-weight:800;
+      background:linear-gradient(135deg,#e2136e,#c00f5c);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;white-space:nowrap;flex-shrink:0;
+    }
+    .order-id-row{
+      display:flex;align-items:center;gap:0.5rem;
+      margin-top:1rem;padding-top:0.8rem;border-top:1px solid #f5f5f5;
+      font-size:0.78rem;color:#bbb;
+    }
+    .order-id-row strong{color:#888;font-weight:600;}
+
+    /* Hero */
+    .hero{text-align:center;padding:0.5rem 0 1.5rem;}
+    .hero-title{font-size:1.25rem;font-weight:700;color:#2d2d2d;margin-bottom:0.3rem;}
+    .hero-sub{font-size:0.88rem;color:#aaa;}
+
+    /* Method Cards */
+    .methods{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.2rem;}
+    .method-card{
+      background:white;border-radius:18px;padding:1.2rem 1.3rem;
+      display:flex;align-items:center;gap:1rem;
+      box-shadow:0 4px 18px rgba(0,0,0,0.06);
+      cursor:pointer;transition:all 0.28s cubic-bezier(0.34,1.56,0.64,1);
+      border:2px solid transparent;text-decoration:none;
+      position:relative;overflow:hidden;
+    }
+    .method-card::after{
+      content:'';position:absolute;inset:0;opacity:0;
+      transition:opacity 0.2s;
+    }
+    .bkash::after{background:linear-gradient(135deg,rgba(226,19,110,0.04),rgba(255,107,157,0.04));}
+    .nagad::after{background:linear-gradient(135deg,rgba(241,91,37,0.04),rgba(255,140,90,0.04));}
+    .method-card:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.12);}
+    .method-card.bkash:hover{border-color:rgba(226,19,110,0.25);}
+    .method-card.nagad:hover{border-color:rgba(241,91,37,0.25);}
+    .method-card:hover::after{opacity:1;}
+
+    .method-logo-box{
+      width:68px;height:68px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;overflow:hidden;padding:8px;
+    }
+    .bkash .method-logo-box{background:linear-gradient(135deg,#fff0f5,#ffd6e8);}
+    .nagad .method-logo-box{background:linear-gradient(135deg,#fff5f0,#ffe0cc);}
+    .method-logo-box svg{width:100%;height:100%;}
+
+    .method-info{flex:1;}
+    .method-name{font-size:1.1rem;font-weight:800;color:#1a1a1a;margin-bottom:0.2rem;}
+    .method-tag{
+      display:inline-flex;align-items:center;gap:0.3rem;
+      font-size:0.72rem;color:#27ae60;font-weight:700;
+      background:#f0fff4;padding:0.15rem 0.55rem;border-radius:20px;margin-bottom:0.3rem;
+    }
+    .method-desc{font-size:0.8rem;color:#aaa;line-height:1.4;}
+    .method-arrow{
+      width:40px;height:40px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:0.9rem;flex-shrink:0;color:white;
+      transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    }
+    .method-card:hover .method-arrow{transform:translateX(4px) scale(1.1);}
+    .bkash .method-arrow{background:linear-gradient(135deg,#e2136e,#c00f5c);}
+    .nagad .method-arrow{background:linear-gradient(135deg,#f15b25,#d44a15);}
+
+    /* Security Footer */
+    .security-row{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:1rem;
+    }
+    .sec-item{
+      background:white;border-radius:14px;padding:0.9rem 0.6rem;
+      text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.04);
+    }
+    .sec-item i{font-size:1.2rem;margin-bottom:0.4rem;display:block;}
+    .sec-item span{font-size:0.72rem;color:#888;font-weight:600;line-height:1.3;display:block;}
+    .sec-bk i{color:#e2136e;}
+    .sec-lock i{color:#27ae60;}
+    .sec-fast i{color:#f39c12;}
+
+    .page-anim{animation:pageIn 0.5s cubic-bezier(0.34,1.2,0.64,1) forwards;}
+    @keyframes pageIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
   </style>
 </head>
 <body>
   <div class="top-bar">
-    <button class="back-btn" onclick="history.back()">
-      <i class="fa-solid fa-arrow-left"></i>
-    </button>
+    <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+    <span class="brand-text">My Gateway</span>
+    <div class="secure-badge"><i class="fa-solid fa-lock"></i> নিরাপদ</div>
   </div>
 
   <div class="container page-anim">
-    <div class="hero">
-      <div class="hero-img">
-        <div class="wallet-icon">👜</div>
-        <div class="floating-dot d1"></div>
-        <div class="floating-dot d2"></div>
-        <div class="floating-dot d3"></div>
+    <!-- Order Summary -->
+    <div class="order-summary" id="orderSummary" style="display:none">
+      <div class="order-label">পেমেন্ট সারসংক্ষেপ</div>
+      <div class="order-row">
+        <div class="order-product">
+          <div class="product-icon">🛍️</div>
+          <div>
+            <div class="product-name" id="summaryProduct">—</div>
+            <div class="product-sub">Digital Product</div>
+          </div>
+        </div>
+        <div class="order-amount" id="summaryAmount">৳ 0</div>
       </div>
-      <h1>পেমেন্ট মাধ্যম নির্বাচন করুন</h1>
-      <p class="subtitle">সহজ, দ্রুত ও নিরাপদ পেমেন্টের জন্য</p>
+      <div class="order-id-row" id="orderIdRow" style="display:none">
+        <i class="fa-solid fa-tag" style="color:#e2136e"></i>
+        <span>অর্ডার: <strong id="summaryOrderId">—</strong></span>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-title">পেমেন্ট মাধ্যম নির্বাচন করুন</div>
+      <div class="hero-sub">আপনার পছন্দের মাধ্যমে পেমেন্ট করুন</div>
     </div>
 
     <div class="methods">
       <a class="method-card bkash" id="bkashLink" href="#">
         <div class="method-logo-box">
-          <img src="/bkash-logo.svg" alt="bKash"/>
+          <!-- bKash SVG Logo -->
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="80" rx="16" fill="#e2136e"/>
+            <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="22" font-weight="bold" font-family="Arial,sans-serif">bK</text>
+          </svg>
         </div>
         <div class="method-info">
           <div class="method-name">বিকাশ</div>
-          <div class="method-desc">দ্রুত ও নিরাপদ<br>পেমেন্ট করুন বিকাশের মাধ্যমে</div>
+          <span class="method-tag"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
+          <div class="method-desc">Send Money করুন বিকাশ অ্যাপ থেকে</div>
         </div>
         <div class="method-arrow"><i class="fa-solid fa-chevron-right"></i></div>
       </a>
 
       <a class="method-card nagad" id="nagadLink" href="#">
         <div class="method-logo-box">
-          <img src="/nagad-logo.svg" alt="Nagad"/>
+          <!-- Nagad SVG Logo -->
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="80" rx="16" fill="#f15b25"/>
+            <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="18" font-weight="bold" font-family="Arial,sans-serif">Nagad</text>
+          </svg>
         </div>
         <div class="method-info">
           <div class="method-name">নগদ</div>
-          <div class="method-desc">দ্রুত ও নিরাপদ<br>পেমেন্ট করুন নগদের মাধ্যমে</div>
+          <span class="method-tag"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
+          <div class="method-desc">Send Money করুন নগদ অ্যাপ থেকে</div>
         </div>
-        <div class="method-arrow nagad"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="method-arrow" style="background:linear-gradient(135deg,#f15b25,#d44a15)"><i class="fa-solid fa-chevron-right"></i></div>
       </a>
     </div>
 
-    <div class="security-note">
-      <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
-      <p><strong>আপনার পেমেন্ট সম্পূর্ণ নিরাপদ</strong><br>আমরা আপনার তথ্যের নিরাপত্তা নিশ্চিত করি।</p>
+    <div class="security-row">
+      <div class="sec-item sec-bk"><i class="fa-solid fa-shield-halved"></i><span>নিরাপদ পেমেন্ট</span></div>
+      <div class="sec-item sec-lock"><i class="fa-solid fa-lock"></i><span>SSL এনক্রিপ্টেড</span></div>
+      <div class="sec-item sec-fast"><i class="fa-solid fa-bolt"></i><span>দ্রুত যাচাই</span></div>
     </div>
   </div>
 
   <script>
     const p = new URLSearchParams(window.location.search);
     const orderId = p.get('order_id') || '';
-    const product = p.get('product') || 'My Product';
-    const amount = p.get('amount') || '0';
+    const product = p.get('product') || '';
+    const amount = p.get('amount') || '';
     const qs = `order_id=${orderId}&product=${encodeURIComponent(product)}&amount=${amount}`;
     document.getElementById('bkashLink').href = `/bkash?${qs}`;
     document.getElementById('nagadLink').href = `/nagad?${qs}`;
+
+    if (product || amount) {
+      document.getElementById('orderSummary').style.display = 'block';
+      if (product) document.getElementById('summaryProduct').textContent = product;
+      if (amount) document.getElementById('summaryAmount').textContent = '৳ ' + parseFloat(amount).toLocaleString('bn-BD');
+      if (orderId) {
+        document.getElementById('orderIdRow').style.display = 'flex';
+        document.getElementById('summaryOrderId').textContent = orderId;
+      }
+    }
   </script>
 </body>
 </html>

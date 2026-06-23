@@ -239,4 +239,23 @@ router.get('/admin/orders', async (req, res) => {
   }
 });
 
+router.get('/admin/sms-log', async (req, res) => {
+  if (!checkAdmin(req, res)) return;
+  const { limit = 30 } = req.query;
+  try {
+    const pool = getPool();
+    const result = await pool.query(
+      `SELECT sl.*, o.order_id as matched_order_id
+       FROM sms_log sl
+       LEFT JOIN orders o ON UPPER(o.matched_trx_id) = UPPER(sl.extracted_trx_id) AND o.status = 'completed'
+       ORDER BY sl.received_at DESC
+       LIMIT $1`,
+      [parseInt(limit)]
+    );
+    res.json({ success: true, logs: result.rows });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;
