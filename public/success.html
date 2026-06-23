@@ -94,6 +94,9 @@
       <div class="detail-row"><span>স্ট্যাটাস</span><span class="status-badge"><i class="fa-solid fa-check"></i> সম্পন্ন</span></div>
     </div>
 
+    <div id="redirectBox" style="display:none;background:#f0faf4;border:1px solid #c3e6cb;border-radius:12px;padding:1rem;margin-bottom:1rem;text-align:center;font-size:0.9rem;color:#27ae60;">
+      <i class="fa-solid fa-rotate-right fa-spin"></i>&nbsp; <span id="redirectMsg">রিডাইরেক্ট হচ্ছে...</span>
+    </div>
     <a href="/" class="home-btn" id="homeBtn">
       <i class="fa-solid fa-house"></i> হোমে ফিরুন
     </a>
@@ -102,8 +105,11 @@
 
   <script>
     const p = new URLSearchParams(window.location.search);
-    const orderId = p.get('order_id') || '';
-    const method = p.get('method') || 'bkash';
+    const orderId   = p.get('order_id')   || '';
+    const method    = p.get('method')     || 'bkash';
+    const trxId     = p.get('trx_id')     || '';
+    const amount    = p.get('amount')     || '';
+    const returnUrl = p.get('return_url') || '';
 
     if (method === 'nagad') {
       document.getElementById('pageBody').classList.add('nagad');
@@ -111,8 +117,9 @@
       document.getElementById('homeBtn').classList.add('nagad-btn');
     }
 
-    document.getElementById('dOrderId').textContent = orderId;
+    document.getElementById('dOrderId').textContent = orderId || trxId || '---';
     document.getElementById('dMethod').textContent = method === 'bkash' ? 'বিকাশ' : 'নগদ';
+    if (amount) document.getElementById('dAmount').textContent = '৳ ' + parseFloat(amount).toFixed(2);
 
     async function loadOrder() {
       if (!orderId) return;
@@ -123,6 +130,30 @@
           document.getElementById('dAmount').textContent = '৳ ' + parseFloat(d.order.amount).toFixed(2);
         }
       } catch {}
+    }
+
+    function handleReturnUrl() {
+      if (!returnUrl) return;
+      const dest = new URL(returnUrl);
+      if (orderId) dest.searchParams.set('order_id', orderId);
+      if (trxId)   dest.searchParams.set('trx_id', trxId);
+      if (amount)  dest.searchParams.set('amount', amount);
+      dest.searchParams.set('method', method);
+      dest.searchParams.set('status', 'completed');
+
+      const box = document.getElementById('redirectBox');
+      const msg = document.getElementById('redirectMsg');
+      box.style.display = 'block';
+      document.getElementById('homeBtn').href = dest.toString();
+      document.getElementById('homeBtn').innerHTML = '<i class="fa-solid fa-arrow-right"></i> অর্ডার পেজে যান';
+
+      let secs = 5;
+      msg.textContent = `${secs} সেকেন্ডে অর্ডার পেজে নিয়ে যাচ্ছে...`;
+      const t = setInterval(() => {
+        secs--;
+        if (secs <= 0) { clearInterval(t); location.href = dest.toString(); }
+        else msg.textContent = `${secs} সেকেন্ডে অর্ডার পেজে নিয়ে যাচ্ছে...`;
+      }, 1000);
     }
 
     function launchConfetti() {
@@ -139,6 +170,7 @@
 
     loadOrder();
     launchConfetti();
+    handleReturnUrl();
   </script>
 </body>
 </html>
