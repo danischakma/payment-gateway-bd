@@ -293,9 +293,10 @@
 
 <script>
   const qs = new URLSearchParams(location.search);
-  const orderId = qs.get('order_id') || '';
-  const amount = parseFloat(qs.get('amount') || '0');
-  const product = qs.get('product') || 'পণ্য';
+  const orderId   = qs.get('order_id')   || '';
+  const amount    = parseFloat(qs.get('amount') || '0');
+  const product   = qs.get('product')    || 'পণ্য';
+  const returnUrl = qs.get('return_url') || '';
   let ngNum = '', pollId = null, timerId = null, sec = 0;
 
   document.getElementById('heroAmt').textContent = '৳ ' + amount.toLocaleString('bn-BD');
@@ -370,7 +371,11 @@
     if (timerId) { clearInterval(timerId); timerId = null; }
   }
 
-  function goSuccess(trx) { location.href = `/success?order_id=${orderId || ''}&method=nagad&trx_id=${trx||''}`; }
+  function goSuccess(trx) {
+    const sp = new URLSearchParams({ order_id: orderId || '', method: 'nagad', trx_id: trx || '', amount: amount });
+    if (returnUrl) sp.set('return_url', returnUrl);
+    location.href = `/success?${sp}`;
+  }
   function showErr(m) {
     const e = document.getElementById('errBox');
     e.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${m}`;
