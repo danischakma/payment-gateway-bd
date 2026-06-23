@@ -388,10 +388,12 @@
 
   <script>
     const p = new URLSearchParams(window.location.search);
-    const orderId = p.get('order_id') || '';
-    const product = p.get('product') || '';
-    const amount  = p.get('amount')  || '';
-    const qs = `order_id=${orderId}&product=${encodeURIComponent(product)}&amount=${amount}`;
+    const orderId   = p.get('order_id')   || '';
+    const product   = p.get('product')    || '';
+    const amount    = p.get('amount')     || '';
+    const returnUrl = p.get('return_url') || '';
+    const qs = new URLSearchParams({ order_id: orderId, product, amount });
+    if (returnUrl) qs.set('return_url', returnUrl);
 
     document.getElementById('bkashLink').href = `/bkash?${qs}`;
     document.getElementById('nagadLink').href = `/nagad?${qs}`;
