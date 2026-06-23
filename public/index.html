@@ -3,240 +3,406 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>পেমেন্ট মাধ্যম নির্বাচন করুন</title>
+  <title>পেমেন্ট মাধ্যম নির্বাচন</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Hind Siliguri','Segoe UI',sans-serif;
-      min-height:100vh;
-      background:linear-gradient(155deg,#fce4f0 0%,#ffd6e8 35%,#ffe8f3 65%,#fff0f7 100%);
-      display:flex;flex-direction:column;align-items:center;
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bkash: #E2136E;
+      --bkash-dark: #B8005A;
+      --bkash-bg: #FFF0F6;
+      --nagad: #F15B25;
+      --nagad-dark: #CC4910;
+      --nagad-bg: #FFF5F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --border: #E2E8F0;
+      --bg: #F8FAFC;
+      --white: #FFFFFF;
+      --success: #059669;
+      --radius: 16px;
+      --radius-sm: 10px;
     }
 
-    /* Top bar */
-    .top-bar{
-      width:100%;background:rgba(255,255,255,0.75);
-      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-      padding:0.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;
-      border-bottom:1px solid rgba(226,19,110,0.1);
-      position:sticky;top:0;z-index:10;
-    }
-    .back-btn{
-      width:38px;height:38px;border-radius:50%;
-      background:rgba(226,19,110,0.1);border:none;
-      color:#e2136e;cursor:pointer;font-size:1rem;
-      display:flex;align-items:center;justify-content:center;
-      transition:all 0.2s;
-    }
-    .back-btn:hover{background:rgba(226,19,110,0.2);transform:scale(1.05);}
-    .brand-text{font-size:0.85rem;font-weight:700;color:#e2136e;letter-spacing:0.3px;}
-    .secure-badge{
-      display:flex;align-items:center;gap:0.3rem;
-      font-size:0.75rem;color:#27ae60;font-weight:600;
-      background:#f0fff4;padding:0.3rem 0.7rem;border-radius:20px;
+    html { -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Hind Siliguri', 'Inter', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Container */
-    .container{max-width:460px;width:100%;padding:0 1.2rem 2.5rem;}
+    /* ── NAV ── */
+    .topnav {
+      width: 100%;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-back {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--text-secondary);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .nav-back:hover { background: var(--bg); }
+    .nav-brand {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.2px;
+    }
+    .nav-secure {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--success);
+      background: #ECFDF5;
+      padding: 0.3rem 0.65rem;
+      border-radius: 20px;
+    }
 
-    /* Order Summary */
-    .order-summary{
-      background:white;border-radius:20px;
-      box-shadow:0 8px 32px rgba(226,19,110,0.12);
-      padding:1.4rem 1.5rem;margin:1.5rem 0 1.2rem;
-      border:1px solid rgba(226,19,110,0.08);
-      position:relative;overflow:hidden;
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 480px;
+      width: 100%;
+      padding: 1.5rem 1.1rem 3rem;
     }
-    .order-summary::before{
-      content:'';position:absolute;top:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,#e2136e,#ff6b9d,#e2136e);
-    }
-    .order-label{font-size:0.75rem;color:#bbb;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.8rem;}
-    .order-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-    .order-product{display:flex;align-items:center;gap:0.8rem;}
-    .product-icon{
-      width:44px;height:44px;border-radius:12px;
-      background:linear-gradient(135deg,#ffe0ee,#ffc0d8);
-      display:flex;align-items:center;justify-content:center;
-      font-size:1.3rem;flex-shrink:0;
-    }
-    .product-name{font-size:1rem;font-weight:700;color:#1a1a1a;}
-    .product-sub{font-size:0.75rem;color:#bbb;margin-top:0.1rem;}
-    .order-amount{
-      font-size:1.6rem;font-weight:800;
-      background:linear-gradient(135deg,#e2136e,#c00f5c);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      background-clip:text;white-space:nowrap;flex-shrink:0;
-    }
-    .order-id-row{
-      display:flex;align-items:center;gap:0.5rem;
-      margin-top:1rem;padding-top:0.8rem;border-top:1px solid #f5f5f5;
-      font-size:0.78rem;color:#bbb;
-    }
-    .order-id-row strong{color:#888;font-weight:600;}
 
-    /* Hero */
-    .hero{text-align:center;padding:0.5rem 0 1.5rem;}
-    .hero-title{font-size:1.25rem;font-weight:700;color:#2d2d2d;margin-bottom:0.3rem;}
-    .hero-sub{font-size:0.88rem;color:#aaa;}
+    /* ── ORDER CARD ── */
+    .order-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    .order-card.visible { display: block; }
 
-    /* Method Cards */
-    .methods{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.2rem;}
-    .method-card{
-      background:white;border-radius:18px;padding:1.2rem 1.3rem;
-      display:flex;align-items:center;gap:1rem;
-      box-shadow:0 4px 18px rgba(0,0,0,0.06);
-      cursor:pointer;transition:all 0.28s cubic-bezier(0.34,1.56,0.64,1);
-      border:2px solid transparent;text-decoration:none;
-      position:relative;overflow:hidden;
+    .order-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
     }
-    .method-card::after{
-      content:'';position:absolute;inset:0;opacity:0;
-      transition:opacity 0.2s;
+    .order-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
-    .bkash::after{background:linear-gradient(135deg,rgba(226,19,110,0.04),rgba(255,107,157,0.04));}
-    .nagad::after{background:linear-gradient(135deg,rgba(241,91,37,0.04),rgba(255,140,90,0.04));}
-    .method-card:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.12);}
-    .method-card.bkash:hover{border-color:rgba(226,19,110,0.25);}
-    .method-card.nagad:hover{border-color:rgba(241,91,37,0.25);}
-    .method-card:hover::after{opacity:1;}
+    .order-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--success);
+      background: #ECFDF5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .order-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .order-product-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .product-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .product-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .product-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+    .order-amount-big {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+    .order-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1rem 0 0.75rem;
+    }
+    .order-id-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .order-id-row strong { color: var(--text-secondary); font-weight: 600; }
 
-    .method-logo-box{
-      width:68px;height:68px;border-radius:16px;
-      display:flex;align-items:center;justify-content:center;
-      flex-shrink:0;overflow:hidden;padding:8px;
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
     }
-    .bkash .method-logo-box{background:linear-gradient(135deg,#fff0f5,#ffd6e8);}
-    .nagad .method-logo-box{background:linear-gradient(135deg,#fff5f0,#ffe0cc);}
-    .method-logo-box svg{width:100%;height:100%;}
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
 
-    .method-info{flex:1;}
-    .method-name{font-size:1.1rem;font-weight:800;color:#1a1a1a;margin-bottom:0.2rem;}
-    .method-tag{
-      display:inline-flex;align-items:center;gap:0.3rem;
-      font-size:0.72rem;color:#27ae60;font-weight:700;
-      background:#f0fff4;padding:0.15rem 0.55rem;border-radius:20px;margin-bottom:0.3rem;
-    }
-    .method-desc{font-size:0.8rem;color:#aaa;line-height:1.4;}
-    .method-arrow{
-      width:40px;height:40px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      font-size:0.9rem;flex-shrink:0;color:white;
-      transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-      box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    }
-    .method-card:hover .method-arrow{transform:translateX(4px) scale(1.1);}
-    .bkash .method-arrow{background:linear-gradient(135deg,#e2136e,#c00f5c);}
-    .nagad .method-arrow{background:linear-gradient(135deg,#f15b25,#d44a15);}
+    /* ── METHOD CARDS ── */
+    .methods { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2rem; }
 
-    /* Security Footer */
-    .security-row{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:1rem;
+    .method-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .sec-item{
-      background:white;border-radius:14px;padding:0.9rem 0.6rem;
-      text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.04);
+    .method-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
     }
-    .sec-item i{font-size:1.2rem;margin-bottom:0.4rem;display:block;}
-    .sec-item span{font-size:0.72rem;color:#888;font-weight:600;line-height:1.3;display:block;}
-    .sec-bk i{color:#e2136e;}
-    .sec-lock i{color:#27ae60;}
-    .sec-fast i{color:#f39c12;}
+    .method-card.bkash:hover { border-color: rgba(226,19,110,0.4); }
+    .method-card.nagad:hover { border-color: rgba(241,91,37,0.4); }
 
-    .page-anim{animation:pageIn 0.5s cubic-bezier(0.34,1.2,0.64,1) forwards;}
-    @keyframes pageIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    /* recommended ribbon */
+    .ribbon {
+      position: absolute;
+      top: 0; right: 0;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: white;
+      padding: 0.22rem 0.7rem;
+      border-radius: 0 var(--radius) 0 var(--radius-sm);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .ribbon-bkash { background: var(--bkash); }
+    .ribbon-nagad { background: var(--nagad); }
+
+    .method-logo {
+      width: 60px; height: 60px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      padding: 10px;
+    }
+    .bkash .method-logo { background: var(--bkash-bg); }
+    .nagad .method-logo { background: var(--nagad-bg); }
+    .method-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+    .method-body { flex: 1; min-width: 0; }
+    .method-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .method-tags {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+    .method-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.67rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+    }
+    .tag-instant { color: #0369A1; background: #E0F2FE; }
+    .tag-popular { color: var(--success); background: #ECFDF5; }
+    .tag-safe { color: #7C3AED; background: #F5F3FF; }
+    .method-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .method-arrow {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      color: white;
+      transition: transform 0.2s ease;
+    }
+    .method-card:hover .method-arrow { transform: translateX(3px); }
+    .bkash .method-arrow { background: var(--bkash); }
+    .nagad .method-arrow { background: var(--nagad); }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .trust-item i { font-size: 0.75rem; color: var(--text-muted); }
+
+    .page-in { animation: fadeUp 0.35s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
 <body>
-  <div class="top-bar">
-    <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
-    <span class="brand-text">BD Payment Gateway</span>
-    <div class="secure-badge"><i class="fa-solid fa-lock"></i> নিরাপদ</div>
-  </div>
 
-  <div class="container page-anim">
+  <nav class="topnav">
+    <button class="nav-back" onclick="history.back()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <span class="nav-brand">Payment Gateway BD</span>
+    <div class="nav-secure">
+      <i class="fa-solid fa-lock"></i> SSL Secured
+    </div>
+  </nav>
+
+  <div class="container page-in">
+
     <!-- Order Summary -->
-    <div class="order-summary" id="orderSummary" style="display:none">
-      <div class="order-label">পেমেন্ট সারসংক্ষেপ</div>
-      <div class="order-row">
-        <div class="order-product">
+    <div class="order-card" id="orderCard">
+      <div class="order-top">
+        <div class="order-label">পেমেন্ট বিবরণ</div>
+        <div class="order-badge"><i class="fa-solid fa-circle-check" style="font-size:0.6rem"></i> সুরক্ষিত</div>
+      </div>
+      <div class="order-body">
+        <div class="order-product-row">
           <div class="product-icon">🛍️</div>
           <div>
             <div class="product-name" id="summaryProduct">—</div>
-            <div class="product-sub">Digital Product</div>
+            <div class="product-sub">Digital Order</div>
           </div>
         </div>
-        <div class="order-amount" id="summaryAmount">৳ 0</div>
+        <div class="order-amount-big" id="summaryAmount">৳ 0</div>
       </div>
+      <hr class="order-divider" id="orderDivider" style="display:none"/>
       <div class="order-id-row" id="orderIdRow" style="display:none">
-        <i class="fa-solid fa-tag" style="color:#e2136e"></i>
-        <span>অর্ডার: <strong id="summaryOrderId">—</strong></span>
+        <i class="fa-solid fa-receipt" style="font-size:0.7rem"></i>
+        <span>অর্ডার আইডি: <strong id="summaryOrderId">—</strong></span>
       </div>
     </div>
 
-    <div class="hero">
-      <div class="hero-title">পেমেন্ট মাধ্যম নির্বাচন করুন</div>
-      <div class="hero-sub">আপনার পছন্দের মাধ্যমে পেমেন্ট করুন</div>
-    </div>
+    <!-- Heading -->
+    <div class="section-title">পেমেন্ট মাধ্যম বেছে নিন</div>
+    <div class="section-sub">আপনার পছন্দের মোবাইল ব্যাংকিং সেবা দিয়ে পেমেন্ট করুন</div>
 
+    <!-- Method Cards -->
     <div class="methods">
+
       <a class="method-card bkash" id="bkashLink" href="#">
-        <div class="method-logo-box">
-          <!-- bKash SVG Logo -->
-          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-            <rect width="80" height="80" rx="16" fill="#e2136e"/>
-            <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="22" font-weight="bold" font-family="Arial,sans-serif">bK</text>
-          </svg>
+        <span class="ribbon ribbon-bkash">জনপ্রিয়</span>
+        <div class="method-logo">
+          <img src="/bkash-logo.svg" alt="bKash"/>
         </div>
-        <div class="method-info">
+        <div class="method-body">
           <div class="method-name">বিকাশ</div>
-          <span class="method-tag"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
-          <div class="method-desc">Send Money করুন বিকাশ অ্যাপ থেকে</div>
+          <div class="method-tags">
+            <span class="method-tag tag-instant"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
+            <span class="method-tag tag-popular"><i class="fa-solid fa-users"></i> সর্বাধিক ব্যবহৃত</span>
+          </div>
+          <div class="method-desc">বিকাশ অ্যাপ থেকে Send Money করুন</div>
         </div>
-        <div class="method-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="method-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       </a>
 
       <a class="method-card nagad" id="nagadLink" href="#">
-        <div class="method-logo-box">
-          <!-- Nagad SVG Logo -->
-          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-            <rect width="80" height="80" rx="16" fill="#f15b25"/>
-            <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="18" font-weight="bold" font-family="Arial,sans-serif">Nagad</text>
-          </svg>
+        <div class="method-logo">
+          <img src="/nagad-logo.svg" alt="নগদ"/>
         </div>
-        <div class="method-info">
+        <div class="method-body">
           <div class="method-name">নগদ</div>
-          <span class="method-tag"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
-          <div class="method-desc">Send Money করুন নগদ অ্যাপ থেকে</div>
+          <div class="method-tags">
+            <span class="method-tag tag-instant"><i class="fa-solid fa-bolt"></i> তাৎক্ষণিক</span>
+            <span class="method-tag tag-safe"><i class="fa-solid fa-shield-halved"></i> নিরাপদ</span>
+          </div>
+          <div class="method-desc">নগদ অ্যাপ থেকে Send Money করুন</div>
         </div>
-        <div class="method-arrow" style="background:linear-gradient(135deg,#f15b25,#d44a15)"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="method-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       </a>
+
     </div>
 
-    <div class="security-row">
-      <div class="sec-item sec-bk"><i class="fa-solid fa-shield-halved"></i><span>নিরাপদ পেমেন্ট</span></div>
-      <div class="sec-item sec-lock"><i class="fa-solid fa-lock"></i><span>SSL এনক্রিপ্টেড</span></div>
-      <div class="sec-item sec-fast"><i class="fa-solid fa-bolt"></i><span>দ্রুত যাচাই</span></div>
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+      <div class="trust-item"><i class="fa-solid fa-lock"></i> SSL Encrypted</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> সুরক্ষিত</div>
+      <div class="trust-item"><i class="fa-solid fa-clock-rotate-left"></i> ২৪/৭ সাপোর্ট</div>
     </div>
+
   </div>
 
   <script>
     const p = new URLSearchParams(window.location.search);
     const orderId = p.get('order_id') || '';
     const product = p.get('product') || '';
-    const amount = p.get('amount') || '';
+    const amount  = p.get('amount')  || '';
     const qs = `order_id=${orderId}&product=${encodeURIComponent(product)}&amount=${amount}`;
+
     document.getElementById('bkashLink').href = `/bkash?${qs}`;
     document.getElementById('nagadLink').href = `/nagad?${qs}`;
 
-    if (product || amount) {
-      document.getElementById('orderSummary').style.display = 'block';
+    if (product || amount || orderId) {
+      document.getElementById('orderCard').classList.add('visible');
       if (product) document.getElementById('summaryProduct').textContent = product;
-      if (amount) document.getElementById('summaryAmount').textContent = '৳ ' + parseFloat(amount).toLocaleString('bn-BD');
+      if (amount)  document.getElementById('summaryAmount').textContent = '৳ ' + parseFloat(amount).toLocaleString('bn-BD');
       if (orderId) {
         document.getElementById('orderIdRow').style.display = 'flex';
+        document.getElementById('orderDivider').style.display = 'block';
         document.getElementById('summaryOrderId').textContent = orderId;
       }
     }
