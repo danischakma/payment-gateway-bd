@@ -1,246 +1,417 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>অ্যাডমিন প্যানেল | Admin Panel</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>অ্যাডমিন প্যানেল | My Gateway</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--pk:#e2136e;--pk-dark:#c00f5c;--ng:#f15b25;}
+    body{font-family:'Hind Siliguri','Segoe UI',sans-serif;min-height:100vh;background:#f0f2f5;}
+
+    /* ===== LOGIN ===== */
+    .login-wrap{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#e2136e 0%,#c00f5c 50%,#8a003a 100%);
+      padding:1rem;
+    }
+    .login-card{
+      background:white;border-radius:24px;padding:2.5rem 2rem;
+      width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.2);
+      text-align:center;
+    }
+    .login-icon{
+      width:80px;height:80px;border-radius:50%;
+      background:linear-gradient(135deg,var(--pk),#ff6b9d);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.5rem;font-size:2rem;color:white;
+      box-shadow:0 8px 25px rgba(226,19,110,0.4);
+    }
+    .login-card h1{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin-bottom:0.3rem;}
+    .login-card p{font-size:0.85rem;color:#999;margin-bottom:1.8rem;}
+    .input-group{text-align:left;margin-bottom:1rem;}
+    .input-group label{font-size:0.82rem;color:#666;font-weight:600;display:block;margin-bottom:0.4rem;}
+    .input-row{
+      display:flex;align-items:center;
+      border:1.5px solid #e5e5e5;border-radius:10px;
+      background:#fafafa;transition:border 0.2s;overflow:hidden;
+    }
+    .input-row:focus-within{border-color:var(--pk);background:white;}
+    .input-row i{padding:0 0.9rem;color:#ccc;font-size:0.9rem;}
+    .input-row input{
+      flex:1;padding:0.85rem 0.8rem 0.85rem 0;border:none;background:transparent;
+      font-family:'Hind Siliguri',sans-serif;font-size:0.95rem;outline:none;color:#333;
+    }
+    .eye-btn{padding:0 1rem;background:none;border:none;color:#ccc;cursor:pointer;font-size:0.9rem;}
+    .login-btn{
+      width:100%;padding:1rem;background:linear-gradient(135deg,var(--pk),var(--pk-dark));
+      color:white;border:none;border-radius:12px;font-family:'Hind Siliguri',sans-serif;
+      font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s;
+      box-shadow:0 4px 15px rgba(226,19,110,0.4);margin-top:0.5rem;
+    }
+    .login-btn:hover{transform:translateY(-1px);box-shadow:0 8px 25px rgba(226,19,110,0.5);}
+    .login-error{display:none;margin-top:0.8rem;padding:0.7rem;background:#fff0f0;border-radius:8px;color:#e00;font-size:0.85rem;}
+
+    /* ===== ADMIN PANEL ===== */
+    #adminPanel{display:none;}
+    .admin-nav{
+      background:white;box-shadow:0 2px 10px rgba(0,0,0,0.06);
+      padding:0.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:50;
+    }
+    .nav-brand{display:flex;align-items:center;gap:0.6rem;font-size:1.1rem;font-weight:700;color:var(--pk);}
+    .nav-brand i{font-size:1.2rem;}
+    .nav-actions{display:flex;align-items:center;gap:0.7rem;}
+    .nav-btn{
+      display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;
+      border-radius:8px;border:1.5px solid;font-size:0.82rem;font-weight:600;
+      cursor:pointer;font-family:'Hind Siliguri',sans-serif;transition:all 0.2s;
+    }
+    .logout-btn{border-color:#ffcccc;background:#fff5f5;color:#e00;}
+    .logout-btn:hover{background:#ffe0e0;}
+    .admin-content{max-width:1100px;margin:0 auto;padding:1.5rem 1rem;}
+
+    /* Stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem;}
+    .stat-card{
+      background:white;border-radius:14px;padding:1.2rem;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);display:flex;align-items:center;gap:1rem;
+    }
+    .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+    .si-total{background:linear-gradient(135deg,#6c63ff,#a29bfe);color:white;}
+    .si-done{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;}
+    .si-wait{background:linear-gradient(135deg,#f39c12,#f1c40f);color:white;}
+    .si-rev{background:linear-gradient(135deg,var(--pk),#ff6b9d);color:white;}
+    .stat-info{flex:1;}
+    .stat-num{font-size:1.6rem;font-weight:700;color:#1a1a1a;line-height:1;}
+    .stat-label{font-size:0.78rem;color:#999;margin-top:0.2rem;}
+
+    /* Number Settings */
+    .settings-card{
+      background:white;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      padding:1.5rem;margin-bottom:1.5rem;
+    }
+    .settings-card h2{font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
+    .settings-card h2 i{color:var(--pk);}
+    .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    @media(max-width:500px){.settings-grid{grid-template-columns:1fr;}}
+    .num-field{}
+    .num-field label{font-size:0.82rem;font-weight:600;color:#555;display:flex;align-items:center;gap:0.4rem;margin-bottom:0.4rem;}
+    .num-field label .bk-dot{width:10px;height:10px;border-radius:50%;background:var(--pk);display:inline-block;}
+    .num-field label .ng-dot{width:10px;height:10px;border-radius:50%;background:var(--ng);display:inline-block;}
+    .num-input-row{display:flex;gap:0.5rem;}
+    .num-input{
+      flex:1;padding:0.75rem 0.9rem;border:1.5px solid #e5e5e5;border-radius:10px;
+      font-family:'Hind Siliguri',sans-serif;font-size:0.95rem;color:#333;outline:none;
+      transition:border 0.2s;
+    }
+    .num-input:focus{border-color:var(--pk);}
+    .save-btn{
+      padding:0.75rem 1rem;border:none;border-radius:10px;
+      font-family:'Hind Siliguri',sans-serif;font-size:0.82rem;font-weight:600;
+      cursor:pointer;transition:all 0.2s;white-space:nowrap;
+    }
+    .save-bkash{background:linear-gradient(135deg,var(--pk),var(--pk-dark));color:white;}
+    .save-nagad{background:linear-gradient(135deg,var(--ng),#d44a15);color:white;}
+    .save-btn:hover{opacity:0.9;transform:translateY(-1px);}
+    .save-success{display:none;margin-top:0.5rem;font-size:0.8rem;color:#27ae60;font-weight:600;}
+
+    /* Orders Table */
+    .orders-card{background:white;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);overflow:hidden;}
+    .table-head{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.2rem 1.5rem;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;gap:0.8rem;
+    }
+    .table-head h2{font-size:1rem;font-weight:700;color:#1a1a1a;display:flex;align-items:center;gap:0.5rem;}
+    .table-head h2 i{color:var(--pk);}
+    .filter-tabs{display:flex;gap:0.4rem;flex-wrap:wrap;}
+    .ftab{
+      padding:0.35rem 0.9rem;border-radius:20px;border:1.5px solid #e5e5e5;
+      background:white;font-family:'Hind Siliguri',sans-serif;font-size:0.8rem;
+      font-weight:600;cursor:pointer;color:#666;transition:all 0.2s;
+    }
+    .ftab.active{background:var(--pk);border-color:var(--pk);color:white;}
+    .refresh-btn{
+      width:34px;height:34px;border-radius:8px;border:1.5px solid #e5e5e5;
+      background:white;color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      font-size:0.9rem;transition:all 0.2s;
+    }
+    .refresh-btn:hover{border-color:var(--pk);color:var(--pk);}
+    .table-wrap{overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;}
+    thead tr{background:#fafafa;}
+    th{padding:0.8rem 1rem;text-align:left;font-size:0.8rem;color:#888;font-weight:600;white-space:nowrap;border-bottom:1px solid #f0f0f0;}
+    td{padding:0.85rem 1rem;font-size:0.85rem;color:#333;border-bottom:1px solid #f8f8f8;vertical-align:middle;}
+    tr:hover td{background:#fafafa;}
+    .badge{padding:0.25rem 0.7rem;border-radius:20px;font-size:0.75rem;font-weight:700;white-space:nowrap;}
+    .badge-done{background:#e8f8f0;color:#27ae60;}
+    .badge-pending{background:#fff8e0;color:#f39c12;}
+    .method-pill{padding:0.2rem 0.6rem;border-radius:6px;font-size:0.75rem;font-weight:700;}
+    .pill-bk{background:#ffe0ee;color:var(--pk);}
+    .pill-ng{background:#ffe8de;color:var(--ng);}
+    .trx-mono{font-family:monospace;font-size:0.8rem;color:#555;}
+    .empty-state{text-align:center;padding:3rem;color:#ccc;}
+    .empty-state i{font-size:2.5rem;margin-bottom:0.8rem;}
+    .empty-state p{font-size:0.9rem;}
+    .pagination{display:flex;gap:0.4rem;justify-content:center;padding:1rem;flex-wrap:wrap;}
+    .page-btn{
+      width:34px;height:34px;border-radius:8px;border:1.5px solid #e5e5e5;
+      background:white;font-family:'Hind Siliguri',sans-serif;color:#666;cursor:pointer;font-size:0.85rem;transition:all 0.2s;
+    }
+    .page-btn.active{background:var(--pk);border-color:var(--pk);color:white;}
+    .page-btn:hover:not(.active){border-color:var(--pk);color:var(--pk);}
+    .total-badge{background:#f0f0f0;color:#666;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.78rem;font-weight:600;}
+    .loader-row{text-align:center;padding:2.5rem;color:#ccc;}
+    .spin{animation:spin 0.8s linear infinite;display:inline-block;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .anim{animation:rowIn 0.3s ease forwards;}
+    @keyframes rowIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+  </style>
 </head>
 <body>
-  <div class="bg-animation">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-  </div>
 
-  <div id="loginScreen" class="container fade-in">
-    <div class="glass-card main-card">
-      <div class="brand">
-        <div class="brand-icon">
-          <i class="fa-solid fa-user-shield"></i>
-        </div>
-        <h1>অ্যাডমিন প্যানেল</h1>
-        <p class="subtitle">শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য</p>
+<!-- Login Screen -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="login-icon"><i class="fa-solid fa-user-shield"></i></div>
+    <h1>অ্যাডমিন প্যানেল</h1>
+    <p>শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য</p>
+    <div class="input-group">
+      <label>পাসওয়ার্ড</label>
+      <div class="input-row">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="pwdInput" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password"/>
+        <button class="eye-btn" onclick="togglePwd()" id="eyeBtn"><i class="fa-solid fa-eye" id="eyeIcon"></i></button>
       </div>
-      <div class="input-group">
-        <label for="adminToken">
-          <i class="fa-solid fa-key"></i> অ্যাডমিন টোকেন
-        </label>
-        <div class="input-wrapper">
-          <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
-          <input type="password" id="adminToken" placeholder="আপনার ADMIN_TOKEN দিন" />
-        </div>
-      </div>
-      <button class="pay-btn" onclick="adminLogin()">
-        <i class="fa-solid fa-right-to-bracket"></i> প্রবেশ করুন
-      </button>
-      <div id="loginError" class="alert alert-error" style="display:none">❌ ভুল টোকেন</div>
     </div>
+    <button class="login-btn" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> প্রবেশ করুন</button>
+    <div class="login-error" id="loginError">❌ পাসওয়ার্ড ভুল হয়েছে</div>
   </div>
+</div>
 
-  <div id="adminPanel" class="admin-container fade-in" style="display:none">
-    <header class="admin-header glass-card">
-      <div class="admin-brand">
-        <i class="fa-solid fa-user-shield"></i>
-        <span>অ্যাডমিন ড্যাশবোর্ড</span>
-      </div>
-      <div class="admin-actions">
-        <button class="filter-btn active" onclick="filterOrders('all', this)">সব</button>
-        <button class="filter-btn" onclick="filterOrders('pending', this)">অপেক্ষামান</button>
-        <button class="filter-btn" onclick="filterOrders('completed', this)">সম্পন্ন</button>
-        <button class="icon-btn" onclick="loadOrders()" title="রিফ্রেশ">
-          <i class="fa-solid fa-rotate-right"></i>
-        </button>
-        <button class="icon-btn logout-btn" onclick="logout()" title="লগআউট">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
-      </div>
-    </header>
+<!-- Admin Panel -->
+<div id="adminPanel">
+  <nav class="admin-nav">
+    <div class="nav-brand"><i class="fa-solid fa-user-shield"></i> অ্যাডমিন ড্যাশবোর্ড</div>
+    <div class="nav-actions">
+      <button class="nav-btn logout-btn" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> লগআউট</button>
+    </div>
+  </nav>
 
-    <div class="stats-grid">
-      <div class="stat-card glass-card">
-        <div class="stat-icon"><i class="fa-solid fa-list"></i></div>
-        <div class="stat-info">
-          <span class="stat-num" id="statTotal">0</span>
-          <span class="stat-label">মোট অর্ডার</span>
+  <div class="admin-content">
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-icon si-total"><i class="fa-solid fa-list-ul"></i></div><div class="stat-info"><div class="stat-num" id="sTotal">—</div><div class="stat-label">মোট অর্ডার</div></div></div>
+      <div class="stat-card"><div class="stat-icon si-done"><i class="fa-solid fa-circle-check"></i></div><div class="stat-info"><div class="stat-num" id="sDone">—</div><div class="stat-label">সম্পন্ন</div></div></div>
+      <div class="stat-card"><div class="stat-icon si-wait"><i class="fa-solid fa-clock"></i></div><div class="stat-info"><div class="stat-num" id="sPending">—</div><div class="stat-label">অপেক্ষামান</div></div></div>
+      <div class="stat-card"><div class="stat-icon si-rev"><i class="fa-solid fa-bangladeshi-taka-sign"></i></div><div class="stat-info"><div class="stat-num" id="sRevenue">—</div><div class="stat-label">মোট আয় (৳)</div></div></div>
+    </div>
+
+    <!-- Number Settings -->
+    <div class="settings-card">
+      <h2><i class="fa-solid fa-gear"></i> নাম্বার পরিবর্তন করুন</h2>
+      <div class="settings-grid">
+        <div class="num-field">
+          <label><span class="bk-dot"></span> বিকাশ নাম্বার</label>
+          <div class="num-input-row">
+            <input class="num-input" id="bkashNumInput" type="text" placeholder="01712-345678"/>
+            <button class="save-btn save-bkash" onclick="saveNum('bkash')"><i class="fa-solid fa-floppy-disk"></i> সেভ</button>
+          </div>
+          <div class="save-success" id="bkashSaved"><i class="fa-solid fa-check"></i> সেভ হয়েছে!</div>
         </div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-icon completed-icon"><i class="fa-solid fa-circle-check"></i></div>
-        <div class="stat-info">
-          <span class="stat-num" id="statCompleted">0</span>
-          <span class="stat-label">সম্পন্ন</span>
-        </div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-icon pending-icon"><i class="fa-solid fa-clock"></i></div>
-        <div class="stat-info">
-          <span class="stat-num" id="statPending">0</span>
-          <span class="stat-label">অপেক্ষামান</span>
-        </div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-icon revenue-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i></div>
-        <div class="stat-info">
-          <span class="stat-num" id="statRevenue">0</span>
-          <span class="stat-label">মোট আয় (৳)</span>
+        <div class="num-field">
+          <label><span class="ng-dot"></span> নগদ নাম্বার</label>
+          <div class="num-input-row">
+            <input class="num-input" id="nagadNumInput" type="text" placeholder="01812-345678"/>
+            <button class="save-btn save-nagad" onclick="saveNum('nagad')"><i class="fa-solid fa-floppy-disk"></i> সেভ</button>
+          </div>
+          <div class="save-success" id="nagadSaved"><i class="fa-solid fa-check"></i> সেভ হয়েছে!</div>
         </div>
       </div>
     </div>
 
-    <div class="glass-card">
-      <div class="table-header">
-        <h3><i class="fa-solid fa-table-list"></i> অর্ডার তালিকা</h3>
-        <span class="total-badge" id="tableTotalBadge">0 টি অর্ডার</span>
+    <!-- Orders Table -->
+    <div class="orders-card">
+      <div class="table-head">
+        <div style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+          <h2><i class="fa-solid fa-table-list"></i> অর্ডার তালিকা</h2>
+          <span class="total-badge" id="totalBadge">0 টি</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+          <div class="filter-tabs">
+            <button class="ftab active" onclick="setFilter('all',this)">সব</button>
+            <button class="ftab" onclick="setFilter('pending',this)">অপেক্ষামান</button>
+            <button class="ftab" onclick="setFilter('completed',this)">সম্পন্ন</button>
+          </div>
+          <button class="refresh-btn" onclick="loadOrders(currentPage)"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
       </div>
-      <div id="tableLoader" class="text-center" style="padding:2rem">
-        <i class="fa-solid fa-circle-notch fa-spin"></i> লোড হচ্ছে...
-      </div>
-      <div class="table-responsive" id="tableWrapper" style="display:none">
-        <table class="orders-table">
+      <div class="table-wrap">
+        <table>
           <thead>
             <tr>
               <th>অর্ডার আইডি</th>
+              <th>প্রোডাক্ট</th>
               <th>পরিমাণ</th>
-              <th>ইমেইল</th>
               <th>মেথড</th>
               <th>TRX ID</th>
               <th>স্ট্যাটাস</th>
               <th>তারিখ</th>
             </tr>
           </thead>
-          <tbody id="ordersTableBody"></tbody>
+          <tbody id="tableBody"></tbody>
         </table>
-      </div>
-      <div id="emptyState" class="text-center empty-state" style="display:none">
-        <i class="fa-solid fa-inbox"></i>
-        <p>কোনো অর্ডার পাওয়া যায়নি</p>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
   </div>
+</div>
 
-  <script>
-    let adminToken = '';
-    let currentPage = 1;
-    let currentFilter = 'all';
-    let allOrdersCache = [];
+<script>
+  const ADMIN_PASS = 'Sakib@7890';
+  let token = '';
+  let currentFilter = 'all';
+  let currentPage = 1;
+  let allOrders = [];
 
-    async function adminLogin() {
-      const token = document.getElementById('adminToken').value.trim();
-      if (!token) return;
+  function togglePwd() {
+    const inp = document.getElementById('pwdInput');
+    const icon = document.getElementById('eyeIcon');
+    if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fa-solid fa-eye-slash'; }
+    else { inp.type = 'password'; icon.className = 'fa-solid fa-eye'; }
+  }
 
-      try {
-        const res = await fetch('/api/admin/orders?limit=1', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (res.ok) {
-          adminToken = token;
-          document.getElementById('loginScreen').style.display = 'none';
-          document.getElementById('adminPanel').style.display = 'block';
-          loadOrders();
-        } else {
-          document.getElementById('loginError').style.display = 'block';
-        }
-      } catch {
-        document.getElementById('loginError').style.display = 'block';
-      }
-    }
-
-    async function loadOrders(page = 1) {
-      currentPage = page;
-      document.getElementById('tableLoader').style.display = 'block';
-      document.getElementById('tableWrapper').style.display = 'none';
-      document.getElementById('emptyState').style.display = 'none';
-
-      const status = currentFilter !== 'all' ? `&status=${currentFilter}` : '';
-      try {
-        const res = await fetch(`/api/admin/orders?page=${page}&limit=15${status}`, {
-          headers: { 'Authorization': 'Bearer ' + adminToken }
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          allOrdersCache = data.orders;
-          renderTable(data.orders);
-          renderPagination(data.total, data.page, data.limit);
-          document.getElementById('tableTotalBadge').textContent = data.total + ' টি অর্ডার';
-          updateStats(data.orders, data.total);
-        }
-      } catch(e) {
-        console.error(e);
-      }
-    }
-
-    function updateStats(orders, total) {
-      document.getElementById('statTotal').textContent = total;
-      const completed = orders.filter(o => o.status === 'completed').length;
-      const pending = orders.filter(o => o.status === 'pending').length;
-      const revenue = orders.filter(o => o.status === 'completed')
-                            .reduce((s, o) => s + parseFloat(o.amount), 0);
-      document.getElementById('statCompleted').textContent = completed;
-      document.getElementById('statPending').textContent = pending;
-      document.getElementById('statRevenue').textContent = revenue.toFixed(2);
-    }
-
-    function renderTable(orders) {
-      document.getElementById('tableLoader').style.display = 'none';
-      if (orders.length === 0) {
-        document.getElementById('emptyState').style.display = 'block';
-        return;
-      }
-      document.getElementById('tableWrapper').style.display = 'block';
-      const tbody = document.getElementById('ordersTableBody');
-      tbody.innerHTML = orders.map(o => {
-        const date = new Date(o.created_at).toLocaleString('bn-BD');
-        const statusBadge = o.status === 'completed'
-          ? '<span class="badge badge-success">✅ সম্পন্ন</span>'
-          : '<span class="badge badge-pending">⏳ অপেক্ষামান</span>';
-        const method = o.payment_method === 'bkash'
-          ? '<span class="method-badge bkash-badge">bKash</span>'
-          : '<span class="method-badge nagad-badge">Nagad</span>';
-        return `<tr class="table-row-animate">
-          <td><strong>${o.order_id}</strong></td>
-          <td>৳${parseFloat(o.amount).toFixed(2)}</td>
-          <td class="email-cell">${o.customer_email}</td>
-          <td>${method}</td>
-          <td class="trx-cell">${o.trx_id || '---'}</td>
-          <td>${statusBadge}</td>
-          <td class="date-cell">${date}</td>
-        </tr>`;
-      }).join('');
-    }
-
-    function renderPagination(total, page, limit) {
-      const pages = Math.ceil(total / limit);
-      const el = document.getElementById('pagination');
-      if (pages <= 1) { el.innerHTML = ''; return; }
-      let html = '';
-      for (let i = 1; i <= pages; i++) {
-        html += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="loadOrders(${i})">${i}</button>`;
-      }
-      el.innerHTML = html;
-    }
-
-    function filterOrders(filter, btn) {
-      currentFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      loadOrders(1);
-    }
-
-    function logout() {
-      adminToken = '';
-      document.getElementById('adminPanel').style.display = 'none';
-      document.getElementById('loginScreen').style.display = 'block';
-      document.getElementById('adminToken').value = '';
-    }
-
-    document.getElementById('adminToken').addEventListener('keypress', e => {
-      if (e.key === 'Enter') adminLogin();
+  async function doLogin() {
+    const pwd = document.getElementById('pwdInput').value;
+    if (!pwd) return;
+    const res = await fetch('/api/admin/orders?limit=1', {
+      headers: { 'Authorization': 'Bearer ' + pwd }
     });
-  </script>
-  <script src="/js/main.js"></script>
+    if (res.ok) {
+      token = pwd;
+      document.getElementById('loginWrap').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadConfig();
+      loadOrders(1);
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  function doLogout() {
+    token = '';
+    document.getElementById('adminPanel').style.display = 'none';
+    document.getElementById('loginWrap').style.display = 'flex';
+    document.getElementById('pwdInput').value = '';
+    document.getElementById('loginError').style.display = 'none';
+  }
+
+  document.getElementById('pwdInput').addEventListener('keypress', e => { if (e.key === 'Enter') doLogin(); });
+
+  async function loadConfig() {
+    try {
+      const r = await fetch('/api/config');
+      const d = await r.json();
+      if (d.bkash) document.getElementById('bkashNumInput').value = d.bkash;
+      if (d.nagad) document.getElementById('nagadNumInput').value = d.nagad;
+    } catch {}
+  }
+
+  async function saveNum(which) {
+    const val = document.getElementById(which === 'bkash' ? 'bkashNumInput' : 'nagadNumInput').value.trim();
+    if (!val) return;
+    const body = which === 'bkash' ? { bkash_number: val } : { nagad_number: val };
+    try {
+      const r = await fetch('/api/admin/update-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify(body)
+      });
+      const d = await r.json();
+      if (d.success) {
+        const el = document.getElementById(which + 'Saved');
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      }
+    } catch {}
+  }
+
+  async function loadOrders(page = 1) {
+    currentPage = page;
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '<tr><td colspan="7" class="loader-row"><i class="fa-solid fa-circle-notch spin"></i> লোড হচ্ছে...</td></tr>';
+
+    const status = currentFilter !== 'all' ? `&status=${currentFilter}` : '';
+    try {
+      const r = await fetch(`/api/admin/orders?page=${page}&limit=15${status}`, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const d = await r.json();
+      if (d.success) {
+        allOrders = d.orders;
+        renderTable(d.orders);
+        renderPagination(d.total, page, d.limit);
+        document.getElementById('totalBadge').textContent = d.total + ' টি';
+        updateStats(d.orders, d.total);
+      }
+    } catch { tbody.innerHTML = '<tr><td colspan="7" class="loader-row">লোড ব্যর্থ হয়েছে</td></tr>'; }
+  }
+
+  function updateStats(orders, total) {
+    document.getElementById('sTotal').textContent = total;
+    const done = orders.filter(o => o.status === 'completed').length;
+    const pend = orders.filter(o => o.status === 'pending').length;
+    const rev = orders.filter(o => o.status === 'completed').reduce((s, o) => s + parseFloat(o.amount), 0);
+    document.getElementById('sDone').textContent = done;
+    document.getElementById('sPending').textContent = pend;
+    document.getElementById('sRevenue').textContent = rev.toFixed(2);
+  }
+
+  function renderTable(orders) {
+    const tbody = document.getElementById('tableBody');
+    if (!orders.length) {
+      tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-inbox"></i><p>কোনো অর্ডার পাওয়া যায়নি</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = orders.map(o => {
+      const date = new Date(o.created_at).toLocaleDateString('bn-BD', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      const status = o.status === 'completed'
+        ? '<span class="badge badge-done">✅ সম্পন্ন</span>'
+        : '<span class="badge badge-pending">⏳ অপেক্ষামান</span>';
+      const method = o.payment_method === 'bkash'
+        ? '<span class="method-pill pill-bk">bKash</span>'
+        : '<span class="method-pill pill-ng">Nagad</span>';
+      return `<tr class="anim">
+        <td><strong>${o.order_id}</strong></td>
+        <td>${o.product_name || '—'}</td>
+        <td><strong>৳${parseFloat(o.amount).toFixed(2)}</strong></td>
+        <td>${method}</td>
+        <td class="trx-mono">${o.matched_trx_id || o.submitted_trx_id || '—'}</td>
+        <td>${status}</td>
+        <td style="font-size:0.78rem;color:#999">${date}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderPagination(total, page, limit) {
+    const pages = Math.ceil(total / limit);
+    const el = document.getElementById('pagination');
+    if (pages <= 1) { el.innerHTML = ''; return; }
+    let html = '';
+    for (let i = 1; i <= pages; i++) {
+      html += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="loadOrders(${i})">${i}</button>`;
+    }
+    el.innerHTML = html;
+  }
+
+  function setFilter(f, btn) {
+    currentFilter = f;
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadOrders(1);
+  }
+</script>
 </body>
 </html>

@@ -1,189 +1,180 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>পেমেন্ট গেটওয়ে | Payment Gateway</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>পেমেন্ট মাধ্যম নির্বাচন করুন</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Hind Siliguri','Segoe UI',sans-serif;
+      min-height:100vh;
+      background:linear-gradient(160deg,#fff0f5 0%,#ffe4ee 40%,#ffd6e8 70%,#ffe4f0 100%);
+      display:flex;flex-direction:column;align-items:center;
+      padding:0 0 2rem;
+    }
+    .top-bar{
+      width:100%;background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(10px);
+      padding:0.8rem 1.5rem;display:flex;align-items:center;gap:0.5rem;
+      border-bottom:1px solid rgba(226,19,110,0.1);
+    }
+    .top-bar .back-btn{
+      width:36px;height:36px;border-radius:50%;
+      background:rgba(226,19,110,0.1);border:none;
+      color:#e2136e;cursor:pointer;font-size:1rem;
+      display:flex;align-items:center;justify-content:center;
+      transition:all 0.2s ease;
+    }
+    .top-bar .back-btn:hover{background:rgba(226,19,110,0.2);}
+    .container{
+      max-width:480px;width:100%;padding:0 1.2rem;
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .hero{
+      text-align:center;padding:2.5rem 0 2rem;
+    }
+    .hero-img{
+      width:120px;height:120px;margin:0 auto 1.5rem;position:relative;
+    }
+    .hero-img .wallet-icon{
+      width:120px;height:120px;
+      background:linear-gradient(135deg,#ffb3d1,#ff80b3);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:3rem;color:white;
+      box-shadow:0 10px 40px rgba(226,19,110,0.25);
+      position:relative;
+    }
+    .hero-img .wallet-icon::after{
+      content:'🔒';
+      position:absolute;bottom:-5px;right:-5px;
+      width:36px;height:36px;background:white;
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;
+      box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
+    .floating-dot{
+      position:absolute;width:10px;height:10px;border-radius:50%;
+      background:rgba(226,19,110,0.3);animation:float 3s ease-in-out infinite;
+    }
+    .d1{top:10px;right:20px;animation-delay:0s;}
+    .d2{top:30px;left:10px;width:6px;height:6px;animation-delay:1s;}
+    .d3{bottom:20px;right:10px;width:8px;height:8px;animation-delay:2s;}
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+    h1{font-size:1.6rem;font-weight:700;color:#2d2d2d;margin-bottom:0.5rem;}
+    .subtitle{font-size:0.95rem;color:#888;font-weight:400;}
+    .methods{width:100%;display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+    .method-card{
+      background:white;border-radius:16px;padding:1.2rem 1.4rem;
+      display:flex;align-items:center;gap:1rem;
+      box-shadow:0 4px 20px rgba(0,0,0,0.06);
+      cursor:pointer;transition:all 0.25s ease;
+      border:2px solid transparent;text-decoration:none;
+    }
+    .method-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 30px rgba(0,0,0,0.1);
+    }
+    .method-card.bkash:hover{border-color:rgba(226,19,110,0.3);}
+    .method-card.nagad:hover{border-color:rgba(241,91,37,0.3);}
+    .method-logo-box{
+      width:70px;height:70px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:#fdf0f5;flex-shrink:0;overflow:hidden;
+      padding:6px;
+    }
+    .method-logo-box img{width:100%;height:100%;object-fit:contain;}
+    .method-info{flex:1;}
+    .method-name{font-size:1.15rem;font-weight:700;color:#1a1a1a;margin-bottom:0.2rem;}
+    .method-desc{font-size:0.82rem;color:#999;line-height:1.5;}
+    .method-arrow{
+      width:38px;height:38px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1rem;flex-shrink:0;color:white;
+      transition:transform 0.2s ease;
+    }
+    .method-card:hover .method-arrow{transform:translateX(3px);}
+    .bkash .method-arrow{background:#e2136e;}
+    .nagad .method-arrow{background:#f15b25;}
+    .nagad .method-logo-box{background:#fff5f0;}
+    .security-note{
+      display:flex;align-items:center;gap:0.8rem;
+      padding:1.2rem 1.5rem;
+      background:white;border-radius:14px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.05);
+      width:100%;
+    }
+    .security-note .shield-icon{
+      width:44px;height:44px;border-radius:12px;
+      background:linear-gradient(135deg,#e2136e,#ff6b9d);
+      display:flex;align-items:center;justify-content:center;
+      color:white;font-size:1.2rem;flex-shrink:0;
+    }
+    .security-note p{font-size:0.85rem;color:#666;line-height:1.5;}
+    .security-note strong{color:#333;font-weight:600;}
+    .page-anim{animation:pageIn 0.5s ease forwards;}
+    @keyframes pageIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  </style>
 </head>
 <body>
-  <div class="bg-animation">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+  <div class="top-bar">
+    <button class="back-btn" onclick="history.back()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
   </div>
 
-  <main class="container fade-in">
-    <div class="glass-card main-card">
-      <div class="brand">
-        <div class="brand-icon">
-          <i class="fa-solid fa-shield-halved"></i>
-        </div>
-        <h1>পেমেন্ট গেটওয়ে</h1>
-        <p class="subtitle">নিরাপদ ও দ্রুত পেমেন্ট সমাধান</p>
+  <div class="container page-anim">
+    <div class="hero">
+      <div class="hero-img">
+        <div class="wallet-icon">👜</div>
+        <div class="floating-dot d1"></div>
+        <div class="floating-dot d2"></div>
+        <div class="floating-dot d3"></div>
       </div>
-
-      <div class="method-selector">
-        <p class="method-label">পেমেন্ট মেথড নির্বাচন করুন</p>
-        <div class="method-cards">
-          <div class="method-card active" data-method="bkash" onclick="selectMethod('bkash')">
-            <div class="method-logo">
-              <img src="/bkash-logo.svg" alt="bKash" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-              <div class="logo-fallback bkash-fallback" style="display:none">bKash</div>
-            </div>
-            <span>বিকাশ</span>
-          </div>
-          <div class="method-card" data-method="nagad" onclick="selectMethod('nagad')">
-            <div class="method-logo">
-              <img src="/nagad-logo.svg" alt="Nagad" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-              <div class="logo-fallback nagad-fallback" style="display:none">Nagad</div>
-            </div>
-            <span>নগদ</span>
-          </div>
-        </div>
-      </div>
-
-      <form id="paymentForm" class="payment-form" onsubmit="initiatePayment(event)">
-        <div class="input-group">
-          <label for="amount">
-            <i class="fa-solid fa-bangladeshi-taka-sign"></i>
-            পেমেন্টের পরিমাণ (টাকা)
-          </label>
-          <div class="input-wrapper">
-            <span class="input-prefix">৳</span>
-            <input type="number" id="amount" name="amount" placeholder="0.00" min="1" step="0.01" required />
-          </div>
-        </div>
-
-        <div class="input-group">
-          <label for="email">
-            <i class="fa-solid fa-envelope"></i>
-            ইমেইল ঠিকানা
-          </label>
-          <div class="input-wrapper">
-            <span class="input-icon"><i class="fa-solid fa-at"></i></span>
-            <input type="email" id="email" name="email" placeholder="example@email.com" required />
-          </div>
-        </div>
-
-        <button type="submit" class="pay-btn" id="payBtn">
-          <span class="btn-content">
-            <i class="fa-solid fa-lock"></i>
-            পেমেন্ট করুন
-          </span>
-          <span class="btn-loader" style="display:none">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-            প্রসেস হচ্ছে...
-          </span>
-        </button>
-      </form>
-
-      <div id="errorMsg" class="alert alert-error" style="display:none"></div>
-
-      <div class="security-badges">
-        <span><i class="fa-solid fa-lock"></i> SSL Secured</span>
-        <span><i class="fa-solid fa-shield-halved"></i> Protected</span>
-        <span><i class="fa-solid fa-circle-check"></i> Verified</span>
-      </div>
+      <h1>পেমেন্ট মাধ্যম নির্বাচন করুন</h1>
+      <p class="subtitle">সহজ, দ্রুত ও নিরাপদ পেমেন্টের জন্য</p>
     </div>
 
-    <div class="order-lookup glass-card">
-      <h3><i class="fa-solid fa-magnifying-glass"></i> অর্ডার স্ট্যাটাস চেক</h3>
-      <div class="input-group">
-        <div class="input-wrapper">
-          <span class="input-icon"><i class="fa-solid fa-receipt"></i></span>
-          <input type="text" id="lookupOrderId" placeholder="অর্ডার আইডি (ORD-XXXXXX-XXXX)" />
+    <div class="methods">
+      <a class="method-card bkash" id="bkashLink" href="#">
+        <div class="method-logo-box">
+          <img src="/bkash-logo.svg" alt="bKash"/>
         </div>
-      </div>
-      <button class="lookup-btn" onclick="lookupOrder()">
-        <i class="fa-solid fa-search"></i> স্ট্যাটাস দেখুন
-      </button>
-      <div id="lookupResult" class="lookup-result" style="display:none"></div>
+        <div class="method-info">
+          <div class="method-name">বিকাশ</div>
+          <div class="method-desc">দ্রুত ও নিরাপদ<br>পেমেন্ট করুন বিকাশের মাধ্যমে</div>
+        </div>
+        <div class="method-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      </a>
+
+      <a class="method-card nagad" id="nagadLink" href="#">
+        <div class="method-logo-box">
+          <img src="/nagad-logo.svg" alt="Nagad"/>
+        </div>
+        <div class="method-info">
+          <div class="method-name">নগদ</div>
+          <div class="method-desc">দ্রুত ও নিরাপদ<br>পেমেন্ট করুন নগদের মাধ্যমে</div>
+        </div>
+        <div class="method-arrow nagad"><i class="fa-solid fa-chevron-right"></i></div>
+      </a>
     </div>
-  </main>
+
+    <div class="security-note">
+      <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <p><strong>আপনার পেমেন্ট সম্পূর্ণ নিরাপদ</strong><br>আমরা আপনার তথ্যের নিরাপত্তা নিশ্চিত করি।</p>
+    </div>
+  </div>
 
   <script>
-    let selectedMethod = 'bkash';
-
-    function selectMethod(method) {
-      selectedMethod = method;
-      document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
-      document.querySelector(`[data-method="${method}"]`).classList.add('active');
-    }
-
-    async function initiatePayment(e) {
-      e.preventDefault();
-      const amount = document.getElementById('amount').value;
-      const email = document.getElementById('email').value;
-      const btn = document.getElementById('payBtn');
-      const errEl = document.getElementById('errorMsg');
-
-      errEl.style.display = 'none';
-      btn.querySelector('.btn-content').style.display = 'none';
-      btn.querySelector('.btn-loader').style.display = 'flex';
-      btn.disabled = true;
-
-      try {
-        const res = await fetch('/api/initiate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount, email, payment_method: selectedMethod })
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          window.location.href = `/payment?order_id=${data.order_id}`;
-        } else {
-          showError(data.message);
-        }
-      } catch (err) {
-        showError('সংযোগ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-      } finally {
-        btn.querySelector('.btn-content').style.display = 'flex';
-        btn.querySelector('.btn-loader').style.display = 'none';
-        btn.disabled = false;
-      }
-    }
-
-    function showError(msg) {
-      const el = document.getElementById('errorMsg');
-      el.textContent = msg;
-      el.style.display = 'block';
-    }
-
-    async function lookupOrder() {
-      const orderId = document.getElementById('lookupOrderId').value.trim();
-      const result = document.getElementById('lookupResult');
-      if (!orderId) return;
-
-      result.style.display = 'block';
-      result.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> লোড হচ্ছে...';
-
-      try {
-        const res = await fetch(`/api/order-status?order_id=${orderId}`);
-        const data = await res.json();
-
-        if (data.success) {
-          const o = data.order;
-          const statusClass = o.status === 'completed' ? 'status-completed' : 'status-pending';
-          const statusText = o.status === 'completed' ? '✅ সম্পন্ন' : '⏳ অপেক্ষামান';
-          result.innerHTML = `
-            <div class="lookup-detail">
-              <div class="lookup-row"><span>অর্ডার আইডি:</span><strong>${o.order_id}</strong></div>
-              <div class="lookup-row"><span>পরিমাণ:</span><strong>৳${parseFloat(o.amount).toFixed(2)}</strong></div>
-              <div class="lookup-row"><span>মেথড:</span><strong>${o.payment_method === 'bkash' ? 'বিকাশ' : 'নগদ'}</strong></div>
-              <div class="lookup-row"><span>স্ট্যাটাস:</span><strong class="${statusClass}">${statusText}</strong></div>
-              ${o.trx_id ? `<div class="lookup-row"><span>TRX ID:</span><strong>${o.trx_id}</strong></div>` : ''}
-            </div>`;
-        } else {
-          result.innerHTML = `<span class="error-text">❌ ${data.message}</span>`;
-        }
-      } catch {
-        result.innerHTML = `<span class="error-text">❌ সংযোগ ব্যর্থ হয়েছে</span>`;
-      }
-    }
+    const p = new URLSearchParams(window.location.search);
+    const orderId = p.get('order_id') || '';
+    const product = p.get('product') || 'My Product';
+    const amount = p.get('amount') || '0';
+    const qs = `order_id=${orderId}&product=${encodeURIComponent(product)}&amount=${amount}`;
+    document.getElementById('bkashLink').href = `/bkash?${qs}`;
+    document.getElementById('nagadLink').href = `/nagad?${qs}`;
   </script>
-  <script src="/js/main.js"></script>
 </body>
 </html>

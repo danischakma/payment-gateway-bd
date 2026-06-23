@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>পেমেন্ট সম্পন্ন হয়েছে</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Hind Siliguri','Segoe UI',sans-serif;
+      min-height:100vh;
+      background:linear-gradient(160deg,#fff0f5 0%,#ffe4ee 50%,#ffd6e8 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:2rem 1rem;position:relative;overflow:hidden;
+    }
+    body.nagad{background:linear-gradient(160deg,#fff5f0 0%,#ffe4d6 50%,#ffd0b8 100%);}
+    .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:0;}
+    .confetti-piece{
+      position:absolute;top:-10px;
+      animation:confettiFall linear forwards;
+    }
+    @keyframes confettiFall{
+      0%{transform:translateY(-10px) rotate(0deg);opacity:1;}
+      100%{transform:translateY(110vh) rotate(720deg);opacity:0;}
+    }
+    .card{
+      position:relative;z-index:1;
+      background:white;border-radius:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.12);
+      padding:2.5rem 2rem;width:100%;max-width:420px;
+      text-align:center;
+    }
+    .success-icon{
+      width:90px;height:90px;border-radius:50%;
+      background:linear-gradient(135deg,#e2136e,#ff6b9d);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.5rem;font-size:2.5rem;color:white;
+      animation:popIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+      box-shadow:0 10px 30px rgba(226,19,110,0.35);
+    }
+    .success-icon.nagad-icon{background:linear-gradient(135deg,#f15b25,#ff8c5a);box-shadow:0 10px 30px rgba(241,91,37,0.35);}
+    @keyframes popIn{from{transform:scale(0) rotate(-10deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+    h1{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin-bottom:0.5rem;}
+    .sub{font-size:0.9rem;color:#888;margin-bottom:1.8rem;line-height:1.6;}
+    .detail-box{
+      background:#f8f8f8;border-radius:14px;padding:1.2rem;
+      text-align:left;margin-bottom:1.8rem;
+    }
+    .detail-row{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0.5rem 0;border-bottom:1px solid #f0f0f0;font-size:0.88rem;
+    }
+    .detail-row:last-child{border-bottom:none;}
+    .detail-row span{color:#888;}
+    .detail-row strong{color:#333;font-weight:600;}
+    .status-badge{
+      display:inline-flex;align-items:center;gap:0.4rem;
+      background:#e8f8f0;color:#27ae60;
+      padding:0.3rem 0.8rem;border-radius:20px;font-weight:700;font-size:0.85rem;
+    }
+    .home-btn{
+      display:flex;align-items:center;justify-content:center;gap:0.5rem;
+      width:100%;padding:1rem;border:none;border-radius:12px;
+      background:linear-gradient(135deg,#e2136e,#c00f5c);color:white;
+      font-family:'Hind Siliguri',sans-serif;font-size:1rem;font-weight:700;
+      cursor:pointer;text-decoration:none;transition:all 0.3s ease;
+      box-shadow:0 4px 15px rgba(226,19,110,0.35);
+    }
+    .home-btn.nagad-btn{background:linear-gradient(135deg,#f15b25,#d44a15);box-shadow:0 4px 15px rgba(241,91,37,0.35);}
+    .home-btn:hover{transform:translateY(-1px);box-shadow:0 8px 25px rgba(226,19,110,0.5);}
+    .bottom-ssl{
+      margin-top:1.5rem;display:flex;align-items:center;gap:0.4rem;
+      font-size:0.78rem;color:#aaa;
+    }
+    .bottom-ssl i{color:#4caf50;}
+  </style>
+</head>
+<body id="pageBody">
+  <div class="confetti-container" id="confettiCanvas"></div>
+
+  <div class="card">
+    <div class="success-icon" id="successIcon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <h1>পেমেন্ট সম্পন্ন হয়েছে! 🎉</h1>
+    <p class="sub">আপনার পেমেন্ট সফলভাবে যাচাই করা হয়েছে।<br>ধন্যবাদ আপনার পেমেন্টের জন্য।</p>
+
+    <div class="detail-box" id="detailBox">
+      <div class="detail-row"><span>অর্ডার আইডি</span><strong id="dOrderId">---</strong></div>
+      <div class="detail-row"><span>পরিমাণ</span><strong id="dAmount">---</strong></div>
+      <div class="detail-row"><span>মেথড</span><strong id="dMethod">---</strong></div>
+      <div class="detail-row"><span>স্ট্যাটাস</span><span class="status-badge"><i class="fa-solid fa-check"></i> সম্পন্ন</span></div>
+    </div>
+
+    <a href="/" class="home-btn" id="homeBtn">
+      <i class="fa-solid fa-house"></i> হোমে ফিরুন
+    </a>
+    <div class="bottom-ssl"><i class="fa-solid fa-lock"></i> SSL Secured &nbsp;|&nbsp; Powered by <strong>My Gateway</strong></div>
+  </div>
+
+  <script>
+    const p = new URLSearchParams(window.location.search);
+    const orderId = p.get('order_id') || '';
+    const method = p.get('method') || 'bkash';
+
+    if (method === 'nagad') {
+      document.getElementById('pageBody').classList.add('nagad');
+      document.getElementById('successIcon').classList.add('nagad-icon');
+      document.getElementById('homeBtn').classList.add('nagad-btn');
+    }
+
+    document.getElementById('dOrderId').textContent = orderId;
+    document.getElementById('dMethod').textContent = method === 'bkash' ? 'বিকাশ' : 'নগদ';
+
+    async function loadOrder() {
+      if (!orderId) return;
+      try {
+        const r = await fetch(`/api/order-status?order_id=${orderId}`);
+        const d = await r.json();
+        if (d.success) {
+          document.getElementById('dAmount').textContent = '৳ ' + parseFloat(d.order.amount).toFixed(2);
+        }
+      } catch {}
+    }
+
+    function launchConfetti() {
+      const container = document.getElementById('confettiCanvas');
+      const colors = ['#e2136e','#f15b25','#ffd700','#00d2d3','#ff9f43','#1dd1a1','#a29bfe'];
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*2}s;animation-duration:${3+Math.random()*2}s;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};`;
+        container.appendChild(piece);
+      }
+      setTimeout(() => { container.innerHTML = ''; }, 6000);
+    }
+
+    loadOrder();
+    launchConfetti();
+  </script>
+</body>
+</html>

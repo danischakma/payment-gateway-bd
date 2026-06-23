@@ -22,17 +22,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', apiRoutes);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/payment', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'payment.html'));
-});
-
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/bkash', (req, res) => res.sendFile(path.join(__dirname, 'public', 'bkash.html')));
+app.get('/nagad', (req, res) => res.sendFile(path.join(__dirname, 'public', 'nagad.html')));
+app.get('/success', (req, res) => res.sendFile(path.join(__dirname, 'public', 'success.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/payment', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 app.get('/embed.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
@@ -47,9 +42,8 @@ app.use((err, req, res, next) => {
 initDB().then(() => {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Payment Gateway running on port ${PORT}`);
-    console.log(`Base URL: ${process.env.BASE_URL || 'http://localhost:' + PORT}`);
   });
 }).catch(err => {
-  console.error('Failed to initialize database:', err);
-  process.exit(1);
+  console.error('DB init failed:', err.message);
+  app.listen(PORT, '0.0.0.0', () => console.log(`Running without DB on port ${PORT}`));
 });

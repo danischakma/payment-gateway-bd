@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="bKash">
-  <defs>
-    <linearGradient id="bkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#e2136e;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#a50050;stop-opacity:1"/>
-    </linearGradient>
-  </defs>
-  <rect width="200" height="80" rx="12" fill="url(#bkGrad)"/>
-  <circle cx="36" cy="40" r="22" fill="rgba(255,255,255,0.15)"/>
-  <text x="36" y="47" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="900" fill="white">b</text>
-  <text x="108" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="white">bKash</text>
-  <text x="108" y="56" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="400" fill="rgba(255,255,255,0.85)" letter-spacing="1">Mobile Banking</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" height="800" width="1200" viewBox="-18.0015 -28.3525 156.013 170.115"><g fill="none"><path fill="#D12053" d="M96.58 62.45l-53.03-8.31 7.03 31.6z"/><path fill="#E2136E" d="M96.58 62.45L56.62 6.93 43.56 54.15z"/><path fill="#D12053" d="M42.32 53.51L.45 0l54.83 6.55z"/><path fill="#9E1638" d="M23.25 31.15L0 9.24h6.12z"/><path fill="#D12053" d="M107.89 35.46l-9.84 26.69L82.1 40.09z"/><path fill="#E2136E" d="M56.77 84.14l38.61-15.51L97 63.7z"/><path fill="#9E1638" d="M25.89 113.41l16.54-58.02 8.39 37.75z"/><path fill="#E2136E" d="M109.43 35.67l-4.06 11.02 14.64-.24z"/></g></svg>
