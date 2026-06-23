@@ -43,45 +43,54 @@ router.post('/initiate', async (req, res) => {
 });
 
 router.post('/submit-trx', async (req, res) => {
-  const { order_id, trx_id } = req.body;
-  if (!order_id || !trx_id) return res.status(400).json({ success: false, message: 'order_id and trx_id required' });
+  const { trx_id, amount, order_id } = req.body;
+  if (!trx_id) return res.status(400).json({ success: false, message: 'trx_id required' });
+
+  const trxUpper = trx_id.trim().toUpperCase();
+  const expectedAmount = amount ? parseFloat(amount) : null;
 
   try {
     const pool = getPool();
-    const orderRes = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
-    if (!orderRes.rows.length) return res.status(404).json({ success: false, message: 'Order not found' });
-    const order = orderRes.rows[0];
-    if (order.status === 'completed') return res.json({ success: true, status: 'completed', message: 'Already verified' });
 
-    await pool.query(
-      `UPDATE orders SET submitted_trx_id = $1, updated_at = NOW() WHERE order_id = $2`,
-      [trx_id.trim().toUpperCase(), order_id]
-    );
+    if (order_id) {
+      await pool.query(
+        `UPDATE orders SET submitted_trx_id = $1, updated_at = NOW() WHERE order_id = $2`,
+        [trxUpper, order_id]
+      );
+    }
 
     const smsRes = await pool.query(
       `SELECT * FROM sms_log WHERE UPPER(extracted_trx_id) = $1 ORDER BY received_at DESC LIMIT 1`,
-      [trx_id.trim().toUpperCase()]
+      [trxUpper]
     );
 
     if (smsRes.rows.length > 0) {
       const sms = smsRes.rows[0];
-      const orderAmount = parseFloat(order.amount);
       const smsAmount = sms.extracted_amount ? parseFloat(sms.extracted_amount) : null;
 
-      if (smsAmount !== null && Math.abs(smsAmount - orderAmount) > 0.01) {
-        await pool.query(
-          `UPDATE orders SET sms_data = $1, status = 'amount_mismatch', updated_at = NOW() WHERE order_id = $2`,
-          [sms.raw_message, order_id]
-        );
-        return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। প্রয়োজন ৳${orderAmount}, SMS-এ পাওয়া গেছে ৳${smsAmount}` });
+      if (expectedAmount !== null && smsAmount !== null && Math.abs(smsAmount - expectedAmount) > 0.01) {
+        if (order_id) {
+          await pool.query(
+            `UPDATE orders SET sms_data = $1, status = 'amount_mismatch', updated_at = NOW() WHERE order_id = $2`,
+            [sms.raw_message, order_id]
+          );
+        }
+        return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। প্রয়োজন ৳${expectedAmount}, SMS-এ পাওয়া গেছে ৳${smsAmount}` });
       }
 
-      await pool.query(
-        `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
-        [sms.extracted_trx_id, sms.raw_message, order_id]
-      );
-      notifyCallback(order.callback_url, order_id, 'completed');
-      return res.json({ success: true, status: 'completed' });
+      if (order_id) {
+        const orderRes = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
+        if (orderRes.rows.length > 0) {
+          const order = orderRes.rows[0];
+          await pool.query(
+            `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
+            [sms.extracted_trx_id, sms.raw_message, order_id]
+          );
+          notifyCallback(order.callback_url, order_id, 'completed');
+        }
+      }
+
+      return res.json({ success: true, status: 'completed', extracted_amount: smsAmount });
     }
 
     res.json({ success: true, status: 'pending', message: 'Waiting for SMS confirmation' });
@@ -92,45 +101,52 @@ router.post('/submit-trx', async (req, res) => {
 });
 
 router.get('/poll-verification', async (req, res) => {
-  const { order_id } = req.query;
-  if (!order_id) return res.status(400).json({ success: false, message: 'order_id required' });
+  const { trx_id, amount, order_id } = req.query;
+  if (!trx_id && !order_id) return res.status(400).json({ success: false, message: 'trx_id required' });
+
   try {
     const pool = getPool();
-    const orderRes = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
-    if (!orderRes.rows.length) return res.status(404).json({ success: false, message: 'Order not found' });
-    const order = orderRes.rows[0];
 
-    if (order.status === 'completed') return res.json({ success: true, status: 'completed' });
-    if (order.status === 'amount_mismatch') {
-      return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। অর্ডার পরিমাণ: ৳${order.amount}` });
+    if (order_id && !trx_id) {
+      const orderRes = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
+      if (!orderRes.rows.length) return res.status(404).json({ success: false, message: 'Order not found' });
+      const order = orderRes.rows[0];
+      if (order.status === 'completed') return res.json({ success: true, status: 'completed' });
+      if (order.status === 'amount_mismatch') return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। অর্ডার পরিমাণ: ৳${order.amount}` });
+      return res.json({ success: true, status: 'pending' });
     }
 
-    if (order.submitted_trx_id) {
-      const smsRes = await pool.query(
-        `SELECT * FROM sms_log WHERE UPPER(extracted_trx_id) = $1 ORDER BY received_at DESC LIMIT 1`,
-        [order.submitted_trx_id.toUpperCase()]
-      );
-      if (smsRes.rows.length > 0) {
-        const sms = smsRes.rows[0];
-        const orderAmount = parseFloat(order.amount);
-        const smsAmount = sms.extracted_amount ? parseFloat(sms.extracted_amount) : null;
+    const trxUpper = trx_id.trim().toUpperCase();
+    const expectedAmount = amount ? parseFloat(amount) : null;
 
-        if (smsAmount !== null && Math.abs(smsAmount - orderAmount) > 0.01) {
-          await pool.query(
-            `UPDATE orders SET sms_data = $1, status = 'amount_mismatch', updated_at = NOW() WHERE order_id = $2`,
-            [sms.raw_message, order_id]
-          );
-          return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। প্রয়োজন ৳${orderAmount}, SMS-এ পাওয়া গেছে ৳${smsAmount}` });
-        }
+    const smsRes = await pool.query(
+      `SELECT * FROM sms_log WHERE UPPER(extracted_trx_id) = $1 ORDER BY received_at DESC LIMIT 1`,
+      [trxUpper]
+    );
 
-        await pool.query(
-          `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
-          [sms.extracted_trx_id, sms.raw_message, order_id]
-        );
-        notifyCallback(order.callback_url, order_id, 'completed');
-        return res.json({ success: true, status: 'completed' });
+    if (smsRes.rows.length > 0) {
+      const sms = smsRes.rows[0];
+      const smsAmount = sms.extracted_amount ? parseFloat(sms.extracted_amount) : null;
+
+      if (expectedAmount !== null && smsAmount !== null && Math.abs(smsAmount - expectedAmount) > 0.01) {
+        return res.json({ success: false, status: 'amount_mismatch', message: `পেমেন্টের পরিমাণ মিলছে না। প্রয়োজন ৳${expectedAmount}, SMS-এ পাওয়া গেছে ৳${smsAmount}` });
       }
+
+      if (order_id) {
+        const orderRes = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
+        if (orderRes.rows.length > 0) {
+          const order = orderRes.rows[0];
+          await pool.query(
+            `UPDATE orders SET matched_trx_id = $1, status = 'completed', sms_data = $2, updated_at = NOW() WHERE order_id = $3`,
+            [sms.extracted_trx_id, sms.raw_message, order_id]
+          );
+          notifyCallback(order.callback_url, order_id, 'completed');
+        }
+      }
+
+      return res.json({ success: true, status: 'completed', extracted_amount: smsAmount });
     }
+
     res.json({ success: true, status: 'pending' });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
