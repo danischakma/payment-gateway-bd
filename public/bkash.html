@@ -345,31 +345,34 @@
   async function verify() {
     const trx = document.getElementById('trxInput').value.trim().toUpperCase();
     if (!trx) { showErr('ট্রানজেকশন আইডি লিখুন'); return; }
-    if (!orderId) { showErr('অর্ডার আইডি পাওয়া যায়নি'); return; }
     if (trx.length < 6) { showErr('সঠিক TRX ID লিখুন'); return; }
     hideErr();
     document.getElementById('overlay').classList.add('on');
     document.getElementById('verifyBtn').disabled = true;
     startTimer();
     try {
+      const body = { trx_id: trx, amount: amount };
+      if (orderId) body.order_id = orderId;
       const d = await (await fetch('/api/submit-trx', {
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ order_id: orderId, trx_id: trx })
+        body: JSON.stringify(body)
       })).json();
-      if (d.success && d.status === 'completed') goSuccess();
+      if (d.success && d.status === 'completed') goSuccess(trx);
       else if (d.status === 'amount_mismatch') { hideLoad(); showErr(d.message || 'পেমেন্টের পরিমাণ মিলছে না।'); }
-      else if (d.success && d.status === 'pending') poll();
+      else if (d.success && d.status === 'pending') poll(trx);
       else { hideLoad(); showErr(d.message || 'যাচাই ব্যর্থ'); }
     } catch { hideLoad(); showErr('সংযোগ ব্যর্থ। আবার চেষ্টা করুন।'); }
   }
 
-  function poll() {
+  function poll(trx) {
     let attempts = 0;
     pollId = setInterval(async () => {
       if (++attempts > 40) { clearInterval(pollId); hideLoad(); showErr('নির্দিষ্ট সময়ে যাচাই সম্ভব হয়নি।'); return; }
       try {
-        const d = await (await fetch(`/api/poll-verification?order_id=${orderId}`)).json();
-        if (d.success && d.status === 'completed') { clearInterval(pollId); goSuccess(); }
+        const params = new URLSearchParams({ trx_id: trx, amount: amount });
+        if (orderId) params.set('order_id', orderId);
+        const d = await (await fetch(`/api/poll-verification?${params}`)).json();
+        if (d.success && d.status === 'completed') { clearInterval(pollId); goSuccess(trx); }
         else if (d.status === 'amount_mismatch') { clearInterval(pollId); hideLoad(); showErr(d.message || 'পরিমাণ মিলছে না।'); }
       } catch {}
     }, 3000);
@@ -381,7 +384,7 @@
     if (timerId) { clearInterval(timerId); timerId = null; }
   }
 
-  function goSuccess() { location.href = `/success?order_id=${orderId}&method=bkash`; }
+  function goSuccess(trx) { location.href = `/success?order_id=${orderId || ''}&method=bkash&trx_id=${trx||''}`; }
   function showErr(m) {
     const e = document.getElementById('errBox');
     e.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${m}`;
