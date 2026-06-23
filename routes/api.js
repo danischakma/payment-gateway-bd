@@ -17,7 +17,7 @@ function checkAdmin(req, res) {
 }
 
 router.post('/initiate', async (req, res) => {
-  const { amount, product_name, payment_method, customer_email, callback_url } = req.body;
+  const { amount, product_name, payment_method, customer_email, callback_url, return_url } = req.body;
   if (!amount) return res.status(400).json({ success: false, message: 'Amount is required' });
   if (isNaN(amount) || parseFloat(amount) <= 0) return res.status(400).json({ success: false, message: 'Invalid amount' });
 
@@ -31,10 +31,15 @@ router.post('/initiate', async (req, res) => {
       [orderId, parseFloat(amount), product_name || 'My Product', customer_email || '', method, callback_url || '']
     );
     const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const paymentUrl = new URL(`${baseUrl}/`);
+    paymentUrl.searchParams.set('order_id', orderId);
+    paymentUrl.searchParams.set('product', product_name || 'My Product');
+    paymentUrl.searchParams.set('amount', amount);
+    if (return_url) paymentUrl.searchParams.set('return_url', return_url);
     res.json({
       success: true,
       order_id: orderId,
-      payment_url: `${baseUrl}/?order_id=${orderId}&product=${encodeURIComponent(product_name || 'My Product')}&amount=${amount}`
+      payment_url: paymentUrl.toString()
     });
   } catch (err) {
     console.error('Initiate error:', err);
